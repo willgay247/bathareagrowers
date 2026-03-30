@@ -114,7 +114,7 @@ const CommunityGardensPage = () => {
           return (
             <section key={r} className={`w-full ${REGION_BG[ri]} py-10 md:py-20 px-4`}>
               <div className="mx-auto max-w-[1100px]">
-                <h2 className="text-[36px] font-bold mb-12">{REGION_LABELS[r]}</h2>
+                <h2 className="text-[24px] md:text-[36px] font-bold mb-8 md:mb-12">{REGION_LABELS[r]}</h2>
                 <div className="flex flex-col gap-16">
                   {regionGardens.map((g, i) => (
                     <GardenCard key={g.id} garden={g} reversed={i % 2 !== 0} />
