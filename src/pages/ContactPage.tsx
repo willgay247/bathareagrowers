@@ -67,14 +67,14 @@ const ContactPage = () => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="mt-2 h-12 w-full bg-background-inverse text-[14px] font-bold uppercase tracking-wider text-foreground-alt transition-colors hover:bg-accent disabled:opacity-60"
+              className="mt-2 h-12 w-full bg-accent text-[14px] font-bold uppercase tracking-wider text-foreground-alt transition-colors hover:bg-accent-secondary disabled:opacity-60"
             >
               {status === "sending" ? "SENDING…" : "SEND MESSAGE"}
             </button>
           </form>
 
           <div className="md:w-[40%]">
-            <div className="bg-background-inverse p-8 text-foreground-alt">
+            <div className="bg-accent p-8 text-foreground-alt">
               <h3 className="text-[20px] font-bold">Bath Area Growers</h3>
               <p className="mt-4 text-[14px]">
                 Email:{" "}

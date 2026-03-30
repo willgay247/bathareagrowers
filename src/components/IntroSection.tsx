@@ -1,6 +1,6 @@
 const IntroSection = () => {
   return (
-    <section className="w-full bg-background-inverse">
+    <section className="w-full bg-accent">
       <div className="grid md:grid-cols-2">
         <div className="flex items-center px-8 py-12 md:p-[60px]">
           <p className="text-foreground-alt text-[20px] leading-[1.7] font-normal">

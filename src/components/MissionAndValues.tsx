@@ -13,7 +13,7 @@ const MissionAndValues = () => {
   return (
     <>
       {/* Part A — Our Mission split */}
-      <section className="w-full bg-background-inverse">
+      <section className="w-full bg-accent">
         <div className="grid md:grid-cols-2">
           <div className="min-h-[300px] md:min-h-0">
             <img

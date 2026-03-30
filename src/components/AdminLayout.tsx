@@ -32,7 +32,7 @@ const AdminLayout = () => {
       : location.pathname.startsWith(path);
 
   return (
-    <div className="flex min-h-screen">
+    <div className="admin-layout flex min-h-screen">
       {/* Sidebar */}
       <aside
         className="fixed left-0 top-0 h-screen w-[240px] flex flex-col"

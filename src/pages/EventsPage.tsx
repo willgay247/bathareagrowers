@@ -57,7 +57,7 @@ const EventsPage = () => {
                 </div>
                 <div className="flex flex-1 flex-col p-5">
                   <h3 className="text-[18px] font-bold text-foreground">{e.title}</h3>
-                  <span className="mt-2 inline-block self-start rounded-full bg-background-inverse px-3 py-0.5 text-[12px] text-foreground-alt">
+                  <span className="mt-2 inline-block self-start rounded-full bg-accent px-3 py-0.5 text-[12px] text-foreground-alt">
                     {e.location || "TBC"}
                   </span>
                   <p className="mt-3 text-[14px] leading-relaxed text-foreground line-clamp-3">{e.description}</p>
