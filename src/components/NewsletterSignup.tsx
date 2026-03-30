@@ -15,7 +15,7 @@ const NewsletterSignup = () => {
             type="email"
             name="EMAIL"
             required
-            placeholder="Your email address *"
+            placeholder="Your email address"
             className="flex-1 min-w-0 rounded-l-[4px] rounded-r-none border border-foreground/30 bg-background px-3 py-3 text-[15px] text-foreground outline-none focus:border-accent"
           />
           <button
@@ -27,7 +27,7 @@ const NewsletterSignup = () => {
           {/* Mailchimp anti-bot */}
           <input type="text" name="b_" tabIndex={-1} value="" readOnly className="absolute left-[-5000px]" aria-hidden="true" />
         </form>
-        <p className="mt-3 text-[12px] text-foreground/60">* indicates required</p>
+        
       </div>
     </section>
   );
