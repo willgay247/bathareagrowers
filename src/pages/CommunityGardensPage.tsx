@@ -112,7 +112,7 @@ const CommunityGardensPage = () => {
           const regionGardens = grouped[ri];
           if (regionGardens.length === 0) return null;
           return (
-            <section key={r} className={`w-full ${REGION_BG[ri]} py-20 px-4`}>
+            <section key={r} className={`w-full ${REGION_BG[ri]} py-10 md:py-20 px-4`}>
               <div className="mx-auto max-w-[1100px]">
                 <h2 className="text-[36px] font-bold mb-12">{REGION_LABELS[r]}</h2>
                 <div className="flex flex-col gap-16">
