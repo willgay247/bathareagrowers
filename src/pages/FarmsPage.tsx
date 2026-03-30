@@ -19,7 +19,7 @@ const FarmsPage = () => {
     <main>
       <SEO title="Farms & Market Gardens" description="Meet the organic farms and market gardens around Bath supplying local food and supporting sustainable land management." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3632-e1715201712644.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
