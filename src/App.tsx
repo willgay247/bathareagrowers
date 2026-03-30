@@ -36,6 +36,7 @@ import AdminSurplusProjectsPage from "./pages/AdminSurplusProjectsPage";
 import AdminCoursesPage from "./pages/AdminCoursesPage";
 import AdminResourcesPage from "./pages/AdminResourcesPage";
 import ResourcesPage from "./pages/ResourcesPage";
+import AdminContactsPage from "./pages/AdminContactsPage";
 
 const queryClient = new QueryClient();
 
