@@ -19,7 +19,7 @@ const WildlifeGardeningPage = () => {
     <main>
       <SEO title="Wildlife Gardening" description="Wildlife gardening projects across Bath focused on biodiversity, pollinators, and creating habitats for nature." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3679.webp')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
