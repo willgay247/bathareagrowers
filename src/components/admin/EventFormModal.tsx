@@ -112,7 +112,7 @@ const EventFormModal = ({ event, onClose, onSaved, createdBy }: Props) => {
     } else {
       // Set created_by for new records
       if (createdBy) payload.created_by = createdBy;
-      const { error: err } = await supabase.from("events").insert(payload);
+      const { error: err } = await supabase.from("events").insert(payload as any);
       if (err) {
         setError(err.message);
         setSaving(false);

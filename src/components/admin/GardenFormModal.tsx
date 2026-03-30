@@ -70,7 +70,7 @@ const GardenFormModal = ({ garden, onClose, onSaved, createdBy }: Props) => {
       if (err) { setError(err.message); setSaving(false); return; }
     } else {
       if (createdBy) payload.created_by = createdBy;
-      const { error: err } = await supabase.from("community_gardens").insert(payload);
+      const { error: err } = await supabase.from("community_gardens").insert(payload as any);
       if (err) { setError(err.message); setSaving(false); return; }
     }
     setSaving(false);
