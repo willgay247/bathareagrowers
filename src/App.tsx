@@ -38,6 +38,7 @@ import AdminCoursesPage from "./pages/AdminCoursesPage";
 import AdminResourcesPage from "./pages/AdminResourcesPage";
 import ResourcesPage from "./pages/ResourcesPage";
 import AdminContactsPage from "./pages/AdminContactsPage";
+import AdminSettingsPage from "./pages/AdminSettingsPage";
 
 const queryClient = new QueryClient();
 
@@ -94,6 +95,7 @@ const App = () => (
               <Route path="courses" element={<AdminCoursesPage />} />
               <Route path="resources" element={<AdminResourcesPage />} />
               <Route path="contacts" element={<AdminContactsPage />} />
+              <Route path="settings" element={<AdminSettingsPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
