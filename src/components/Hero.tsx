@@ -2,7 +2,7 @@ const Hero = () => {
   return (
     <section className="relative w-full h-[40vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
       <img
-        src="https://bathareagrowers.org/wp-content/uploads/IMG_3572-1024x683.jpeg"
+        src="https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3572-1024x683.jpeg"
         alt="Fresh vegetables and produce from Bath area community gardens"
         width={1024}
         height={683}

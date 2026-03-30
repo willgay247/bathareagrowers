@@ -36,7 +36,7 @@ const EquipmentPage = () => (
   <main>
     <section
       className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3759.webp')" }}
+      style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3759.webp')" }}
     >
       <div className="absolute inset-0 bg-black/45" />
       <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Equipment to Borrow</h1>

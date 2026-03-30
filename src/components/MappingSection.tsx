@@ -19,7 +19,7 @@ const MappingSection = () => {
         </div>
         <div className="min-h-[300px] md:min-h-0">
           <img
-            src="https://bathareagrowers.org/wp-content/uploads/IMG_3561-1024x691.jpeg"
+            src="https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3561-1024x691.jpeg"
             alt="Local community growing"
             width={1024}
             height={691}

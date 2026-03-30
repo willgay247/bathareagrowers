@@ -10,7 +10,7 @@ const IntroSection = () => {
         </div>
         <div className="min-h-[300px] md:min-h-0">
           <img
-            src="https://bathareagrowers.org/wp-content/uploads/IMG_3572-1024x683.jpeg"
+            src="https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3572-1024x683.jpeg"
             alt="Community growing project"
             width={1024}
             height={683}
