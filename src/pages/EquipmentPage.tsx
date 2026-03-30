@@ -35,16 +35,16 @@ const LIBRARIES = [
 const EquipmentPage = () => (
   <main>
     <section
-      className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+      className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3759.webp')" }}
     >
       <div className="absolute inset-0 bg-black/45" />
-      <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">Equipment to Borrow</h1>
+      <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Equipment to Borrow</h1>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold text-foreground mb-4">Item lending between community projects</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground mb-4">Item lending between community projects</h2>
         <p className="text-[18px] leading-relaxed text-foreground mb-8">
           Some BAGs member projects have useful equipment for gardening and events that they are willing to lend out to other community projects. This is at the discretion of each project and by individual arrangement between groups.
         </p>
@@ -56,9 +56,9 @@ const EquipmentPage = () => (
       </div>
     </section>
 
-    <section className="w-full bg-background-inverse py-[60px] px-4">
+    <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[1100px]">
-        <h2 className="text-[32px] font-bold text-foreground-alt mb-4">Libraries of Things</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground-alt mb-4">Libraries of Things</h2>
         <p className="text-[18px] leading-relaxed text-foreground-alt mb-10">
           Bath has two 'libraries of things'. Below is a list of gardening and events items held by each library, compiled July 2024.
         </p>

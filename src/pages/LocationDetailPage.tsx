@@ -20,14 +20,14 @@ const LocationDetailPage = () => {
 
   return (
     <main>
-      <section className="w-full bg-background-inverse py-[60px] px-4">
+      <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
-          <h1 className="text-[40px] font-bold text-foreground-alt md:text-[48px]">{location.name}</h1>
+          <h1 className="text-[28px] font-bold text-foreground-alt md:text-[48px]">{location.name}</h1>
           <p className="mt-2 text-[18px] text-foreground-alt/60">{location.area}</p>
         </div>
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[1100px] flex flex-col md:flex-row gap-10">
           <div className="md:w-[70%]">
             {location.image && (

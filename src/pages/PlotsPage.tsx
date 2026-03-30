@@ -14,16 +14,16 @@ const OTHER_ALLOTMENTS = [
 const PlotsPage = () => (
   <main>
     <section
-      className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+      className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/1-1-rotated.jpeg')" }}
     >
       <div className="absolute inset-0 bg-black/45" />
-      <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">Plots and Land Available</h1>
+      <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Plots and Land Available</h1>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[1100px]">
-        <h2 className="text-[32px] font-bold text-foreground mb-10">Available community spaces</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground mb-8 md:mb-10">Available community spaces</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {SPACES.map((s) => (
             <div key={s.name}>
@@ -35,13 +35,13 @@ const PlotsPage = () => (
       </div>
     </section>
 
-    <section className="w-full bg-background-inverse py-[60px] px-4">
+    <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold text-foreground-alt mb-4">Council Allotments</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground-alt mb-4">Council Allotments</h2>
         <p className="text-[18px] leading-relaxed text-foreground-alt mb-12">
           Apply to B&NES council for an allotment at one of their 24 allotments sites in Bath.
         </p>
-        <h2 className="text-[32px] font-bold text-foreground-alt mb-4">Other Allotments</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground-alt mb-4">Other Allotments</h2>
         <ul className="list-disc pl-6 space-y-2">
           {OTHER_ALLOTMENTS.map((item) => (
             <li key={item} className="text-[18px] text-foreground-alt">{item}</li>
@@ -50,9 +50,9 @@ const PlotsPage = () => (
       </div>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold text-foreground mb-4">Neighbourhood Nature Areas</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground mb-4">Neighbourhood Nature Areas</h2>
         <p className="text-[18px] leading-relaxed text-foreground">
           B&NES council have a system where you can apply to manage small areas of council land, such as road verges and small open spaces, if you want to garden them for ecological benefit and wildlife. This could include some food plants. Use their online map to identify if the land is managed by the Parks team, then email parks@bathnes.gov.uk to check if it is suitable to be gardened and get agreement.
         </p>

@@ -26,15 +26,15 @@ const EventsPage = () => {
     <main>
       <SEO title="Events" description="Find community growing events, workshops, open days and volunteering sessions across the Bath area." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3636-e1717271139891.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
-        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">Events</h1>
+        <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Events</h1>
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
-        <h2 className="text-center text-[36px] font-bold mb-12">Upcoming Events</h2>
+      <section className="w-full bg-background py-10 md:py-20 px-4">
+        <h2 className="text-center text-[24px] md:text-[36px] font-bold mb-8 md:mb-12">Upcoming Events</h2>
 
         {loading ? (
           <div className="flex justify-center py-12">

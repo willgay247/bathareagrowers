@@ -69,24 +69,24 @@ const CommunityGardensPage = () => {
       <SEO title="Community Gardens" description="Discover community gardens and allotments across Bath and the surrounding area. Find a plot, get involved, and grow with your neighbours." />
       {/* Hero */}
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/cropped-IMG_3545-1-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
-        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
+        <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Community Gardens and Allotments
         </h1>
       </section>
 
       {/* Intro banner */}
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <h2 className="mx-auto max-w-[700px] text-center text-[28px] font-bold leading-snug text-foreground-alt md:text-[32px]">
           Joining a community garden or collective allotment is a great way to start the journey into growing.
         </h2>
       </section>
 
       {/* Benefits grid */}
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[1100px]">
           <p className="text-[20px] leading-relaxed text-foreground mb-12">
             Browse all the beautiful and diverse community and collective gardens and allotments across the area. Check out more details on our Resilience Web, such as location, meeting days, cost, accessibility and how to join.
@@ -112,9 +112,9 @@ const CommunityGardensPage = () => {
           const regionGardens = grouped[ri];
           if (regionGardens.length === 0) return null;
           return (
-            <section key={r} className={`w-full ${REGION_BG[ri]} py-20 px-4`}>
+            <section key={r} className={`w-full ${REGION_BG[ri]} py-10 md:py-20 px-4`}>
               <div className="mx-auto max-w-[1100px]">
-                <h2 className="text-[36px] font-bold mb-12">{REGION_LABELS[r]}</h2>
+                <h2 className="text-[24px] md:text-[36px] font-bold mb-8 md:mb-12">{REGION_LABELS[r]}</h2>
                 <div className="flex flex-col gap-16">
                   {regionGardens.map((g, i) => (
                     <GardenCard key={g.id} garden={g} reversed={i % 2 !== 0} />
@@ -127,9 +127,9 @@ const CommunityGardensPage = () => {
       )}
 
       {/* Sites across Bath */}
-      <section className="w-full bg-background py-[60px] px-4">
+      <section className="w-full bg-background py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
-          <h2 className="text-[36px] font-bold mb-10">Sites across the Bath area</h2>
+          <h2 className="text-[24px] md:text-[36px] font-bold mb-8 md:mb-10">Sites across the Bath area</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {SITES_ACROSS.map((s) => (
               <div key={s.title}>

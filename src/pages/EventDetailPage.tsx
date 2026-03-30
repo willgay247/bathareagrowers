@@ -42,9 +42,9 @@ const EventDetailPage = () => {
 
   return (
     <main>
-      <section className="w-full bg-background-inverse py-[60px] px-4">
+      <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
-          <h1 className="text-[40px] font-bold text-foreground-alt md:text-[48px]">{event.title}</h1>
+          <h1 className="text-[28px] font-bold text-foreground-alt md:text-[48px]">{event.title}</h1>
           <div className="mt-4 flex flex-wrap gap-2">
             {event.date_display && <span className="rounded-full bg-accent px-4 py-1 text-[13px] font-semibold text-foreground-alt">{event.date_display}</span>}
             {event.time_display && <span className="rounded-full bg-accent px-4 py-1 text-[13px] font-semibold text-foreground-alt">{event.time_display}</span>}
@@ -53,7 +53,7 @@ const EventDetailPage = () => {
         </div>
       </section>
 
-      <section className="w-full h-[50vh]">
+      <section className="w-full h-[35vh] md:h-[50vh]">
         {event.image_url ? (
           <img src={event.image_url} alt={event.title} className="h-full w-full object-cover" />
         ) : (
@@ -61,7 +61,7 @@ const EventDetailPage = () => {
         )}
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[1100px] flex flex-col md:flex-row gap-10">
           <div className="md:w-[70%]">
             <p className="text-[20px] leading-relaxed text-foreground whitespace-pre-line">{event.description}</p>

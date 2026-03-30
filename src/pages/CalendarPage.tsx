@@ -12,8 +12,8 @@ const DAYS = [
 
 const CalendarPage = () => (
   <main>
-    <section className="flex h-[60vh] w-full items-center justify-center bg-background px-4">
-      <h1 className="text-center text-[40px] font-bold text-foreground md:text-[48px]">Calendar</h1>
+    <section className="flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-background px-4">
+      <h1 className="text-center text-[28px] font-bold text-foreground md:text-[48px]">Calendar</h1>
     </section>
 
     <section className="w-full bg-background py-10 px-4">
@@ -22,7 +22,7 @@ const CalendarPage = () => (
       </p>
     </section>
 
-    <section className="w-full bg-white py-[60px] px-4">
+    <section className="w-full bg-white py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[1100px]">
         <h2 className="text-[28px] font-bold text-foreground mb-8">Volunteering timetable, Summer 2023</h2>
         <div className="overflow-x-auto">

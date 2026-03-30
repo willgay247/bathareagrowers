@@ -26,22 +26,22 @@ const CardList = ({ items }: { items: { name: string; description: string }[] })
 
 const GrantsPage = () => (
   <main>
-    <section className="flex h-[60vh] w-full items-center justify-center bg-background px-4">
-      <h1 className="text-center text-[40px] font-bold text-foreground md:text-[48px]">Grants and National Organisations</h1>
+    <section className="flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-background px-4">
+      <h1 className="text-center text-[28px] font-bold text-foreground md:text-[48px]">Grants and National Organisations</h1>
     </section>
 
-    <section className="w-full bg-accent py-10 px-4">
+    <section className="w-full bg-accent py-8 md:py-10 px-4">
       <p className="mx-auto max-w-[800px] text-center text-[18px] italic text-foreground-alt">
         Let us know of any other relevant grants you are aware of so we can add them to this resource
       </p>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold mb-8">Grants</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold mb-8">Grants</h2>
         <CardList items={GRANTS} />
 
-        <h2 className="text-[32px] font-bold mt-16 mb-8">National Organisations</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold mt-12 md:mt-16 mb-8">National Organisations</h2>
         <CardList items={ORGS} />
       </div>
     </section>

@@ -19,22 +19,22 @@ const SurplusProjectsPage = () => {
     <main>
       <SEO title="Surplus Projects" description="Community surplus food projects in Bath collecting and distributing fruit, vegetables and produce to reduce waste and feed people." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3557-e1713291149232-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
-        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
+        <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Surplus Projects
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground-alt">
           Three projects in the network collect surplus vegetables and fruit and distribute it to those who can benefit. Each project is keen to hear about sources of surplus produce or crops that might go to waste. They also welcome new volunteers to help with harvesting, deliveries or admin.
         </p>
       </section>
 
-      <section className="w-full py-20 px-4 bg-background">
+      <section className="w-full py-10 md:py-20 px-4 bg-background">
         {loading ? (
           <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" /></div>
         ) : items.length === 0 ? (

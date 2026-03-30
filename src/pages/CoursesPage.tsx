@@ -19,22 +19,22 @@ const CoursesPage = () => {
     <main>
       <SEO title="Courses & Workshops" description="Learn to grow with courses and workshops from Bath Area Growers and our network of community growing projects." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3690.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
-        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
+        <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Courses
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[700px] text-center text-[20px] leading-relaxed text-foreground-alt">
           Many of our growing projects offer learning events. Here are those offering regular workshops or training.
         </p>
       </section>
 
-      <section className="w-full bg-white py-20 px-4">
+      <section className="w-full bg-white py-10 md:py-20 px-4">
         {loading ? (
           <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" /></div>
         ) : items.length === 0 ? (

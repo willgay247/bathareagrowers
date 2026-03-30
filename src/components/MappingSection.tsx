@@ -22,6 +22,7 @@ const MappingSection = () => {
             src="https://bathareagrowers.org/wp-content/uploads/IMG_3561-1024x691.jpeg"
             alt="Local community growing"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
       </div>
