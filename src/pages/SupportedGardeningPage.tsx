@@ -28,7 +28,7 @@ const SupportedGardeningPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground-alt">
           These projects offer opportunities to garden and grow with the support of staff and volunteers who are experienced in both horticulture and supporting people's wellbeing.
         </p>
