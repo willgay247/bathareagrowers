@@ -36,9 +36,9 @@ const GrantsPage = () => (
       </p>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold mb-8">Grants</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold mb-8">Grants</h2>
         <CardList items={GRANTS} />
 
         <h2 className="text-[32px] font-bold mt-16 mb-8">National Organisations</h2>
