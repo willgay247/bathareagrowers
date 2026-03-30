@@ -5,7 +5,7 @@ import MappingSection from "@/components/MappingSection";
 import OurWorkSection from "@/components/OurWorkSection";
 import MissionAndValues from "@/components/MissionAndValues";
 import CtaBanner from "@/components/CtaBanner";
-import NewsletterSignup from "@/components/NewsletterSignup";
+
 import SupportersStrip from "@/components/SupportersStrip";
 
 const Index = () => {
