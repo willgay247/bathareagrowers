@@ -1,34 +1,35 @@
 import { Link } from "react-router-dom";
+import { imageUrl, imageSrcSet } from "@/lib/imageUrl";
 
 const CARDS = [
   {
     title: "Community Gardens and Allotments",
     link: "/our-members-2/",
-    image: "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3631-e1715201316237-1024x638.jpeg",
+    image: "IMG_3631-e1715201316237-1024x638.jpeg",
     text: "Great places to meet new people, learn from others, share tasks, enjoy beautiful surroundings and delicious food.",
   },
   {
     title: "Market Gardens",
     link: "/farm-volunteering/",
-    image: "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3632-e1715201712644-1024x639.jpeg",
+    image: "IMG_3632-e1715201712644-1024x639.jpeg",
     text: "Learn from experienced professional growers whilst supporting their business thrive. All farms here sell their organic vegetables and fruit to the public.",
   },
   {
     title: "Supported Gardening",
     link: "/supported-gardening/",
-    image: "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3657-e1716234229612.webp",
+    image: "IMG_3657-e1716234229612.webp",
     text: "Therapeutic gardening projects offer extra support to people to enjoy all the benefits of growing: nurturing the land and themselves.",
   },
   {
     title: "Surplus Projects",
     link: "/surplus-projects/",
-    image: "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3634-e1715506185777.jpeg",
+    image: "IMG_3634-e1715506185777.jpeg",
     text: "Collecting and delivering surplus fruit and veg from allotments, farm and gardens, and getting it to people who may most benefit.",
   },
   {
     title: "Wildlife Projects",
     link: "/wildlife-gardening-2/",
-    image: "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3690.jpeg",
+    image: "IMG_3690.jpeg",
     text: "These projects have a particular emphasis on growing for biodiversity and nature regeneration in and around the city.",
   },
 ];
@@ -43,20 +44,17 @@ const GrowingGroupsSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gap-card">
           {CARDS.map((card) => (
             <div key={card.link} className="flex flex-col">
-              {card.image ? (
-                <img
-                  src={card.image}
-                  alt={card.title}
-                  width={665}
-                  height={415}
-                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
-                  className="w-full h-[200px] md:h-[160px] object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <div className="w-full h-[160px] bg-background" />
-              )}
+              <img
+                src={imageUrl(card.image, { width: 400, quality: 75 })}
+                srcSet={imageSrcSet(card.image, [400, 800])}
+                sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
+                alt={card.title}
+                width={665}
+                height={415}
+                className="w-full h-[200px] md:h-[160px] object-cover"
+                loading="lazy"
+                decoding="async"
+              />
               <h3 className="mt-3 text-[18px] font-bold leading-snug">
                 <Link
                   to={card.link}

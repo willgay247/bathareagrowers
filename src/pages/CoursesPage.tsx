@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { SEO } from "@/components/SEO";
+import { imageUrl } from "@/lib/imageUrl";
 
 type Course = Tables<"courses">;
 
@@ -18,10 +19,8 @@ const CoursesPage = () => {
   return (
     <main>
       <SEO title="Courses & Workshops" description="Learn to grow with courses and workshops from Bath Area Growers and our network of community growing projects." />
-      <section
-        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3690.jpeg')" }}
-      >
+      <section className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center overflow-hidden">
+        <img src={imageUrl("IMG_3690.jpeg", { width: 1200, quality: 75 })} alt="Growing courses and workshops" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Courses

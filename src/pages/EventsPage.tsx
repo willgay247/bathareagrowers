@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { SEO } from "@/components/SEO";
+import { imageUrl } from "@/lib/imageUrl";
 
 type Event = Tables<"events">;
 
@@ -25,10 +26,8 @@ const EventsPage = () => {
   return (
     <main>
       <SEO title="Events" description="Find community growing events, workshops, open days and volunteering sessions across the Bath area." />
-      <section
-        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3636-e1717271139891.jpeg')" }}
-      >
+      <section className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center overflow-hidden">
+        <img src={imageUrl("IMG_3636-e1717271139891.jpeg", { width: 1200, quality: 75 })} alt="Community growing events in Bath" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Events</h1>
       </section>

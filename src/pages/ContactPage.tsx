@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Facebook, Instagram, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { imageUrl } from "@/lib/imageUrl";
 import { SEO } from "@/components/SEO";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,10 +64,8 @@ const ContactPage = () => {
   return (
     <main>
       <SEO title="Contact" description="Get in touch with Bath Area Growers. Share news about your growing project or find out how to get involved in the network." />
-      <section
-        className="relative flex h-[40vh] md:h-[50vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3559-e1713291506509-200x200.jpeg')" }}
-      >
+      <section className="relative flex h-[40vh] md:h-[50vh] w-full items-center justify-center overflow-hidden">
+        <img src={imageUrl("IMG_3559-e1713291506509-200x200.jpeg", { width: 1200, quality: 75 })} alt="Contact Bath Area Growers" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Contact</h1>
       </section>

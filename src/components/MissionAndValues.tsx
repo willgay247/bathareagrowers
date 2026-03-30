@@ -1,3 +1,5 @@
+import { imageUrl } from "@/lib/imageUrl";
+
 const VALUES_ROW1 = [
   { title: "Local", text: "Where much of the food we eat is grown in the surrounding area, so it's fresh and has low food-miles." },
   { title: "Regenerative", text: "Organic and restorative methods increase nature's vitality and create a region rich in wildlife." },
@@ -12,16 +14,16 @@ const VALUES_ROW2 = [
 const MissionAndValues = () => {
   return (
     <>
-      {/* Part A — Our Mission split */}
       <section className="w-full bg-accent">
         <div className="grid md:grid-cols-2">
           <div className="min-h-[300px] md:min-h-0">
             <img
-              src="https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3570-1024x683.jpeg"
+              src={imageUrl("IMG_3570-1024x683.jpeg", { width: 800, quality: 75 })}
+              srcSet={`${imageUrl("IMG_3570-1024x683.jpeg", { width: 400, quality: 70 })} 400w, ${imageUrl("IMG_3570-1024x683.jpeg", { width: 800, quality: 75 })} 800w`}
+              sizes="(min-width: 768px) 50vw, 100vw"
               alt="Community growing project"
               width={1024}
               height={683}
-              sizes="(min-width: 768px) 50vw, 100vw"
               className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
@@ -38,7 +40,6 @@ const MissionAndValues = () => {
         </div>
       </section>
 
-      {/* Part B — Values grid */}
       <section className="w-full bg-background py-[60px] px-4">
         <div className="mx-auto max-w-container">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-gap-card mb-8">

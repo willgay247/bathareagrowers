@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { SEO } from "@/components/SEO";
+import { imageUrl } from "@/lib/imageUrl";
 
 type Item = Tables<"supported_gardening">;
 
@@ -18,10 +19,8 @@ const SupportedGardeningPage = () => {
   return (
     <main>
       <SEO title="Supported Gardening" description="Therapeutic and supported gardening projects in Bath helping people connect with nature, build confidence and improve wellbeing." />
-      <section
-        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3558-200x200.jpeg')" }}
-      >
+      <section className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center overflow-hidden">
+        <img src={imageUrl("IMG_3558-200x200.jpeg", { width: 1200, quality: 75 })} alt="Supported gardening in Bath" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Supported Gardening
@@ -45,7 +44,7 @@ const SupportedGardeningPage = () => {
               <div key={p.id} className="flex flex-col">
                 <div className="aspect-[4/3] overflow-hidden rounded-md">
                   {p.image_url ? (
-                    <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" loading="lazy" />
+                    <img src={imageUrl(p.image_url, { width: 400, quality: 75 })} srcSet={`${imageUrl(p.image_url, { width: 400, quality: 75 })} 400w, ${imageUrl(p.image_url, { width: 800, quality: 75 })} 800w`} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" alt={p.name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full bg-background flex items-center justify-center text-foreground/40 text-sm">No image</div>
                   )}
