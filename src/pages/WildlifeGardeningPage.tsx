@@ -28,7 +28,7 @@ const WildlifeGardeningPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground-alt">
           These local groups have a focus on gardening and managing land to support wildlife and create resilient natural ecosystems.
         </p>
