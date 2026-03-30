@@ -29,6 +29,13 @@ import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminEventsPage from "./pages/AdminEventsPage";
 import AdminCommunityGardensPage from "./pages/AdminCommunityGardensPage";
+import AdminSupportedGardeningPage from "./pages/AdminSupportedGardeningPage";
+import AdminWildlifeGardeningPage from "./pages/AdminWildlifeGardeningPage";
+import AdminFarmsPage from "./pages/AdminFarmsPage";
+import AdminSurplusProjectsPage from "./pages/AdminSurplusProjectsPage";
+import AdminCoursesPage from "./pages/AdminCoursesPage";
+import AdminResourcesPage from "./pages/AdminResourcesPage";
+import ResourcesPage from "./pages/ResourcesPage";
 
 const queryClient = new QueryClient();
 
@@ -48,7 +55,7 @@ const App = () => (
             <Route path="/wildlife-gardening" element={<WildlifeGardeningPage />} />
             <Route path="/surplus-projects" element={<SurplusProjectsPage />} />
             <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/resources" element={<PlaceholderPage title="Resources" />} />
+            <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/events/tags/:tag" element={<EventTagPage />} />
             <Route path="/events/:slug" element={<EventDetailPage />} />
@@ -77,12 +84,12 @@ const App = () => (
             <Route index element={<AdminDashboard />} />
             <Route path="events" element={<AdminEventsPage />} />
             <Route path="community-gardens" element={<AdminCommunityGardensPage />} />
-            <Route path="supported-gardening" element={<PlaceholderPage title="Supported Gardening Admin" subtitle="Manage supported gardening here." />} />
-            <Route path="wildlife-gardening" element={<PlaceholderPage title="Wildlife Gardening Admin" subtitle="Manage wildlife gardening here." />} />
-            <Route path="farms" element={<PlaceholderPage title="Farms Admin" subtitle="Manage farms here." />} />
-            <Route path="surplus-projects" element={<PlaceholderPage title="Surplus Projects Admin" subtitle="Manage surplus projects here." />} />
-            <Route path="courses" element={<PlaceholderPage title="Courses Admin" subtitle="Manage courses here." />} />
-            <Route path="resources" element={<PlaceholderPage title="Resources Admin" subtitle="Manage resources here." />} />
+            <Route path="supported-gardening" element={<AdminSupportedGardeningPage />} />
+            <Route path="wildlife-gardening" element={<AdminWildlifeGardeningPage />} />
+            <Route path="farms" element={<AdminFarmsPage />} />
+            <Route path="surplus-projects" element={<AdminSurplusProjectsPage />} />
+            <Route path="courses" element={<AdminCoursesPage />} />
+            <Route path="resources" element={<AdminResourcesPage />} />
             <Route path="contacts" element={<PlaceholderPage title="Contacts CRM" subtitle="Manage contact submissions here." />} />
           </Route>
 
