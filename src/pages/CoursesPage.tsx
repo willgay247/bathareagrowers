@@ -28,7 +28,7 @@ const CoursesPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[700px] text-center text-[20px] leading-relaxed text-foreground-alt">
           Many of our growing projects offer learning events. Here are those offering regular workshops or training.
         </p>
