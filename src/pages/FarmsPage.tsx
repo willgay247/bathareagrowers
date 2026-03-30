@@ -17,7 +17,7 @@ const FarmsPage = () => {
 
   return (
     <main>
-      <SEO title="Farms & Market Gardens" description="Meet the organic farms and market gardens around Bath. Find volunteer opportunities, buy local produce and support regenerative food growing near you." />
+      <SEO title="Farms & Market Gardens" description="Meet the organic farms and market gardens around Bath supplying local food and supporting sustainable land management." />
       <section
         className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3632-e1715201712644.jpeg')" }}

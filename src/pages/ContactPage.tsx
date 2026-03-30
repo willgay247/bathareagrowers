@@ -62,10 +62,7 @@ const ContactPage = () => {
 
   return (
     <main>
-      <SEO
-        title="Contact Bath Area Growers"
-        description="Get in touch with Bath Area Growers. Share news about your growing project, ask questions, or find out how to get involved in community growing across Bath."
-      />
+      <SEO title="Contact Bath Area Growers" description="Get in touch with Bath Area Growers. Share news about your growing project or find out how to get involved in the network." />
       <section
         className="relative flex h-[50vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3559-e1713291506509-200x200.jpeg')" }}
