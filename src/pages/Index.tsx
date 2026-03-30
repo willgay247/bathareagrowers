@@ -3,6 +3,7 @@ import IntroSection from "@/components/IntroSection";
 import GrowingGroupsSection from "@/components/GrowingGroupsSection";
 import MappingSection from "@/components/MappingSection";
 import OurWorkSection from "@/components/OurWorkSection";
+import MissionAndValues from "@/components/MissionAndValues";
 
 const Index = () => {
   return (
@@ -12,6 +13,7 @@ const Index = () => {
       <GrowingGroupsSection />
       <MappingSection />
       <OurWorkSection />
+      <MissionAndValues />
     </main>
   );
 };
