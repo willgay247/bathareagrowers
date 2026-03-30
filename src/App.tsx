@@ -27,6 +27,7 @@ import LocationDetailPage from "./pages/LocationDetailPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminEventsPage from "./pages/AdminEventsPage";
 
 const queryClient = new QueryClient();
 
@@ -73,7 +74,7 @@ const App = () => (
             </AdminAuthGuard>
           }>
             <Route index element={<AdminDashboard />} />
-            <Route path="events" element={<PlaceholderPage title="Events Admin" subtitle="Manage events here." />} />
+            <Route path="events" element={<AdminEventsPage />} />
             <Route path="community-gardens" element={<PlaceholderPage title="Community Gardens Admin" subtitle="Manage community gardens here." />} />
             <Route path="supported-gardening" element={<PlaceholderPage title="Supported Gardening Admin" subtitle="Manage supported gardening here." />} />
             <Route path="wildlife-gardening" element={<PlaceholderPage title="Wildlife Gardening Admin" subtitle="Manage wildlife gardening here." />} />
