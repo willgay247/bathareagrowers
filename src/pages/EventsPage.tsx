@@ -32,7 +32,7 @@ const EventsPage = () => {
       </section>
 
       <section className="w-full bg-background py-20 px-4">
-        <h2 className="text-center text-[36px] font-bold text-foreground mb-12">Upcoming Events</h2>
+        <h2 className="text-center text-[36px] font-bold mb-12">Upcoming Events</h2>
 
         {loading ? (
           <div className="flex justify-center py-12">
@@ -56,7 +56,7 @@ const EventsPage = () => {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-5">
-                  <h3 className="text-[18px] font-bold text-foreground">{e.title}</h3>
+                  <h3 className="text-[18px] font-bold">{e.title}</h3>
                   <span className="mt-2 inline-block self-start rounded-full bg-accent px-3 py-0.5 text-[12px] text-foreground-alt">
                     {e.location || "TBC"}
                   </span>

@@ -39,7 +39,7 @@ const MissionAndValues = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-gap-card mb-8">
             {VALUES_ROW1.map((v) => (
               <div key={v.title}>
-                <h4 className="text-[22px] font-bold text-foreground">{v.title}</h4>
+                <h4 className="text-[22px] font-bold">{v.title}</h4>
                 <p className="mt-2 text-[15px] leading-[1.6] text-foreground">{v.text}</p>
               </div>
             ))}
@@ -47,7 +47,7 @@ const MissionAndValues = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-gap-card max-w-[800px] mx-auto">
             {VALUES_ROW2.map((v) => (
               <div key={v.title}>
-                <h4 className="text-[22px] font-bold text-foreground">{v.title}</h4>
+                <h4 className="text-[22px] font-bold">{v.title}</h4>
                 <p className="mt-2 text-[15px] leading-[1.6] text-foreground">{v.text}</p>
               </div>
             ))}

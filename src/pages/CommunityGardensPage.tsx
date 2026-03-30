@@ -34,7 +34,7 @@ const GardenCard = ({ garden, reversed }: { garden: Garden; reversed: boolean })
       </div>
     </div>
     <div className="md:w-1/2 flex flex-col justify-center">
-      <h3 className="text-[22px] font-bold text-foreground">{garden.name}</h3>
+      <h3 className="text-[22px] font-bold">{garden.name}</h3>
       {garden.bio && <p className="mt-2 text-[15px] leading-relaxed text-foreground">{garden.bio}</p>}
       {garden.external_link && (
         <a href={garden.external_link} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-[15px] font-semibold text-accent hover:underline">
@@ -92,7 +92,7 @@ const CommunityGardensPage = () => {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {BENEFITS.map((b) => (
               <div key={b.title}>
-                <h3 className="text-[22px] font-bold text-foreground">{b.title}</h3>
+                <h3 className="text-[22px] font-bold">{b.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-foreground">{b.body}</p>
               </div>
             ))}
@@ -112,7 +112,7 @@ const CommunityGardensPage = () => {
           return (
             <section key={r} className={`w-full ${REGION_BG[ri]} py-20 px-4`}>
               <div className="mx-auto max-w-[1100px]">
-                <h2 className="text-[36px] font-bold text-foreground mb-12">{REGION_LABELS[r]}</h2>
+                <h2 className="text-[36px] font-bold mb-12">{REGION_LABELS[r]}</h2>
                 <div className="flex flex-col gap-16">
                   {regionGardens.map((g, i) => (
                     <GardenCard key={g.id} garden={g} reversed={i % 2 !== 0} />
@@ -127,11 +127,11 @@ const CommunityGardensPage = () => {
       {/* Sites across Bath */}
       <section className="w-full bg-background py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
-          <h2 className="text-[36px] font-bold text-foreground mb-10">Sites across the Bath area</h2>
+          <h2 className="text-[36px] font-bold mb-10">Sites across the Bath area</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {SITES_ACROSS.map((s) => (
               <div key={s.title}>
-                <h3 className="text-[22px] font-bold text-foreground">{s.title}</h3>
+                <h3 className="text-[22px] font-bold">{s.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-foreground">{s.body}</p>
               </div>
             ))}

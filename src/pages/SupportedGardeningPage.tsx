@@ -48,7 +48,7 @@ const SupportedGardeningPage = () => {
                     <div className="h-full w-full bg-background flex items-center justify-center text-foreground/40 text-sm">No image</div>
                   )}
                 </div>
-                <h3 className="mt-4 text-[22px] font-bold text-foreground">{p.name}</h3>
+                <h3 className="mt-4 text-[22px] font-bold">{p.name}</h3>
                 {p.description && <p className="mt-2 text-[15px] leading-relaxed text-foreground">{p.description}</p>}
                 {p.link && <a href={p.link} target="_blank" rel="noreferrer" className="mt-3 text-[15px] font-semibold text-accent hover:underline">More details..</a>}
               </div>
