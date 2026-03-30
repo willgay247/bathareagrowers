@@ -1,3 +1,5 @@
+import { imageUrl } from "@/lib/imageUrl";
+
 const MappingSection = () => {
   return (
     <section className="w-full bg-accent">
@@ -19,11 +21,12 @@ const MappingSection = () => {
         </div>
         <div className="min-h-[300px] md:min-h-0">
           <img
-            src="https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3561-1024x691.jpeg"
+            src={imageUrl("IMG_3561-1024x691.jpeg", { width: 800, quality: 75 })}
+            srcSet={`${imageUrl("IMG_3561-1024x691.jpeg", { width: 400, quality: 70 })} 400w, ${imageUrl("IMG_3561-1024x691.jpeg", { width: 800, quality: 75 })} 800w`}
+            sizes="(min-width: 768px) 50vw, 100vw"
             alt="Local community growing"
             width={1024}
             height={691}
-            sizes="(min-width: 768px) 50vw, 100vw"
             className="w-full h-full object-cover"
             loading="lazy"
             decoding="async"
