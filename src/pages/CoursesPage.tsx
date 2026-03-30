@@ -17,7 +17,7 @@ const CoursesPage = () => {
 
   return (
     <main>
-      <SEO title="Growing Courses & Workshops" description="Learn to grow with courses and workshops from Bath Area Growers. From beginner veg growing to permaculture, find training that suits your interests." />
+      <SEO title="Courses & Workshops" description="Learn to grow with courses and workshops from Bath Area Growers and our network of community growing projects." />
       <section
         className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3690.jpeg')" }}
