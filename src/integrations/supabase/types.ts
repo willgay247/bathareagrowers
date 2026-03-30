@@ -36,6 +36,7 @@ export type Database = {
         Row: {
           bio: string | null
           created_at: string | null
+          created_by: string | null
           display_order: number | null
           external_link: string | null
           hidden: boolean | null
@@ -47,6 +48,7 @@ export type Database = {
         Insert: {
           bio?: string | null
           created_at?: string | null
+          created_by?: string | null
           display_order?: number | null
           external_link?: string | null
           hidden?: boolean | null
@@ -58,6 +60,7 @@ export type Database = {
         Update: {
           bio?: string | null
           created_at?: string | null
+          created_by?: string | null
           display_order?: number | null
           external_link?: string | null
           hidden?: boolean | null
@@ -108,6 +111,7 @@ export type Database = {
         Row: {
           course_name: string | null
           created_at: string | null
+          created_by: string | null
           description: string | null
           display_order: number | null
           hidden: boolean | null
@@ -120,6 +124,7 @@ export type Database = {
         Insert: {
           course_name?: string | null
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -132,6 +137,7 @@ export type Database = {
         Update: {
           course_name?: string | null
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -148,6 +154,7 @@ export type Database = {
           address: string | null
           booking_link: string | null
           created_at: string | null
+          created_by: string | null
           date_display: string | null
           description: string | null
           event_date: string | null
@@ -165,6 +172,7 @@ export type Database = {
           address?: string | null
           booking_link?: string | null
           created_at?: string | null
+          created_by?: string | null
           date_display?: string | null
           description?: string | null
           event_date?: string | null
@@ -182,6 +190,7 @@ export type Database = {
           address?: string | null
           booking_link?: string | null
           created_at?: string | null
+          created_by?: string | null
           date_display?: string | null
           description?: string | null
           event_date?: string | null
@@ -200,6 +209,7 @@ export type Database = {
       farms: {
         Row: {
           created_at: string | null
+          created_by: string | null
           description: string | null
           display_order: number | null
           hidden: boolean | null
@@ -210,6 +220,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -220,6 +231,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -233,6 +245,7 @@ export type Database = {
       resources: {
         Row: {
           created_at: string | null
+          created_by: string | null
           description: string | null
           display_order: number | null
           hidden: boolean | null
@@ -242,6 +255,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -251,6 +265,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -263,6 +278,7 @@ export type Database = {
       supported_gardening: {
         Row: {
           created_at: string | null
+          created_by: string | null
           description: string | null
           display_order: number | null
           hidden: boolean | null
@@ -273,6 +289,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -283,6 +300,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -296,6 +314,7 @@ export type Database = {
       surplus_projects: {
         Row: {
           created_at: string | null
+          created_by: string | null
           description: string | null
           display_order: number | null
           hidden: boolean | null
@@ -306,6 +325,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -316,6 +336,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -326,9 +347,58 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_section_permissions: {
+        Row: {
+          can_add: boolean | null
+          can_edit_own: boolean | null
+          created_at: string | null
+          id: string
+          section: string
+          user_id: string
+        }
+        Insert: {
+          can_add?: boolean | null
+          can_edit_own?: boolean | null
+          created_at?: string | null
+          id?: string
+          section: string
+          user_id: string
+        }
+        Update: {
+          can_add?: boolean | null
+          can_edit_own?: boolean | null
+          created_at?: string | null
+          id?: string
+          section?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       wildlife_gardening_entries: {
         Row: {
           created_at: string | null
+          created_by: string | null
           description: string | null
           display_order: number | null
           hidden: boolean | null
@@ -339,6 +409,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -349,6 +420,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           description?: string | null
           display_order?: number | null
           hidden?: boolean | null
@@ -364,10 +436,22 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_user_role: { Args: { _user_id: string }; Returns: string }
+      has_any_admin_role: { Args: { _user_id: string }; Returns: boolean }
+      has_any_role: { Args: { _user_id: string }; Returns: boolean }
+      has_role: { Args: { _role: string; _user_id: string }; Returns: boolean }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      user_has_permission: {
+        Args: { _perm: string; _section: string; _user_id: string }
+        Returns: boolean
+      }
+      user_has_section_access: {
+        Args: { _section: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "super_admin" | "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -494,6 +578,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["super_admin", "admin", "user"],
+    },
   },
 } as const
