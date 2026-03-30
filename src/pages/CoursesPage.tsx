@@ -19,7 +19,7 @@ const CoursesPage = () => {
     <main>
       <SEO title="Courses & Workshops" description="Learn to grow with courses and workshops from Bath Area Growers and our network of community growing projects." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3690.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
