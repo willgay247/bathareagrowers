@@ -36,6 +36,7 @@ import AdminSurplusProjectsPage from "./pages/AdminSurplusProjectsPage";
 import AdminCoursesPage from "./pages/AdminCoursesPage";
 import AdminResourcesPage from "./pages/AdminResourcesPage";
 import ResourcesPage from "./pages/ResourcesPage";
+import AdminContactsPage from "./pages/AdminContactsPage";
 
 const queryClient = new QueryClient();
 
@@ -90,7 +91,7 @@ const App = () => (
             <Route path="surplus-projects" element={<AdminSurplusProjectsPage />} />
             <Route path="courses" element={<AdminCoursesPage />} />
             <Route path="resources" element={<AdminResourcesPage />} />
-            <Route path="contacts" element={<PlaceholderPage title="Contacts CRM" subtitle="Manage contact submissions here." />} />
+            <Route path="contacts" element={<AdminContactsPage />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

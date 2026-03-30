@@ -1,13 +1,32 @@
 import { useState } from "react";
 import { Facebook, Instagram, Mail } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactPage = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:info@bathareagrowers.org?subject=${encodeURIComponent(form.subject || "Website enquiry")}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
-    window.location.href = mailtoUrl;
+    setStatus("sending");
+    setErrorMsg("");
+
+    const { error } = await supabase.from("contact_submissions").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      subject: form.subject.trim() || null,
+      message: form.message.trim() || null,
+    });
+
+    if (error) {
+      setErrorMsg("Something went wrong. Please try again.");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("success");
+    setForm({ name: "", email: "", subject: "", message: "" });
   };
 
   return (
@@ -22,8 +41,17 @@ const ContactPage = () => {
 
       <section className="w-full bg-background py-20 px-4">
         <div className="mx-auto max-w-[1100px] flex flex-col md:flex-row gap-10">
-          {/* Form */}
           <form onSubmit={handleSubmit} className="md:w-[60%] flex flex-col gap-3">
+            {status === "success" && (
+              <div className="rounded-md bg-green-50 border border-green-200 p-4 text-sm text-green-800 mb-2">
+                Thank you! Your message has been sent successfully.
+              </div>
+            )}
+            {status === "error" && (
+              <div className="rounded-md bg-red-50 border border-red-200 p-4 text-sm text-red-800 mb-2">
+                {errorMsg}
+              </div>
+            )}
             <label className="text-[14px] font-semibold text-foreground">Your Name *
               <input required type="text" maxLength={100} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
             </label>
@@ -36,12 +64,15 @@ const ContactPage = () => {
             <label className="text-[14px] font-semibold text-foreground">Your Message
               <textarea rows={6} maxLength={2000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none resize-y focus:border-accent" />
             </label>
-            <button type="submit" className="mt-2 h-12 w-full bg-background-inverse text-[14px] font-bold uppercase tracking-wider text-foreground-alt transition-colors hover:bg-accent">
-              SEND MESSAGE
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="mt-2 h-12 w-full bg-background-inverse text-[14px] font-bold uppercase tracking-wider text-foreground-alt transition-colors hover:bg-accent disabled:opacity-60"
+            >
+              {status === "sending" ? "SENDING…" : "SEND MESSAGE"}
             </button>
           </form>
 
-          {/* Info card */}
           <div className="md:w-[40%]">
             <div className="bg-background-inverse p-8 text-foreground-alt">
               <h3 className="text-[20px] font-bold">Bath Area Growers</h3>
