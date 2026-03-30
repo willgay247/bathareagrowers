@@ -20,7 +20,7 @@ const SurplusProjectsPage = () => {
       <SEO title="Surplus Projects" description="Community surplus food projects in Bath collecting and distributing fruit, vegetables and produce to reduce waste and feed people." />
       <section
         className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3557-e1713291149232-200x200.jpeg')" }}
+        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3557-e1713291149232-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
