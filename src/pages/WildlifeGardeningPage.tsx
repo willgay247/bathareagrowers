@@ -53,7 +53,7 @@ const WildlifeGardeningPage = () => {
                   </div>
                 </div>
                 <div className="md:w-1/2 flex flex-col justify-center">
-                  <h2 className="text-[32px] font-bold text-foreground">{g.title}</h2>
+                  <h2 className="text-[32px] font-bold">{g.title}</h2>
                   {g.description && <p className="mt-3 text-[15px] leading-relaxed text-foreground">{g.description}</p>}
                   {g.link && <a href={g.link} target="_blank" rel="noreferrer" className="mt-4 text-[15px] font-semibold text-accent hover:underline">More details..</a>}
                 </div>

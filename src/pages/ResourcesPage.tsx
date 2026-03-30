@@ -46,7 +46,7 @@ const ResourcesPage = () => {
           ) : (
             items.map((r) => (
               <div key={r.id} className="rounded-lg border border-background p-6">
-                <h3 className="text-[20px] font-bold text-foreground">{r.title}</h3>
+                <h3 className="text-[20px] font-bold">{r.title}</h3>
                 {r.description && <p className="mt-2 text-[15px] leading-relaxed text-foreground">{r.description}</p>}
                 {r.link && (
                   <a href={r.link} target="_blank" rel="noreferrer" className="mt-3 inline-block text-[15px] font-semibold text-accent hover:underline">

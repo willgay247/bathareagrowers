@@ -37,7 +37,7 @@ const GrowingGroupsSection = () => {
   return (
     <section className="w-full bg-background py-section-y md:py-section-y px-4">
       <div className="mx-auto max-w-container">
-        <h2 className="text-center text-foreground font-bold mb-12">
+        <h2 className="text-center font-bold mb-12">
           Local Growing Groups
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-gap-card">

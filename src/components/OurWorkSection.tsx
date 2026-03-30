@@ -37,13 +37,13 @@ const OurWorkSection = () => {
   return (
     <section className="w-full bg-background py-section-y px-4">
       <div className="mx-auto max-w-container">
-        <h2 className="text-center text-foreground font-bold mb-12">Our Work</h2>
+        <h2 className="text-center font-bold mb-12">Our Work</h2>
         <div className="flex flex-col">
           {ROWS.map((row, i) => (
             <div key={row.label}>
               <div className="grid md:grid-cols-4 gap-4 bg-[rgba(255,255,255,0.6)] py-5 px-6">
                 <div className="md:col-span-1">
-                  <h3 className="text-[22px] font-bold text-foreground">{row.label}</h3>
+                  <h3 className="text-[22px] font-bold">{row.label}</h3>
                 </div>
                 <div className="md:col-span-3">
                   <p className="text-[16px] leading-[1.6] text-foreground">{row.text}</p>
