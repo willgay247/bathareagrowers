@@ -35,9 +35,9 @@ const PlotsPage = () => (
       </div>
     </section>
 
-    <section className="w-full bg-background-inverse py-[60px] px-4">
+    <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold text-foreground-alt mb-4">Council Allotments</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground-alt mb-4">Council Allotments</h2>
         <p className="text-[18px] leading-relaxed text-foreground-alt mb-12">
           Apply to B&NES council for an allotment at one of their 24 allotments sites in Bath.
         </p>
