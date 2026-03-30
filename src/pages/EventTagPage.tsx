@@ -26,8 +26,8 @@ const EventTagPage = () => {
 
   return (
     <main>
-      <section className="w-full bg-background-inverse py-[60px] px-4">
-        <h1 className="mx-auto max-w-[1100px] text-[40px] font-bold text-foreground-alt md:text-[48px]">
+      <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
+        <h1 className="mx-auto max-w-[1100px] text-[28px] font-bold text-foreground-alt md:text-[48px]">
           Events tagged: {tag}
         </h1>
       </section>
