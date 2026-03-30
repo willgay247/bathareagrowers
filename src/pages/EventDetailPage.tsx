@@ -53,7 +53,7 @@ const EventDetailPage = () => {
         </div>
       </section>
 
-      <section className="w-full h-[50vh]">
+      <section className="w-full h-[35vh] md:h-[50vh]">
         {event.image_url ? (
           <img src={event.image_url} alt={event.title} className="h-full w-full object-cover" />
         ) : (
