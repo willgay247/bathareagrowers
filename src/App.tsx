@@ -12,6 +12,7 @@ import SupportedGardeningPage from "./pages/SupportedGardeningPage";
 import FarmsPage from "./pages/FarmsPage";
 import WildlifeGardeningPage from "./pages/WildlifeGardeningPage";
 import SurplusProjectsPage from "./pages/SurplusProjectsPage";
+import CoursesPage from "./pages/CoursesPage";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -28,7 +29,7 @@ const App = () => (
             <Route path="/farms" element={<FarmsPage />} />
             <Route path="/wildlife-gardening" element={<WildlifeGardeningPage />} />
             <Route path="/surplus-projects" element={<SurplusProjectsPage />} />
-            <Route path="/courses" element={<PlaceholderPage title="Courses" />} />
+            <Route path="/courses" element={<CoursesPage />} />
             <Route path="/resources" element={<PlaceholderPage title="Resources" />} />
             <Route path="/events" element={<PlaceholderPage title="Events" />} />
             <Route path="/contact" element={<PlaceholderPage title="Contact" />} />
