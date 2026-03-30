@@ -7,39 +7,48 @@ import type { Session } from "@supabase/supabase-js";
 const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [hasRole, setHasRole] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [authReady, setAuthReady] = useState(false);
 
+  // Step 1: Restore session from storage first, then listen for changes
   useEffect(() => {
-    const checkAccess = async (session: Session | null) => {
-      if (!session?.user) {
-        setHasRole(false);
-        setLoading(false);
-        return;
-      }
-
-      // Check if user has any role in user_roles
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", session.user.id)
-        .single();
-
-      setHasRole(!!data);
-      setLoading(false);
-    };
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      checkAccess(session);
-    });
-
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      checkAccess(session);
+      setAuthReady(true);
     });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+        setAuthReady(true);
+      }
+    );
 
     return () => subscription.unsubscribe();
   }, []);
+
+  // Step 2: Once we have a session, check the role in a separate effect
+  useEffect(() => {
+    if (!authReady) return;
+
+    if (!session?.user) {
+      setHasRole(false);
+      return;
+    }
+
+    let cancelled = false;
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", session.user.id)
+      .single()
+      .then(({ data }) => {
+        if (!cancelled) setHasRole(!!data);
+      });
+
+    return () => { cancelled = true; };
+  }, [authReady, session?.user?.id]);
+
+  const loading = !authReady || (session?.user && hasRole === null);
 
   if (loading) {
     return (
