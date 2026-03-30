@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
@@ -33,6 +34,10 @@ const AdminLayout = () => {
 
   return (
     <div className="admin-layout flex min-h-screen">
+      <Helmet>
+        <meta name="robots" content="noindex,nofollow" />
+      </Helmet>
+
       {/* Sidebar */}
       <aside
         className="fixed left-0 top-0 h-screen w-[240px] flex flex-col"

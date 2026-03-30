@@ -1,16 +1,39 @@
 import { useState } from "react";
 import { Facebook, Instagram, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { SEO } from "@/components/SEO";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const ContactPage = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const errors: Record<string, string> = {};
+    if (!form.name.trim()) errors.name = "Name is required.";
+    if (!form.email.trim() || !EMAIL_RE.test(form.email.trim())) errors.email = "A valid email is required.";
+    if (form.message.trim().length > 0 && form.message.trim().length < 10) errors.message = "Message must be at least 10 characters.";
+    return errors;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("sending");
+    setValidationErrors({});
     setErrorMsg("");
+
+    if (honeypot) return;
+
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
+
+    setStatus("sending");
 
     try {
       const response = await supabase.functions.invoke("submit-contact", {
@@ -39,6 +62,10 @@ const ContactPage = () => {
 
   return (
     <main>
+      <SEO
+        title="Contact Bath Area Growers"
+        description="Get in touch with Bath Area Growers. Share news about your growing project, ask questions, or find out how to get involved in community growing across Bath."
+      />
       <section
         className="relative flex h-[50vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3559-e1713291506509-200x200.jpeg')" }}
@@ -60,17 +87,32 @@ const ContactPage = () => {
                 {errorMsg}
               </div>
             )}
+
+            {/* Honeypot */}
+            <input
+              type="text"
+              name="_hp_website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              style={{ display: "none" }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <label className="text-[14px] font-semibold text-foreground">Your Name *
-              <input required type="text" maxLength={100} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
+              <input required type="text" name="full_name" maxLength={100} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
+              {validationErrors.name && <span className="text-red-600 text-xs">{validationErrors.name}</span>}
             </label>
             <label className="text-[14px] font-semibold text-foreground">Your Email *
-              <input required type="email" maxLength={255} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
+              <input required type="email" name="email" maxLength={255} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
+              {validationErrors.email && <span className="text-red-600 text-xs">{validationErrors.email}</span>}
             </label>
             <label className="text-[14px] font-semibold text-foreground">Subject
-              <input type="text" maxLength={200} value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
+              <input type="text" name="subject" maxLength={200} value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none focus:border-accent" />
             </label>
             <label className="text-[14px] font-semibold text-foreground">Your Message
-              <textarea rows={6} maxLength={2000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none resize-y focus:border-accent" />
+              <textarea name="message" rows={6} maxLength={2000} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="mt-1 block w-full border border-background-inverse bg-white p-3 text-[15px] text-foreground outline-none resize-y focus:border-accent" />
+              {validationErrors.message && <span className="text-red-600 text-xs">{validationErrors.message}</span>}
             </label>
             <button
               type="submit"
