@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
@@ -5,41 +6,43 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
-import AdminAuthGuard from "@/components/AdminAuthGuard";
 import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import PlaceholderPage from "./pages/PlaceholderPage";
-import CommunityGardensPage from "./pages/CommunityGardensPage";
-import SupportedGardeningPage from "./pages/SupportedGardeningPage";
-import FarmsPage from "./pages/FarmsPage";
-import WildlifeGardeningPage from "./pages/WildlifeGardeningPage";
-import SurplusProjectsPage from "./pages/SurplusProjectsPage";
-import CoursesPage from "./pages/CoursesPage";
-import EventsPage from "./pages/EventsPage";
-import EventTagPage from "./pages/EventTagPage";
-import EventDetailPage from "./pages/EventDetailPage";
-import ContactPage from "./pages/ContactPage";
-import EquipmentPage from "./pages/EquipmentPage";
-import GrantsPage from "./pages/GrantsPage";
-import PlotsPage from "./pages/PlotsPage";
-import GrowersNetworkPage from "./pages/GrowersNetworkPage";
-import CalendarPage from "./pages/CalendarPage";
-import LocationDetailPage from "./pages/LocationDetailPage";
-import AdminLoginPage from "./pages/AdminLoginPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import AdminLayout from "./components/AdminLayout";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminEventsPage from "./pages/AdminEventsPage";
-import AdminCommunityGardensPage from "./pages/AdminCommunityGardensPage";
-import AdminSupportedGardeningPage from "./pages/AdminSupportedGardeningPage";
-import AdminWildlifeGardeningPage from "./pages/AdminWildlifeGardeningPage";
-import AdminFarmsPage from "./pages/AdminFarmsPage";
-import AdminSurplusProjectsPage from "./pages/AdminSurplusProjectsPage";
-import AdminCoursesPage from "./pages/AdminCoursesPage";
-import AdminResourcesPage from "./pages/AdminResourcesPage";
-import ResourcesPage from "./pages/ResourcesPage";
-import AdminContactsPage from "./pages/AdminContactsPage";
-import AdminSettingsPage from "./pages/AdminSettingsPage";
+
+// Lazy-loaded routes
+const AdminAuthGuard = lazy(() => import("@/components/AdminAuthGuard"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const PlaceholderPage = lazy(() => import("./pages/PlaceholderPage"));
+const CommunityGardensPage = lazy(() => import("./pages/CommunityGardensPage"));
+const SupportedGardeningPage = lazy(() => import("./pages/SupportedGardeningPage"));
+const FarmsPage = lazy(() => import("./pages/FarmsPage"));
+const WildlifeGardeningPage = lazy(() => import("./pages/WildlifeGardeningPage"));
+const SurplusProjectsPage = lazy(() => import("./pages/SurplusProjectsPage"));
+const CoursesPage = lazy(() => import("./pages/CoursesPage"));
+const EventsPage = lazy(() => import("./pages/EventsPage"));
+const EventTagPage = lazy(() => import("./pages/EventTagPage"));
+const EventDetailPage = lazy(() => import("./pages/EventDetailPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const EquipmentPage = lazy(() => import("./pages/EquipmentPage"));
+const GrantsPage = lazy(() => import("./pages/GrantsPage"));
+const PlotsPage = lazy(() => import("./pages/PlotsPage"));
+const GrowersNetworkPage = lazy(() => import("./pages/GrowersNetworkPage"));
+const CalendarPage = lazy(() => import("./pages/CalendarPage"));
+const LocationDetailPage = lazy(() => import("./pages/LocationDetailPage"));
+const AdminLoginPage = lazy(() => import("./pages/AdminLoginPage"));
+const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const AdminLayout = lazy(() => import("./components/AdminLayout"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminEventsPage = lazy(() => import("./pages/AdminEventsPage"));
+const AdminCommunityGardensPage = lazy(() => import("./pages/AdminCommunityGardensPage"));
+const AdminSupportedGardeningPage = lazy(() => import("./pages/AdminSupportedGardeningPage"));
+const AdminWildlifeGardeningPage = lazy(() => import("./pages/AdminWildlifeGardeningPage"));
+const AdminFarmsPage = lazy(() => import("./pages/AdminFarmsPage"));
+const AdminSurplusProjectsPage = lazy(() => import("./pages/AdminSurplusProjectsPage"));
+const AdminCoursesPage = lazy(() => import("./pages/AdminCoursesPage"));
+const AdminResourcesPage = lazy(() => import("./pages/AdminResourcesPage"));
+const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
+const AdminContactsPage = lazy(() => import("./pages/AdminContactsPage"));
+const AdminSettingsPage = lazy(() => import("./pages/AdminSettingsPage"));
 
 const queryClient = new QueryClient();
 
@@ -50,6 +53,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <Suspense fallback={null}>
           <Routes>
             {/* Public routes with Layout */}
             <Route element={<Layout />}>
@@ -102,6 +106,7 @@ const App = () => (
 
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
