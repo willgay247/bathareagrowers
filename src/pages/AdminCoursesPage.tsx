@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import SimpleFormModal from "@/components/admin/SimpleFormModal";
+import { useCurrentUserRole } from "@/hooks/useCurrentUserRole";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Item = Tables<"courses">;
@@ -24,6 +25,7 @@ const AdminCoursesPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<Item | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const { canAddInSection, canEditRecord, canDeleteInSection, canToggleHidden, userId } = useCurrentUserRole();
 
   const fetch_ = async () => {
     const { data } = await supabase.from("courses").select("*").order("display_order");
@@ -47,7 +49,9 @@ const AdminCoursesPage = () => {
     <div>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-[32px] font-bold" style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}>Courses</h1>
-        <Button onClick={() => { setEditing(null); setModalOpen(true); }} className="bg-accent text-white hover:bg-accent/90" style={{ fontFamily: "'Readex Pro', sans-serif" }}>+ Add New</Button>
+        {canAddInSection("courses") && (
+          <Button onClick={() => { setEditing(null); setModalOpen(true); }} className="bg-accent text-white hover:bg-accent/90" style={{ fontFamily: "'Readex Pro', sans-serif" }}>+ Add New</Button>
+        )}
       </div>
       <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full text-sm" style={{ fontFamily: "'Readex Pro', sans-serif" }}>
@@ -56,28 +60,33 @@ const AdminCoursesPage = () => {
             <th className="px-4 py-3 text-left font-semibold">Course</th>
             <th className="px-4 py-3 text-left font-semibold">Location</th>
             <th className="px-4 py-3 text-center font-semibold">Order</th>
-            <th className="px-4 py-3 text-center font-semibold">Hidden</th>
+            {canToggleHidden("courses") && <th className="px-4 py-3 text-center font-semibold">Hidden</th>}
             <th className="px-4 py-3 text-right font-semibold">Actions</th>
           </tr></thead>
           <tbody>
-            {items.map((i) => (
-              <tr key={i.id} className="border-b hover:bg-muted/30">
-                <td className="px-4 py-3 font-medium">{i.org_name}</td>
-                <td className="px-4 py-3 text-muted-foreground">{i.course_name || "—"}</td>
-                <td className="px-4 py-3 text-muted-foreground">{i.location || "—"}</td>
-                <td className="px-4 py-3 text-center">{i.display_order}</td>
-                <td className="px-4 py-3 text-center"><Switch checked={i.hidden ?? false} onCheckedChange={(v) => toggleHidden(i.id, v)} /></td>
-                <td className="px-4 py-3 text-right space-x-2">
-                  <button onClick={() => { setEditing(i); setModalOpen(true); }} className="text-accent hover:underline text-sm">Edit</button>
-                  <button onClick={() => setDeleteId(i.id)} className="text-destructive hover:underline text-sm">Delete</button>
-                </td>
-              </tr>
-            ))}
+            {items.map((i) => {
+              const canEdit = canEditRecord("courses", (i as any).created_by);
+              return (
+                <tr key={i.id} className="border-b hover:bg-muted/30">
+                  <td className="px-4 py-3 font-medium">{i.org_name}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{i.course_name || "—"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{i.location || "—"}</td>
+                  <td className="px-4 py-3 text-center">{i.display_order}</td>
+                  {canToggleHidden("courses") && (
+                    <td className="px-4 py-3 text-center"><Switch checked={i.hidden ?? false} onCheckedChange={(v) => toggleHidden(i.id, v)} /></td>
+                  )}
+                  <td className="px-4 py-3 text-right space-x-2">
+                    {canEdit && <button onClick={() => { setEditing(i); setModalOpen(true); }} className="text-accent hover:underline text-sm">Edit</button>}
+                    {canDeleteInSection("courses") && <button onClick={() => setDeleteId(i.id)} className="text-destructive hover:underline text-sm">Delete</button>}
+                  </td>
+                </tr>
+              );
+            })}
             {items.length === 0 && <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No courses yet.</td></tr>}
           </tbody>
         </table>
       </div>
-      {modalOpen && <SimpleFormModal title="Course" table="courses" storagePath="courses" imageField="logo_url" fields={FIELDS} record={editing} onClose={() => { setModalOpen(false); setEditing(null); }} onSaved={() => { setModalOpen(false); setEditing(null); fetch_(); }} />}
+      {modalOpen && <SimpleFormModal title="Course" table="courses" storagePath="courses" imageField="logo_url" fields={FIELDS} record={editing} onClose={() => { setModalOpen(false); setEditing(null); }} onSaved={() => { setModalOpen(false); setEditing(null); fetch_(); }} createdBy={userId} />}
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Delete Course</AlertDialogTitle><AlertDialogDescription>Are you sure? This cannot be undone.</AlertDialogDescription></AlertDialogHeader>
           <AlertDialogFooter><AlertDialogCancel>Cancel</AlertDialogCancel><AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">Delete</AlertDialogAction></AlertDialogFooter>
