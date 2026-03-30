@@ -64,7 +64,7 @@ const ContactPage = () => {
     <main>
       <SEO title="Contact" description="Get in touch with Bath Area Growers. Share news about your growing project or find out how to get involved in the network." />
       <section
-        className="relative flex h-[50vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[50vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3559-e1713291506509-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
