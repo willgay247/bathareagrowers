@@ -28,7 +28,7 @@ const FarmsPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground-alt">
           Meet our network of market gardeners growing organic food for sale. You can volunteer on many of these farms, learning from experienced professional growers and helping their businesses to thrive.
         </p>
