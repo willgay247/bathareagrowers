@@ -18,7 +18,7 @@ const Index = () => {
       <OurWorkSection />
       <MissionAndValues />
       <CtaBanner />
-      <NewsletterSignup />
+      
       <SupportersStrip />
     </main>
   );

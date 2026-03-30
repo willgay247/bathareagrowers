@@ -27,25 +27,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background-alt backdrop-blur-[8px]">
-      {/* Row 1: Social icons */}
-      <div className="mx-auto max-w-container px-4">
-        <div className="flex items-center gap-3 py-2">
-          {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="text-foreground transition-colors hover:text-accent"
-            >
-              <Icon size={18} />
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Row 2: Nav links (desktop) + hamburger (mobile) */}
+      {/* Nav links (desktop) + hamburger (mobile) */}
       <div className="mx-auto max-w-container px-4">
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center justify-center flex-wrap gap-x-5 gap-y-1 py-2">
