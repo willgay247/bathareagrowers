@@ -43,7 +43,7 @@ const WildlifeGardeningPage = () => {
           const reversed = i % 2 !== 0;
           const bg = i % 2 === 0 ? "bg-white" : "bg-background";
           return (
-            <section key={g.id} className={`w-full ${bg} py-[60px] px-4`}>
+            <section key={g.id} className={`w-full ${bg} py-10 md:py-[60px] px-4`}>
               <div className={`mx-auto max-w-[1100px] flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} gap-8 md:gap-12`}>
                 <div className="md:w-1/2">
                   <div className="aspect-[4/3] overflow-hidden rounded-md">
