@@ -31,7 +31,7 @@ const ResourcesPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-background py-[60px] px-4">
+      <section className="w-full bg-background py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground">
           Useful links and resources for growers in the Bath area.
         </p>
