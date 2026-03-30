@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import CommunityGardensPage from "./pages/CommunityGardensPage";
 import SupportedGardeningPage from "./pages/SupportedGardeningPage";
+import FarmsPage from "./pages/FarmsPage";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -22,7 +23,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/community-gardens" element={<CommunityGardensPage />} />
             <Route path="/supported-gardening" element={<SupportedGardeningPage />} />
-            <Route path="/farms" element={<PlaceholderPage title="Farms" />} />
+            <Route path="/farms" element={<FarmsPage />} />
             <Route path="/wildlife-gardening" element={<PlaceholderPage title="Wildlife Gardening" />} />
             <Route path="/surplus-projects" element={<PlaceholderPage title="Surplus Projects" />} />
             <Route path="/courses" element={<PlaceholderPage title="Courses" />} />
