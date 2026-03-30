@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: "Supported Gardening", path: "/supported-gardening" },
   { label: "Farms", path: "/farms" },
   { label: "Wildlife Gardening", path: "/wildlife-gardening" },
-  { label: "Surplus projects", path: "/surplus-projects" },
+  { label: "Surplus Projects", path: "/surplus-projects" },
   { label: "Courses", path: "/courses" },
   { label: "Resources", path: "/resources" },
   { label: "Events", path: "/events" },
