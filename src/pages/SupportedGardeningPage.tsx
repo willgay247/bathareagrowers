@@ -44,7 +44,7 @@ const SupportedGardeningPage = () => {
               <div key={p.id} className="flex flex-col">
                 <div className="aspect-[4/3] overflow-hidden rounded-md">
                   {p.image_url ? (
-                    <img src={p.image_url} alt={p.name} className="h-full w-full object-cover" loading="lazy" />
+                    <img src={imageUrl(p.image_url, { width: 400, quality: 75 })} srcSet={`${imageUrl(p.image_url, { width: 400, quality: 75 })} 400w, ${imageUrl(p.image_url, { width: 800, quality: 75 })} 800w`} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" alt={p.name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                   ) : (
                     <div className="h-full w-full bg-background flex items-center justify-center text-foreground/40 text-sm">No image</div>
                   )}

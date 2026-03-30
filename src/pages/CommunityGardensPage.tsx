@@ -29,7 +29,7 @@ const GardenCard = ({ garden, reversed }: { garden: Garden; reversed: boolean })
     <div className="md:w-1/2">
       <div className="aspect-[4/3] overflow-hidden rounded-md">
         {garden.image_url ? (
-          <img src={garden.image_url} alt={garden.name} className="h-full w-full object-cover" loading="lazy" />
+          <img src={imageUrl(garden.image_url, { width: 600, quality: 75 })} srcSet={`${imageUrl(garden.image_url, { width: 400, quality: 70 })} 400w, ${imageUrl(garden.image_url, { width: 800, quality: 75 })} 800w`} sizes="(min-width: 768px) 50vw, 100vw" alt={garden.name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
         ) : (
           <div className="h-full w-full bg-background flex items-center justify-center text-foreground/30 text-lg">🌿</div>
         )}
