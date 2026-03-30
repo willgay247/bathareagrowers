@@ -7,7 +7,6 @@ import MissionAndValues from "@/components/MissionAndValues";
 import CtaBanner from "@/components/CtaBanner";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import SupportersStrip from "@/components/SupportersStrip";
-import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -21,7 +20,6 @@ const Index = () => {
       <CtaBanner />
       <NewsletterSignup />
       <SupportersStrip />
-      <Footer />
     </main>
   );
 };
