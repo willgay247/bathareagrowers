@@ -29,6 +29,13 @@ import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminEventsPage from "./pages/AdminEventsPage";
 import AdminCommunityGardensPage from "./pages/AdminCommunityGardensPage";
+import AdminSupportedGardeningPage from "./pages/AdminSupportedGardeningPage";
+import AdminWildlifeGardeningPage from "./pages/AdminWildlifeGardeningPage";
+import AdminFarmsPage from "./pages/AdminFarmsPage";
+import AdminSurplusProjectsPage from "./pages/AdminSurplusProjectsPage";
+import AdminCoursesPage from "./pages/AdminCoursesPage";
+import AdminResourcesPage from "./pages/AdminResourcesPage";
+import ResourcesPage from "./pages/ResourcesPage";
 
 const queryClient = new QueryClient();
 
