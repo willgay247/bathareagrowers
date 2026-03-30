@@ -19,7 +19,7 @@ const SupportedGardeningPage = () => {
     <main>
       <SEO title="Supported Gardening" description="Therapeutic and supported gardening projects in Bath helping people connect with nature, build confidence and improve wellbeing." />
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3558-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
