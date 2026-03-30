@@ -14,7 +14,330 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      community_gardens: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          display_order: number | null
+          external_link: string | null
+          hidden: boolean | null
+          id: string
+          image_url: string | null
+          name: string
+          region: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          display_order?: number | null
+          external_link?: string | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          name: string
+          region: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          display_order?: number | null
+          external_link?: string | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          region?: string
+        }
+        Relationships: []
+      }
+      contact_submissions: {
+        Row: {
+          admin_notes: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          is_archived: boolean | null
+          is_read: boolean | null
+          message: string | null
+          name: string | null
+          subject: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_archived?: boolean | null
+          is_read?: boolean | null
+          message?: string | null
+          name?: string | null
+          subject?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          is_archived?: boolean | null
+          is_read?: boolean | null
+          message?: string | null
+          name?: string | null
+          subject?: string | null
+        }
+        Relationships: []
+      }
+      courses: {
+        Row: {
+          course_name: string | null
+          created_at: string | null
+          display_order: number | null
+          hidden: boolean | null
+          id: string
+          link: string | null
+          location: string | null
+          logo_url: string | null
+          org_name: string
+        }
+        Insert: {
+          course_name?: string | null
+          created_at?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          link?: string | null
+          location?: string | null
+          logo_url?: string | null
+          org_name: string
+        }
+        Update: {
+          course_name?: string | null
+          created_at?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          link?: string | null
+          location?: string | null
+          logo_url?: string | null
+          org_name?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          address: string | null
+          booking_link: string | null
+          created_at: string | null
+          date_display: string | null
+          description: string | null
+          event_date: string | null
+          hidden: boolean | null
+          id: string
+          image_url: string | null
+          location: string | null
+          organiser: string | null
+          slug: string
+          tags: string[] | null
+          time_display: string | null
+          title: string
+        }
+        Insert: {
+          address?: string | null
+          booking_link?: string | null
+          created_at?: string | null
+          date_display?: string | null
+          description?: string | null
+          event_date?: string | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          organiser?: string | null
+          slug: string
+          tags?: string[] | null
+          time_display?: string | null
+          title: string
+        }
+        Update: {
+          address?: string | null
+          booking_link?: string | null
+          created_at?: string | null
+          date_display?: string | null
+          description?: string | null
+          event_date?: string | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          location?: string | null
+          organiser?: string | null
+          slug?: string
+          tags?: string[] | null
+          time_display?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      farms: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          hidden: boolean | null
+          id: string
+          image_url: string | null
+          name: string
+          volunteering_link: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          name: string
+          volunteering_link?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          volunteering_link?: string | null
+        }
+        Relationships: []
+      }
+      resources: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          hidden: boolean | null
+          id: string
+          link: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          link?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      supported_gardening: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          hidden: boolean | null
+          id: string
+          image_url: string | null
+          link: string | null
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          name?: string
+        }
+        Relationships: []
+      }
+      surplus_projects: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          hidden: boolean | null
+          id: string
+          image_url: string | null
+          link: string | null
+          name: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          name: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          name?: string
+        }
+        Relationships: []
+      }
+      wildlife_gardening_entries: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          display_order: number | null
+          hidden: boolean | null
+          id: string
+          image_url: string | null
+          link: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          display_order?: number | null
+          hidden?: boolean | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
