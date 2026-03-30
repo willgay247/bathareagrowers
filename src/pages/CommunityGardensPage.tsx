@@ -79,7 +79,7 @@ const CommunityGardensPage = () => {
       </section>
 
       {/* Intro banner */}
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <h2 className="mx-auto max-w-[700px] text-center text-[28px] font-bold leading-snug text-foreground-alt md:text-[32px]">
           Joining a community garden or collective allotment is a great way to start the journey into growing.
         </h2>
