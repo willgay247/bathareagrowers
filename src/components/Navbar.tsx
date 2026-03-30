@@ -27,8 +27,8 @@ const NAV_ITEMS: NavItem[] = [
     label: "Resources",
     children: [
       { label: "Courses", path: "/courses" },
-      { label: "Resources", path: "/resources" },
       { label: "Events", path: "/events" },
+      { label: "Helpful Links", path: "/resources" },
     ],
   },
   { label: "Contact", path: "/contact" },
