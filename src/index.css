@@ -78,10 +78,17 @@
     line-height: 1.6;
   }
 
-  h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; }
-  h2 { font-size: 2.5rem; font-weight: 600; line-height: 1.2; color: hsl(var(--heading-green)); }
-  h3 { font-size: 1.75rem; font-weight: 600; line-height: 1.3; color: hsl(var(--heading-green)); }
-  h4 { font-size: 1.5rem; font-weight: 600; line-height: 1.35; color: hsl(var(--heading-green)); }
+  h1 { font-size: 2rem; font-weight: 700; line-height: 1.1; }
+  h2 { font-size: 1.75rem; font-weight: 600; line-height: 1.2; color: hsl(var(--heading-green)); }
+  h3 { font-size: 1.375rem; font-weight: 600; line-height: 1.3; color: hsl(var(--heading-green)); }
+  h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.35; color: hsl(var(--heading-green)); }
+
+  @media (min-width: 768px) {
+    h1 { font-size: 3.5rem; }
+    h2 { font-size: 2.5rem; }
+    h3 { font-size: 1.75rem; }
+    h4 { font-size: 1.5rem; }
+  }
 
   /* Reset heading color inside admin layout & inside accent/plum sections */
   .admin-layout h2,

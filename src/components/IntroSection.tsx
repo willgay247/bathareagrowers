@@ -13,6 +13,7 @@ const IntroSection = () => {
             src="https://bathareagrowers.org/wp-content/uploads/IMG_3572-1024x683.jpeg"
             alt="Community growing project"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
       </div>

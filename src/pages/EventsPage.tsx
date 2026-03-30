@@ -33,8 +33,8 @@ const EventsPage = () => {
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Events</h1>
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
-        <h2 className="text-center text-[36px] font-bold mb-12">Upcoming Events</h2>
+      <section className="w-full bg-background py-10 md:py-20 px-4">
+        <h2 className="text-center text-[24px] md:text-[36px] font-bold mb-8 md:mb-12">Upcoming Events</h2>
 
         {loading ? (
           <div className="flex justify-center py-12">

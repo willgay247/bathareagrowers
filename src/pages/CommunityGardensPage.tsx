@@ -127,9 +127,9 @@ const CommunityGardensPage = () => {
       )}
 
       {/* Sites across Bath */}
-      <section className="w-full bg-background py-[60px] px-4">
+      <section className="w-full bg-background py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
-          <h2 className="text-[36px] font-bold mb-10">Sites across the Bath area</h2>
+          <h2 className="text-[24px] md:text-[36px] font-bold mb-8 md:mb-10">Sites across the Bath area</h2>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {SITES_ACROSS.map((s) => (
               <div key={s.title}>

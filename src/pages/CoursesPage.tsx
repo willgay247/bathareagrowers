@@ -34,7 +34,7 @@ const CoursesPage = () => {
         </p>
       </section>
 
-      <section className="w-full bg-white py-20 px-4">
+      <section className="w-full bg-white py-10 md:py-20 px-4">
         {loading ? (
           <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" /></div>
         ) : items.length === 0 ? (

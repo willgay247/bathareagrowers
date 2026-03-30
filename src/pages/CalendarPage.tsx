@@ -22,7 +22,7 @@ const CalendarPage = () => (
       </p>
     </section>
 
-    <section className="w-full bg-white py-[60px] px-4">
+    <section className="w-full bg-white py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[1100px]">
         <h2 className="text-[28px] font-bold text-foreground mb-8">Volunteering timetable, Summer 2023</h2>
         <div className="overflow-x-auto">

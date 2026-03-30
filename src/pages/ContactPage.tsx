@@ -71,7 +71,7 @@ const ContactPage = () => {
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Contact</h1>
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[1100px] flex flex-col md:flex-row gap-10">
           <form onSubmit={handleSubmit} className="md:w-[60%] flex flex-col gap-3">
             {status === "success" && (

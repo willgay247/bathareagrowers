@@ -50,9 +50,9 @@ const PlotsPage = () => (
       </div>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold text-foreground mb-4">Neighbourhood Nature Areas</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground mb-4">Neighbourhood Nature Areas</h2>
         <p className="text-[18px] leading-relaxed text-foreground">
           B&NES council have a system where you can apply to manage small areas of council land, such as road verges and small open spaces, if you want to garden them for ecological benefit and wildlife. This could include some food plants. Use their online map to identify if the land is managed by the Parks team, then email parks@bathnes.gov.uk to check if it is suitable to be gardened and get agreement.
         </p>

@@ -41,7 +41,7 @@ const GrantsPage = () => (
         <h2 className="text-[24px] md:text-[32px] font-bold mb-8">Grants</h2>
         <CardList items={GRANTS} />
 
-        <h2 className="text-[32px] font-bold mt-16 mb-8">National Organisations</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold mt-12 md:mt-16 mb-8">National Organisations</h2>
         <CardList items={ORGS} />
       </div>
     </section>

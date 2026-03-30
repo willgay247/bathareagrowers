@@ -56,9 +56,9 @@ const EquipmentPage = () => (
       </div>
     </section>
 
-    <section className="w-full bg-background-inverse py-[60px] px-4">
+    <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[1100px]">
-        <h2 className="text-[32px] font-bold text-foreground-alt mb-4">Libraries of Things</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground-alt mb-4">Libraries of Things</h2>
         <p className="text-[18px] leading-relaxed text-foreground-alt mb-10">
           Bath has two 'libraries of things'. Below is a list of gardening and events items held by each library, compiled July 2024.
         </p>

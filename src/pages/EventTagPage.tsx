@@ -32,7 +32,7 @@ const EventTagPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />

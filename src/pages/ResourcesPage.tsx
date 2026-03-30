@@ -37,7 +37,7 @@ const ResourcesPage = () => {
         </p>
       </section>
 
-      <section className="w-full bg-white py-20 px-4">
+      <section className="w-full bg-white py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[900px] flex flex-col gap-4">
           {loading ? (
             <div className="flex justify-center py-12">

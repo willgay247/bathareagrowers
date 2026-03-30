@@ -27,7 +27,7 @@ const LocationDetailPage = () => {
         </div>
       </section>
 
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[1100px] flex flex-col md:flex-row gap-10">
           <div className="md:w-[70%]">
             {location.image && (
