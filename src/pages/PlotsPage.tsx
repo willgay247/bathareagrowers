@@ -41,7 +41,7 @@ const PlotsPage = () => (
         <p className="text-[18px] leading-relaxed text-foreground-alt mb-12">
           Apply to B&NES council for an allotment at one of their 24 allotments sites in Bath.
         </p>
-        <h2 className="text-[32px] font-bold text-foreground-alt mb-4">Other Allotments</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground-alt mb-4">Other Allotments</h2>
         <ul className="list-disc pl-6 space-y-2">
           {OTHER_ALLOTMENTS.map((item) => (
             <li key={item} className="text-[18px] text-foreground-alt">{item}</li>
