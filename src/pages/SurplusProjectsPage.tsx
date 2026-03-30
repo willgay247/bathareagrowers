@@ -28,7 +28,7 @@ const SurplusProjectsPage = () => {
         </h1>
       </section>
 
-      <section className="w-full bg-accent py-[60px] px-4">
+      <section className="w-full bg-accent py-10 md:py-[60px] px-4">
         <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground-alt">
           Three projects in the network collect surplus vegetables and fruit and distribute it to those who can benefit. Each project is keen to hear about sources of surplus produce or crops that might go to waste. They also welcome new volunteers to help with harvesting, deliveries or admin.
         </p>
