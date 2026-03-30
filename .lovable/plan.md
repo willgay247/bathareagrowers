@@ -1,74 +1,77 @@
 
 
-# Plan: Host All Images Locally via Cloud Storage
+# Speed Up Image Loading
 
-## Overview
-Download all images currently hosted on `bathareagrowers.org` and upload them to your project's cloud storage bucket. Then update every reference across the codebase and database to point to the new self-hosted URLs.
+## Problem
+Images are served as full-size originals (up to 1518px wide JPEG/PNG) regardless of screen size, and many pages use CSS `background-image` which can't benefit from `loading="lazy"` or responsive sizing. No image transformation is applied.
 
-## Steps
+## Approach
+Use the Supabase Storage **image transformation** feature, which lets you append query parameters to resize and convert images on the fly (e.g. `?width=800&quality=75`). This avoids re-uploading anything — same URLs, just with transform params.
 
-### 1. Create a storage bucket
-Create a public `images` storage bucket with an RLS policy allowing anonymous read access.
+## Changes
 
-### 2. Download and upload all images
-Write a backend function (edge function) or script that:
-- Downloads each unique image from `bathareagrowers.org`
-- Uploads it to the `images` bucket preserving the filename
+### 1. Create image URL helper (`src/lib/imageUrl.ts`)
+A small utility function that appends Supabase image transform params:
 
-There are approximately **20 unique images** referenced in hardcoded files:
+```typescript
+const STORAGE_BASE = "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/";
+const RENDER_BASE = "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/render/image/public/cms-images/";
 
-| File | Image |
-|------|-------|
-| Hero, IntroSection, index.html | IMG_3572-1024x683.jpeg |
-| MappingSection | IMG_3561-1024x691.jpeg |
-| MissionAndValues | IMG_3570-1024x683.jpeg |
-| GrowingGroupsSection | IMG_3631, IMG_3632, IMG_3657, IMG_3634, IMG_3690 |
-| EventsPage | IMG_3636-e1717271139891.jpeg |
-| CommunityGardensPage | cropped-IMG_3545-1-200x200.jpeg |
-| FarmsPage | IMG_3632-e1715201712644.jpeg |
-| SupportedGardeningPage | IMG_3558-200x200.jpeg |
-| SurplusProjectsPage | IMG_3557-e1713291149232-200x200.jpeg |
-| WildlifeGardeningPage | IMG_3679.webp |
-| ContactPage | IMG_3559-e1713291506509-200x200.jpeg |
-| CoursesPage/ResourcesPage | IMG_3690.jpeg |
-| PlotsPage | 1-1-rotated.jpeg |
-| EquipmentPage | IMG_3759.webp |
-| GrowersNetworkPage | IMG_3573-e1713295309470-200x200.jpeg |
-| events.ts | 2_20240729_214914_0001.png |
-| locations.ts | IMG_3660, IMG_3652, IMG_3668 |
+export function imageUrl(filename: string, opts?: { width?: number; height?: number; quality?: number }) {
+  if (!opts) return `${STORAGE_BASE}${filename}`;
+  const params = new URLSearchParams();
+  if (opts.width) params.set("width", String(opts.width));
+  if (opts.height) params.set("height", String(opts.height));
+  params.set("quality", String(opts.quality ?? 75));
+  return `${RENDER_BASE}${filename}?${params}`;
+}
+```
 
-### 3. Update all hardcoded references
-Replace every `https://bathareagrowers.org/wp-content/uploads/...` URL in the following files with the new storage URL (`https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/images/...`):
+### 2. Convert hero banner images from `background-image` to `<img>` tags
+~10 pages use `style={{ backgroundImage: ... }}` for hero banners. These prevent lazy loading, responsive sizing, and format negotiation. Convert each to an `<img>` tag with `object-cover` (same visual result), adding `width`, `height`, `sizes`, and `decoding="async"`.
 
-- `index.html` (preload, og:image, twitter:image)
-- `src/components/Hero.tsx`
-- `src/components/IntroSection.tsx`
-- `src/components/MappingSection.tsx`
-- `src/components/MissionAndValues.tsx`
-- `src/components/GrowingGroupsSection.tsx`
-- `src/data/events.ts`
-- `src/data/locations.ts`
-- `src/pages/EventsPage.tsx`
-- `src/pages/CommunityGardensPage.tsx`
-- `src/pages/FarmsPage.tsx`
-- `src/pages/SupportedGardeningPage.tsx`
-- `src/pages/SurplusProjectsPage.tsx`
-- `src/pages/WildlifeGardeningPage.tsx`
-- `src/pages/ContactPage.tsx`
-- `src/pages/CoursesPage.tsx`
-- `src/pages/ResourcesPage.tsx`
-- `src/pages/PlotsPage.tsx`
-- `src/pages/EquipmentPage.tsx`
-- `src/pages/GrowersNetworkPage.tsx`
+**Affected pages:** EventsPage, CommunityGardensPage, FarmsPage, SupportedGardeningPage, SurplusProjectsPage, WildlifeGardeningPage, ContactPage, CoursesPage, ResourcesPage, PlotsPage, EquipmentPage, GrowersNetworkPage.
 
-### 4. Update database records
-Any `image_url` values in the `community_gardens`, `farms`, `supported_gardening`, `wildlife_gardening_entries`, and `surplus_projects` tables that point to `bathareagrowers.org` will need to be updated via a migration to the new storage URLs.
+Pattern (replacing `style={{ backgroundImage }}` sections):
+```tsx
+<section className="relative flex h-[40vh] md:h-[60vh] ...">
+  <img
+    src={imageUrl("IMG_3558-200x200.jpeg", { width: 1200, quality: 75 })}
+    alt="..."
+    className="absolute inset-0 w-full h-full object-cover"
+    loading="eager"  // for above-fold heroes
+    decoding="async"
+  />
+  <div className="absolute inset-0 bg-black/45" />
+  ...
+</section>
+```
 
-### 5. Remove the preconnect hint
-Remove the `<link rel="preconnect" href="https://bathareagrowers.org" />` from `index.html` since it's no longer needed.
+### 3. Add responsive `srcSet` to card/grid images
+For the GrowingGroupsSection cards and data-driven listing pages (farms, community gardens, etc.), add a `srcSet` with multiple widths so browsers download appropriately sized images:
 
-## Technical Detail
-- The storage bucket URL pattern will be: `https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/images/{filename}`
-- A helper constant (e.g. `IMAGE_BASE`) can be created in a shared file to avoid repeating the full URL everywhere
-- This also improves performance scores since you'll control caching headers (the current external images have 0 cache TTL)
+```tsx
+<img
+  src={imageUrl(filename, { width: 400, quality: 75 })}
+  srcSet={`${imageUrl(filename, { width: 400, quality: 75 })} 400w, ${imageUrl(filename, { width: 800, quality: 75 })} 800w`}
+  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
+  loading="lazy"
+  decoding="async"
+/>
+```
+
+### 4. Update `index.html` preload
+Update the hero image preload link to use the transformed (smaller) URL with `imagesizes` and `imagesrcset` attributes.
+
+### 5. Update homepage components
+Apply `imageUrl()` with appropriate widths to Hero.tsx, IntroSection.tsx, MappingSection.tsx, MissionAndValues.tsx, GrowingGroupsSection.tsx.
+
+## Summary of files to change
+- **New:** `src/lib/imageUrl.ts`
+- **Edit:** `index.html`, `Hero.tsx`, `IntroSection.tsx`, `MappingSection.tsx`, `MissionAndValues.tsx`, `GrowingGroupsSection.tsx`, and ~12 page files to convert background-image heroes to `<img>` tags with transformed URLs
+
+## What stays the same
+- All visual layouts, colors, spacing, and UX remain identical
+- Database-stored `image_url` values are unchanged — the helper is applied at render time
+- No images need to be re-uploaded or deleted
 
