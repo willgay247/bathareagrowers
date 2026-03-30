@@ -69,10 +69,8 @@ const CommunityGardensPage = () => {
     <main>
       <SEO title="Community Gardens" description="Discover community gardens and allotments across Bath and the surrounding area. Find a plot, get involved, and grow with your neighbours." />
       {/* Hero */}
-      <section
-        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/cropped-IMG_3545-1-200x200.jpeg')" }}
-      >
+      <section className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center overflow-hidden">
+        <img src={imageUrl("cropped-IMG_3545-1-200x200.jpeg", { width: 1200, quality: 75 })} alt="Community gardens in Bath" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Community Gardens and Allotments

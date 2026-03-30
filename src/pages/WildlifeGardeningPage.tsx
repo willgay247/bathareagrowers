@@ -19,10 +19,8 @@ const WildlifeGardeningPage = () => {
   return (
     <main>
       <SEO title="Wildlife Gardening" description="Wildlife gardening projects across Bath focused on biodiversity, pollinators, and creating habitats for nature." />
-      <section
-        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/IMG_3679.webp')" }}
-      >
+      <section className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center overflow-hidden">
+        <img src={imageUrl("IMG_3679.webp", { width: 1200, quality: 75 })} alt="Wildlife gardening in Bath" className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-black/45" />
         <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Wildlife Gardening
