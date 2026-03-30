@@ -4,15 +4,15 @@ import { Facebook, Instagram, Mail, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", path: "/" },
-  { label: "Community gardens", path: "/our-members-2/" },
-  { label: "Supported gardening", path: "/supported-gardening/" },
-  { label: "Farms", path: "/farm-volunteering/" },
-  { label: "Wildlife Gardening", path: "/wildlife-gardening-2/" },
-  { label: "Surplus projects", path: "/surplus-projects/" },
-  { label: "Courses", path: "/learn/" },
-  { label: "Resources", path: "/resources/" },
-  { label: "Events", path: "/events/" },
-  { label: "Contact", path: "/contact/" },
+  { label: "Community gardens", path: "/community-gardens" },
+  { label: "Supported gardening", path: "/supported-gardening" },
+  { label: "Farms", path: "/farms" },
+  { label: "Wildlife Gardening", path: "/wildlife-gardening" },
+  { label: "Surplus projects", path: "/surplus-projects" },
+  { label: "Courses", path: "/courses" },
+  { label: "Resources", path: "/resources" },
+  { label: "Events", path: "/events" },
+  { label: "Contact", path: "/contact" },
 ];
 
 const SOCIAL_LINKS = [
