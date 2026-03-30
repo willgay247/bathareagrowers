@@ -10,6 +10,7 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import CommunityGardensPage from "./pages/CommunityGardensPage";
 import SupportedGardeningPage from "./pages/SupportedGardeningPage";
 import FarmsPage from "./pages/FarmsPage";
+import WildlifeGardeningPage from "./pages/WildlifeGardeningPage";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -24,7 +25,7 @@ const App = () => (
             <Route path="/community-gardens" element={<CommunityGardensPage />} />
             <Route path="/supported-gardening" element={<SupportedGardeningPage />} />
             <Route path="/farms" element={<FarmsPage />} />
-            <Route path="/wildlife-gardening" element={<PlaceholderPage title="Wildlife Gardening" />} />
+            <Route path="/wildlife-gardening" element={<WildlifeGardeningPage />} />
             <Route path="/surplus-projects" element={<PlaceholderPage title="Surplus Projects" />} />
             <Route path="/courses" element={<PlaceholderPage title="Courses" />} />
             <Route path="/resources" element={<PlaceholderPage title="Resources" />} />
