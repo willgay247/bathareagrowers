@@ -19,7 +19,7 @@ const GrowersNetworkPage = () => (
       <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Growers Network</h1>
     </section>
 
-    <section className="w-full bg-background py-20 px-4">
+    <section className="w-full bg-background py-10 md:py-20 px-4">
       <p className="mx-auto max-w-[700px] text-center text-[20px] leading-relaxed text-foreground mb-12">
         Join our network of growing projects in and around Bath. It's free! Get in touch to join. Benefits include…
       </p>
