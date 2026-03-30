@@ -18,7 +18,7 @@ const PlotsPage = () => (
       style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/1-1-rotated.jpeg')" }}
     >
       <div className="absolute inset-0 bg-black/45" />
-      <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">Plots and Land Available</h1>
+      <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Plots and Land Available</h1>
     </section>
 
     <section className="w-full bg-background py-[60px] px-4">
