@@ -30,7 +30,7 @@ const GrantsPage = () => (
       <h1 className="text-center text-[28px] font-bold text-foreground md:text-[48px]">Grants and National Organisations</h1>
     </section>
 
-    <section className="w-full bg-accent py-10 px-4">
+    <section className="w-full bg-accent py-8 md:py-10 px-4">
       <p className="mx-auto max-w-[800px] text-center text-[18px] italic text-foreground-alt">
         Let us know of any other relevant grants you are aware of so we can add them to this resource
       </p>
