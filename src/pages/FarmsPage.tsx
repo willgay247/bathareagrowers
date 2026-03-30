@@ -23,7 +23,7 @@ const FarmsPage = () => {
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3632-e1715201712644.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
-        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
+        <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Farms and Market Gardens
         </h1>
       </section>
