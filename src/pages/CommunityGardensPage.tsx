@@ -86,7 +86,7 @@ const CommunityGardensPage = () => {
       </section>
 
       {/* Benefits grid */}
-      <section className="w-full bg-background py-20 px-4">
+      <section className="w-full bg-background py-10 md:py-20 px-4">
         <div className="mx-auto max-w-[1100px]">
           <p className="text-[20px] leading-relaxed text-foreground mb-12">
             Browse all the beautiful and diverse community and collective gardens and allotments across the area. Check out more details on our Resilience Web, such as location, meeting days, cost, accessibility and how to join.
