@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { SEO } from "@/components/SEO";
 
 type Item = Tables<"surplus_projects">;
 
