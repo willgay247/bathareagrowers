@@ -12,8 +12,12 @@ const IntroSection = () => {
           <img
             src="https://bathareagrowers.org/wp-content/uploads/IMG_3572-1024x683.jpeg"
             alt="Community growing project"
+            width={1024}
+            height={683}
+            sizes="(min-width: 768px) 50vw, 100vw"
             className="w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
