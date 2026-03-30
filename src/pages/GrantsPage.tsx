@@ -17,7 +17,7 @@ const CardList = ({ items }: { items: { name: string; description: string }[] })
   <div className="flex flex-col gap-4">
     {items.map((item) => (
       <div key={item.name} className="border-b border-foreground/10 pb-4">
-        <h3 className="text-[18px] font-bold text-foreground">{item.name}</h3>
+        <h3 className="text-[18px] font-bold">{item.name}</h3>
         <p className="mt-1 text-[15px] leading-relaxed text-foreground">{item.description}</p>
       </div>
     ))}
@@ -38,10 +38,10 @@ const GrantsPage = () => (
 
     <section className="w-full bg-background py-[60px] px-4">
       <div className="mx-auto max-w-[900px]">
-        <h2 className="text-[32px] font-bold text-foreground mb-8">Grants</h2>
+        <h2 className="text-[32px] font-bold mb-8">Grants</h2>
         <CardList items={GRANTS} />
 
-        <h2 className="text-[32px] font-bold text-foreground mt-16 mb-8">National Organisations</h2>
+        <h2 className="text-[32px] font-bold mt-16 mb-8">National Organisations</h2>
         <CardList items={ORGS} />
       </div>
     </section>
