@@ -12,8 +12,8 @@ const DAYS = [
 
 const CalendarPage = () => (
   <main>
-    <section className="flex h-[60vh] w-full items-center justify-center bg-background px-4">
-      <h1 className="text-center text-[40px] font-bold text-foreground md:text-[48px]">Calendar</h1>
+    <section className="flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-background px-4">
+      <h1 className="text-center text-[28px] font-bold text-foreground md:text-[48px]">Calendar</h1>
     </section>
 
     <section className="w-full bg-background py-10 px-4">
