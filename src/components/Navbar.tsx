@@ -15,11 +15,6 @@ const NAV_LINKS = [
   { label: "Contact", path: "/contact" },
 ];
 
-const SOCIAL_LINKS = [
-  { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61559512830019", label: "Facebook" },
-  { icon: Instagram, href: "https://www.instagram.com/bath_area_growers/", label: "Instagram" },
-  { icon: Mail, href: "mailto:Info@bathareagrowers.org", label: "Email" },
-];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
