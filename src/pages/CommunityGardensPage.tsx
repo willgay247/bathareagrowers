@@ -69,7 +69,7 @@ const CommunityGardensPage = () => {
       <SEO title="Community Gardens" description="Discover community gardens and allotments across Bath and the surrounding area. Find a plot, get involved, and grow with your neighbours." />
       {/* Hero */}
       <section
-        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        className="relative flex h-[40vh] md:h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/cropped-IMG_3545-1-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
