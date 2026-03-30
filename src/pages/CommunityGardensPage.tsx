@@ -66,6 +66,7 @@ const CommunityGardensPage = () => {
 
   return (
     <main>
+      <SEO title="Community Gardens & Allotments" description="Discover community gardens and allotments across Bath and the surrounding area. Join a local growing project, meet neighbours and grow your own food." />
       {/* Hero */}
       <section
         className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"

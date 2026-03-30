@@ -17,6 +17,7 @@ const SurplusProjectsPage = () => {
 
   return (
     <main>
+      <SEO title="Surplus Projects" description="Community surplus food projects in Bath collecting and distributing fruit, vegetables and produce from allotments, farms and gardens to those in need." />
       <section
         className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3557-e1713291149232-200x200.jpeg')" }}
