@@ -25,6 +25,8 @@ import GrowersNetworkPage from "./pages/GrowersNetworkPage";
 import CalendarPage from "./pages/CalendarPage";
 import LocationDetailPage from "./pages/LocationDetailPage";
 import AdminLoginPage from "./pages/AdminLoginPage";
+import AdminLayout from "./components/AdminLayout";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
