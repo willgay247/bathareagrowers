@@ -22,13 +22,13 @@ const CARDS = [
   {
     title: "Surplus Projects",
     link: "/surplus-projects/",
-    image: null,
+    image: "https://bathareagrowers.org/wp-content/uploads/IMG_3634-e1715506185777.jpeg",
     text: "Collecting and delivering surplus fruit and veg from allotments, farm and gardens, and getting it to people who may most benefit.",
   },
   {
     title: "Wildlife Projects",
     link: "/wildlife-gardening-2/",
-    image: null,
+    image: "https://bathareagrowers.org/wp-content/uploads/IMG_3690.jpeg",
     text: "These projects have a particular emphasis on growing for biodiversity and nature regeneration in and around the city.",
   },
 ];
