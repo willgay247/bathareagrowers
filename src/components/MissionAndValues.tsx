@@ -19,7 +19,12 @@ const MissionAndValues = () => {
             <img
               src="https://bathareagrowers.org/wp-content/uploads/IMG_3570-1024x683.jpeg"
               alt="Community growing project"
+              width={1024}
+              height={683}
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
           <div className="flex flex-col justify-center px-8 py-12 md:p-[60px]">

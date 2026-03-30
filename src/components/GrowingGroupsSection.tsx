@@ -47,8 +47,12 @@ const GrowingGroupsSection = () => {
                 <img
                   src={card.image}
                   alt={card.title}
+                  width={665}
+                  height={415}
+                  sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
                   className="w-full h-[200px] md:h-[160px] object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="w-full h-[160px] bg-background" />

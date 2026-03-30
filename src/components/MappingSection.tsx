@@ -21,8 +21,12 @@ const MappingSection = () => {
           <img
             src="https://bathareagrowers.org/wp-content/uploads/IMG_3561-1024x691.jpeg"
             alt="Local community growing"
+            width={1024}
+            height={691}
+            sizes="(min-width: 768px) 50vw, 100vw"
             className="w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

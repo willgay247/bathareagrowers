@@ -4,6 +4,9 @@ const Hero = () => {
       <img
         src="https://bathareagrowers.org/wp-content/uploads/IMG_3572-1024x683.jpeg"
         alt="Fresh vegetables and produce from Bath area community gardens"
+        width={1024}
+        height={683}
+        sizes="100vw"
         className="absolute inset-0 w-full h-full object-cover"
         fetchPriority="high"
         loading="eager"
