@@ -79,6 +79,7 @@ const App = () => (
 
             {/* Admin login (public, no Layout) */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
 
             {/* Admin routes (guarded, with AdminLayout) */}
             <Route path="/admin" element={
