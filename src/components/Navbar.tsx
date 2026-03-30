@@ -4,8 +4,8 @@ import { Facebook, Instagram, Mail, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Home", path: "/" },
-  { label: "Community gardens", path: "/community-gardens" },
-  { label: "Supported gardening", path: "/supported-gardening" },
+  { label: "Community Gardens", path: "/community-gardens" },
+  { label: "Supported Gardening", path: "/supported-gardening" },
   { label: "Farms", path: "/farms" },
   { label: "Wildlife Gardening", path: "/wildlife-gardening" },
   { label: "Surplus projects", path: "/surplus-projects" },
