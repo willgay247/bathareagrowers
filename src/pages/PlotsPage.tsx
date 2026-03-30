@@ -21,9 +21,9 @@ const PlotsPage = () => (
       <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">Plots and Land Available</h1>
     </section>
 
-    <section className="w-full bg-background py-[60px] px-4">
+    <section className="w-full bg-background py-10 md:py-[60px] px-4">
       <div className="mx-auto max-w-[1100px]">
-        <h2 className="text-[32px] font-bold text-foreground mb-10">Available community spaces</h2>
+        <h2 className="text-[24px] md:text-[32px] font-bold text-foreground mb-8 md:mb-10">Available community spaces</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {SPACES.map((s) => (
             <div key={s.name}>
