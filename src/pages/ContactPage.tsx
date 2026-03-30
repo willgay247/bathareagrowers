@@ -12,14 +12,22 @@ const ContactPage = () => {
     setStatus("sending");
     setErrorMsg("");
 
-    const { error } = await supabase.from("contact_submissions").insert({
-      name: form.name.trim(),
-      email: form.email.trim(),
-      subject: form.subject.trim() || null,
-      message: form.message.trim() || null,
-    });
+    try {
+      const response = await supabase.functions.invoke("submit-contact", {
+        body: {
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: form.subject.trim() || null,
+          message: form.message.trim() || null,
+        },
+      });
 
-    if (error) {
+      if (response.error || response.data?.error) {
+        setErrorMsg(response.data?.error || "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+    } catch {
       setErrorMsg("Something went wrong. Please try again.");
       setStatus("error");
       return;
