@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
+import AdminAuthGuard from "@/components/AdminAuthGuard";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PlaceholderPage from "./pages/PlaceholderPage";
@@ -23,6 +24,7 @@ import PlotsPage from "./pages/PlotsPage";
 import GrowersNetworkPage from "./pages/GrowersNetworkPage";
 import CalendarPage from "./pages/CalendarPage";
 import LocationDetailPage from "./pages/LocationDetailPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Public routes with Layout */}
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
             <Route path="/community-gardens" element={<CommunityGardensPage />} />
@@ -56,8 +59,19 @@ const App = () => (
             <Route path="/about/growers-network-convention" element={<PlaceholderPage title="Growers Network Convention" subtitle="Bath Area Growers holds an annual convention bringing together all network members. Details of upcoming conventions will be posted here." />} />
             <Route path="/blog" element={<PlaceholderPage title="Blog" subtitle="News and updates from Bath Area Growers will appear here." />} />
             <Route path="/wildlife-gardening-old" element={<Navigate to="/wildlife-gardening" replace />} />
-            <Route path="*" element={<NotFound />} />
           </Route>
+
+          {/* Admin login (public, no Layout) */}
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+
+          {/* Admin routes (guarded, no Layout) */}
+          <Route path="/admin/*" element={
+            <AdminAuthGuard>
+              <PlaceholderPage title="Admin Dashboard" subtitle="Admin panel coming soon." />
+            </AdminAuthGuard>
+          } />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
