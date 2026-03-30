@@ -28,6 +28,7 @@ import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminLayout from "./components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminEventsPage from "./pages/AdminEventsPage";
+import AdminCommunityGardensPage from "./pages/AdminCommunityGardensPage";
 
 const queryClient = new QueryClient();
 
