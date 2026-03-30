@@ -41,7 +41,6 @@ import AdminContactsPage from "./pages/AdminContactsPage";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
