@@ -90,6 +90,7 @@ export type Database = {
         Row: {
           course_name: string | null
           created_at: string | null
+          description: string | null
           display_order: number | null
           hidden: boolean | null
           id: string
@@ -101,6 +102,7 @@ export type Database = {
         Insert: {
           course_name?: string | null
           created_at?: string | null
+          description?: string | null
           display_order?: number | null
           hidden?: boolean | null
           id?: string
@@ -112,6 +114,7 @@ export type Database = {
         Update: {
           course_name?: string | null
           created_at?: string | null
+          description?: string | null
           display_order?: number | null
           hidden?: boolean | null
           id?: string

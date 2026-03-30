@@ -12,6 +12,7 @@ const FIELDS = [
   { key: "org_name", label: "Organisation Name", type: "text" as const, required: true },
   { key: "logo", label: "Logo", type: "file" as const },
   { key: "course_name", label: "Course Name", type: "text" as const },
+  { key: "description", label: "Description", type: "text" as const },
   { key: "location", label: "Location", type: "text" as const },
   { key: "link", label: "Link", type: "text" as const, placeholder: "https://..." },
   { key: "display_order", label: "Display Order", type: "number" as const },

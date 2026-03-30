@@ -51,6 +51,7 @@ const CoursesPage = () => {
                 <div className="md:w-3/4 flex flex-col justify-center">
                   <h3 className="text-[14px] font-bold uppercase tracking-wide text-accent">{c.org_name}</h3>
                   {c.course_name && <h4 className="mt-1 text-[22px] font-bold">{c.course_name}</h4>}
+                  {(c as any).description && <p className="mt-2 text-[15px] text-foreground/80">{(c as any).description}</p>}
                   {c.location && (
                     <span className="mt-3 inline-block self-start rounded-full bg-background px-3 py-1 text-[13px] text-foreground">
                       {c.location}
