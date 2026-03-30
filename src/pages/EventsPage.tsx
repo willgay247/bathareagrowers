@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { SEO } from "@/components/SEO";
 
 type Event = Tables<"events">;
 
@@ -23,6 +24,7 @@ const EventsPage = () => {
 
   return (
     <main>
+      <SEO title="Growing Events in Bath" description="Find community growing events, workshops, open days and volunteering sessions across Bath. Connect with local growers and get involved today." />
       <section
         className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3636-e1717271139891.jpeg')" }}

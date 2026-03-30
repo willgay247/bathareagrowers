@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { SEO } from "@/components/SEO";
 
 type Resource = Tables<"resources">;
 
@@ -19,6 +20,7 @@ const ResourcesPage = () => {
 
   return (
     <main>
+      <SEO title="Gardening Resources" description="Tools to borrow, plots of land available, grants and national organisations supporting growers in Bath. Everything you need to start or grow your project." />
       <section
         className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3690.jpeg')" }}
