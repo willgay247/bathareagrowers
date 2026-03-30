@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { SEO } from "@/components/SEO";
+import { imageUrl } from "@/lib/imageUrl";
 
 type Event = Tables<"events">;
 
