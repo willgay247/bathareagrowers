@@ -90,7 +90,7 @@ const App = () => (
             <Route path="surplus-projects" element={<AdminSurplusProjectsPage />} />
             <Route path="courses" element={<AdminCoursesPage />} />
             <Route path="resources" element={<AdminResourcesPage />} />
-            <Route path="contacts" element={<PlaceholderPage title="Contacts CRM" subtitle="Manage contact submissions here." />} />
+            <Route path="contacts" element={<AdminContactsPage />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
