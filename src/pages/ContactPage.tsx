@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Facebook, Instagram, Mail } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { imageUrl } from "@/lib/imageUrl";
 import { SEO } from "@/components/SEO";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
