@@ -73,7 +73,7 @@ const CommunityGardensPage = () => {
         style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/cropped-IMG_3545-1-200x200.jpeg')" }}
       >
         <div className="absolute inset-0 bg-black/45" />
-        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
+        <h1 className="relative z-10 text-center text-[28px] font-bold text-foreground-alt px-4 md:text-[48px]">
           Community Gardens and Allotments
         </h1>
       </section>
