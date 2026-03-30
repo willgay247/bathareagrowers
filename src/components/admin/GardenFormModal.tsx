@@ -13,9 +13,10 @@ interface Props {
   garden: Garden | null;
   onClose: () => void;
   onSaved: () => void;
+  createdBy?: string | null;
 }
 
-const GardenFormModal = ({ garden, onClose, onSaved }: Props) => {
+const GardenFormModal = ({ garden, onClose, onSaved, createdBy }: Props) => {
   const [name, setName] = useState(garden?.name ?? "");
   const [region, setRegion] = useState<string>(garden?.region ?? "west");
   const [bio, setBio] = useState(garden?.bio ?? "");
@@ -52,7 +53,7 @@ const GardenFormModal = ({ garden, onClose, onSaved }: Props) => {
     setSaving(true);
     setError("");
 
-    const payload = {
+    const payload: Record<string, any> = {
       name,
       region,
       bio: bio || null,
@@ -68,7 +69,8 @@ const GardenFormModal = ({ garden, onClose, onSaved }: Props) => {
         .eq("id", garden.id);
       if (err) { setError(err.message); setSaving(false); return; }
     } else {
-      const { error: err } = await supabase.from("community_gardens").insert(payload);
+      if (createdBy) payload.created_by = createdBy;
+      const { error: err } = await supabase.from("community_gardens").insert(payload as any);
       if (err) { setError(err.message); setSaving(false); return; }
     }
     setSaving(false);

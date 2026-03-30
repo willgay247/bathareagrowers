@@ -24,9 +24,10 @@ interface Props {
   record: Record<string, any> | null;
   onClose: () => void;
   onSaved: () => void;
+  createdBy?: string | null;
 }
 
-const SimpleFormModal = ({ title, table, storagePath, imageField = "image_url", fields, record, onClose, onSaved }: Props) => {
+const SimpleFormModal = ({ title, table, storagePath, imageField = "image_url", fields, record, onClose, onSaved, createdBy }: Props) => {
   const initialValues: Record<string, any> = {};
   fields.forEach((f) => {
     if (f.type === "file") {
@@ -84,6 +85,8 @@ const SimpleFormModal = ({ title, table, storagePath, imageField = "image_url", 
       const { error: err } = await supabase.from(table as any).update(payload).eq("id", record.id);
       if (err) { setError(err.message); setSaving(false); return; }
     } else {
+      // Set created_by for new records
+      if (createdBy) payload.created_by = createdBy;
       const { error: err } = await supabase.from(table as any).insert(payload);
       if (err) { setError(err.message); setSaving(false); return; }
     }

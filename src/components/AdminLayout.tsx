@@ -1,26 +1,28 @@
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { useCurrentUserRole, SECTION_NAV_MAP } from "@/hooks/useCurrentUserRole";
 
-const navItems = [
-  { emoji: "🏠", label: "Dashboard", to: "/admin" },
-  { emoji: "📅", label: "Events", to: "/admin/events" },
-  { emoji: "🌿", label: "Community Gardens", to: "/admin/community-gardens" },
-  { emoji: "🌱", label: "Supported Gardening", to: "/admin/supported-gardening" },
-  { emoji: "🦋", label: "Wildlife Gardening", to: "/admin/wildlife-gardening" },
-  { emoji: "🚜", label: "Farms", to: "/admin/farms" },
-  { emoji: "♻️", label: "Surplus Projects", to: "/admin/surplus-projects" },
-  { emoji: "📚", label: "Courses", to: "/admin/courses" },
-  { emoji: "📄", label: "Resources", to: "/admin/resources" },
-  "divider",
-  { emoji: "📬", label: "Contacts (CRM)", to: "/admin/contacts" },
-] as const;
+const allNavItems = [
+  { emoji: "🏠", label: "Dashboard", to: "/admin", section: null },
+  { emoji: "📅", label: "Events", to: "/admin/events", section: "events" },
+  { emoji: "🌿", label: "Community Gardens", to: "/admin/community-gardens", section: "community_gardens" },
+  { emoji: "🌱", label: "Supported Gardening", to: "/admin/supported-gardening", section: "supported_gardening" },
+  { emoji: "🦋", label: "Wildlife Gardening", to: "/admin/wildlife-gardening", section: "wildlife_gardening" },
+  { emoji: "🚜", label: "Farms", to: "/admin/farms", section: "farms" },
+  { emoji: "♻️", label: "Surplus Projects", to: "/admin/surplus-projects", section: "surplus_projects" },
+  { emoji: "📚", label: "Courses", to: "/admin/courses", section: "courses" },
+  { emoji: "📄", label: "Resources", to: "/admin/resources", section: "resources" },
+  "divider" as const,
+  { emoji: "📬", label: "Contacts (CRM)", to: "/admin/contacts", section: "contacts" },
+];
 
-type NavItem = { emoji: string; label: string; to: string };
+type NavItem = { emoji: string; label: string; to: string; section: string | null };
 
 const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAdminOrAbove, canAccessSection, loading } = useCurrentUserRole();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -31,6 +33,20 @@ const AdminLayout = () => {
     path === "/admin"
       ? location.pathname === "/admin"
       : location.pathname.startsWith(path);
+
+  // Filter nav items based on permissions
+  const visibleNavItems = allNavItems.filter((item) => {
+    if (item === "divider") return true;
+    const nav = item as NavItem;
+    if (nav.section === null) return true; // Dashboard always visible
+    return canAccessSection(nav.section);
+  });
+
+  // Remove trailing divider if contacts section is hidden
+  const cleanedNavItems = visibleNavItems.filter((item, i, arr) => {
+    if (item === "divider" && (i === arr.length - 1 || arr[i + 1] === "divider")) return false;
+    return true;
+  });
 
   return (
     <div className="admin-layout flex min-h-screen">
@@ -53,7 +69,7 @@ const AdminLayout = () => {
         </div>
 
         <nav className="flex-1 flex flex-col overflow-y-auto">
-          {navItems.map((item, i) => {
+          {cleanedNavItems.map((item, i) => {
             if (item === "divider") {
               return (
                 <div
@@ -92,6 +108,20 @@ const AdminLayout = () => {
         </nav>
 
         <div className="mt-auto border-t border-white/20">
+          {/* Settings — only for admin/super_admin */}
+          {isAdminOrAbove && (
+            <Link
+              to="/admin/settings"
+              className="flex items-center gap-2 px-4 py-3 text-sm text-white transition-colors hover:bg-white/10"
+              style={{
+                fontFamily: "'Readex Pro', sans-serif",
+                backgroundColor: isActive("/admin/settings") ? "#702757" : undefined,
+              }}
+            >
+              <span>⚙️</span>
+              <span>Settings</span>
+            </Link>
+          )}
           <a
             href="/"
             target="_blank"

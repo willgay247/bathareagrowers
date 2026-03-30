@@ -17,6 +17,7 @@ interface Props {
   event: Event | null;
   onClose: () => void;
   onSaved: () => void;
+  createdBy?: string | null;
 }
 
 const slugify = (text: string) =>
@@ -25,7 +26,7 @@ const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-const EventFormModal = ({ event, onClose, onSaved }: Props) => {
+const EventFormModal = ({ event, onClose, onSaved, createdBy }: Props) => {
   const [title, setTitle] = useState(event?.title ?? "");
   const [slug, setSlug] = useState(event?.slug ?? "");
   const [dateDisplay, setDateDisplay] = useState(event?.date_display ?? "");
@@ -44,7 +45,6 @@ const EventFormModal = ({ event, onClose, onSaved }: Props) => {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  // Auto-generate slug from title for new events
   useEffect(() => {
     if (!event) {
       setSlug(slugify(title));
@@ -84,7 +84,7 @@ const EventFormModal = ({ event, onClose, onSaved }: Props) => {
       .map((t) => t.trim())
       .filter(Boolean);
 
-    const payload = {
+    const payload: Record<string, any> = {
       title,
       slug,
       date_display: dateDisplay || null,
@@ -110,7 +110,9 @@ const EventFormModal = ({ event, onClose, onSaved }: Props) => {
         return;
       }
     } else {
-      const { error: err } = await supabase.from("events").insert(payload);
+      // Set created_by for new records
+      if (createdBy) payload.created_by = createdBy;
+      const { error: err } = await supabase.from("events").insert(payload as any);
       if (err) {
         setError(err.message);
         setSaving(false);

@@ -3,16 +3,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
+  AlertDialog, AlertDialogAction, AlertDialogCancel,
+  AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+  AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import EventFormModal from "@/components/admin/EventFormModal";
+import { useCurrentUserRole } from "@/hooks/useCurrentUserRole";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Event = Tables<"events">;
@@ -23,6 +19,7 @@ const AdminEventsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const { canAddInSection, canEditRecord, canDeleteInSection, canToggleHidden, userId, isAdminOrAbove } = useCurrentUserRole();
 
   const fetchEvents = async () => {
     const { data } = await supabase
@@ -33,9 +30,7 @@ const AdminEventsPage = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  useEffect(() => { fetchEvents(); }, []);
 
   const toggleHidden = async (id: string, hidden: boolean) => {
     await supabase.from("events").update({ hidden }).eq("id", id);
@@ -47,22 +42,6 @@ const AdminEventsPage = () => {
     await supabase.from("events").delete().eq("id", deleteId);
     setEvents((prev) => prev.filter((e) => e.id !== deleteId));
     setDeleteId(null);
-  };
-
-  const openEdit = (event: Event) => {
-    setEditingEvent(event);
-    setModalOpen(true);
-  };
-
-  const openNew = () => {
-    setEditingEvent(null);
-    setModalOpen(true);
-  };
-
-  const onSaved = () => {
-    setModalOpen(false);
-    setEditingEvent(null);
-    fetchEvents();
   };
 
   if (loading) {
@@ -79,13 +58,15 @@ const AdminEventsPage = () => {
         <h1 className="text-[32px] font-bold" style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}>
           Events
         </h1>
-        <Button
-          onClick={openNew}
-          className="bg-accent text-white hover:bg-accent/90"
-          style={{ fontFamily: "'Readex Pro', sans-serif" }}
-        >
-          + Add New Event
-        </Button>
+        {canAddInSection("events") && (
+          <Button
+            onClick={() => { setEditingEvent(null); setModalOpen(true); }}
+            className="bg-accent text-white hover:bg-accent/90"
+            style={{ fontFamily: "'Readex Pro', sans-serif" }}
+          >
+            + Add New Event
+          </Button>
+        )}
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border">
@@ -96,40 +77,49 @@ const AdminEventsPage = () => {
               <th className="px-4 py-3 text-left font-semibold">Date</th>
               <th className="px-4 py-3 text-left font-semibold">Location</th>
               <th className="px-4 py-3 text-left font-semibold">Tags</th>
-              <th className="px-4 py-3 text-center font-semibold">Hidden</th>
+              {canToggleHidden("events") && <th className="px-4 py-3 text-center font-semibold">Hidden</th>}
               <th className="px-4 py-3 text-right font-semibold">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {events.map((e) => (
-              <tr key={e.id} className="border-b hover:bg-muted/30">
-                <td className="px-4 py-3 font-medium">{e.title}</td>
-                <td className="px-4 py-3 text-muted-foreground">{e.date_display || "—"}</td>
-                <td className="px-4 py-3 text-muted-foreground">{e.location || "—"}</td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-wrap gap-1">
-                    {(e.tags ?? []).map((tag) => (
-                      <span key={tag} className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <Switch
-                    checked={e.hidden ?? false}
-                    onCheckedChange={(val) => toggleHidden(e.id, val)}
-                  />
-                </td>
-                <td className="px-4 py-3 text-right space-x-2">
-                  <button onClick={() => openEdit(e)} className="text-accent hover:underline text-sm">Edit</button>
-                  <button onClick={() => setDeleteId(e.id)} className="text-destructive hover:underline text-sm">Delete</button>
-                </td>
-              </tr>
-            ))}
+            {events.map((e) => {
+              const canEdit = canEditRecord("events", (e as any).created_by);
+              return (
+                <tr key={e.id} className="border-b hover:bg-muted/30">
+                  <td className="px-4 py-3 font-medium">{e.title}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{e.date_display || "—"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{e.location || "—"}</td>
+                  <td className="px-4 py-3">
+                    <div className="flex flex-wrap gap-1">
+                      {(e.tags ?? []).map((tag) => (
+                        <span key={tag} className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  {canToggleHidden("events") && (
+                    <td className="px-4 py-3 text-center">
+                      <Switch
+                        checked={e.hidden ?? false}
+                        onCheckedChange={(val) => toggleHidden(e.id, val)}
+                      />
+                    </td>
+                  )}
+                  <td className="px-4 py-3 text-right space-x-2">
+                    {canEdit && (
+                      <button onClick={() => { setEditingEvent(e); setModalOpen(true); }} className="text-accent hover:underline text-sm">Edit</button>
+                    )}
+                    {canDeleteInSection("events") && (
+                      <button onClick={() => setDeleteId(e.id)} className="text-destructive hover:underline text-sm">Delete</button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
             {events.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No events yet.</td>
+                <td colSpan={canToggleHidden("events") ? 6 : 5} className="px-4 py-8 text-center text-muted-foreground">No events yet.</td>
               </tr>
             )}
           </tbody>
@@ -140,7 +130,8 @@ const AdminEventsPage = () => {
         <EventFormModal
           event={editingEvent}
           onClose={() => { setModalOpen(false); setEditingEvent(null); }}
-          onSaved={onSaved}
+          onSaved={() => { setModalOpen(false); setEditingEvent(null); fetchEvents(); }}
+          createdBy={userId}
         />
       )}
 

@@ -9,6 +9,7 @@ import {
   AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import GardenFormModal from "@/components/admin/GardenFormModal";
+import { useCurrentUserRole } from "@/hooks/useCurrentUserRole";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Garden = Tables<"community_gardens">;
@@ -22,6 +23,7 @@ const AdminCommunityGardensPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<Garden | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const { canAddInSection, canEditRecord, canDeleteInSection, canToggleHidden, userId } = useCurrentUserRole();
 
   const fetchGardens = async () => {
     const { data } = await supabase
@@ -53,12 +55,6 @@ const AdminCommunityGardensPage = () => {
     setDeleteId(null);
   };
 
-  const onSaved = () => {
-    setModalOpen(false);
-    setEditing(null);
-    fetchGardens();
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -73,16 +69,17 @@ const AdminCommunityGardensPage = () => {
         <h1 className="text-[32px] font-bold" style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}>
           Community Gardens
         </h1>
-        <Button
-          onClick={() => { setEditing(null); setModalOpen(true); }}
-          className="bg-accent text-white hover:bg-accent/90"
-          style={{ fontFamily: "'Readex Pro', sans-serif" }}
-        >
-          + Add New Garden
-        </Button>
+        {canAddInSection("community_gardens") && (
+          <Button
+            onClick={() => { setEditing(null); setModalOpen(true); }}
+            className="bg-accent text-white hover:bg-accent/90"
+            style={{ fontFamily: "'Readex Pro', sans-serif" }}
+          >
+            + Add New Garden
+          </Button>
+        )}
       </div>
 
-      {/* Region tabs */}
       <div className="flex gap-1 mb-6 border-b border-border">
         {REGIONS.map((r) => (
           <button
@@ -100,46 +97,56 @@ const AdminCommunityGardensPage = () => {
         ))}
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full text-sm" style={{ fontFamily: "'Readex Pro', sans-serif" }}>
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="px-4 py-3 text-left font-semibold">Name</th>
               <th className="px-4 py-3 text-left font-semibold">Image</th>
-              <th className="px-4 py-3 text-center font-semibold">Hidden</th>
-              <th className="px-4 py-3 text-center font-semibold">Order</th>
+              {canToggleHidden("community_gardens") && <th className="px-4 py-3 text-center font-semibold">Hidden</th>}
+              {canToggleHidden("community_gardens") && <th className="px-4 py-3 text-center font-semibold">Order</th>}
               <th className="px-4 py-3 text-right font-semibold">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map((g) => (
-              <tr key={g.id} className="border-b hover:bg-muted/30">
-                <td className="px-4 py-3 font-medium">{g.name}</td>
-                <td className="px-4 py-3">
-                  {g.image_url ? (
-                    <img src={g.image_url} alt={g.name} className="h-10 w-10 rounded object-cover" />
-                  ) : (
-                    <span className="text-muted-foreground">—</span>
+            {filtered.map((g) => {
+              const canEdit = canEditRecord("community_gardens", (g as any).created_by);
+              return (
+                <tr key={g.id} className="border-b hover:bg-muted/30">
+                  <td className="px-4 py-3 font-medium">{g.name}</td>
+                  <td className="px-4 py-3">
+                    {g.image_url ? (
+                      <img src={g.image_url} alt={g.name} className="h-10 w-10 rounded object-cover" />
+                    ) : (
+                      <span className="text-muted-foreground">—</span>
+                    )}
+                  </td>
+                  {canToggleHidden("community_gardens") && (
+                    <td className="px-4 py-3 text-center">
+                      <Switch checked={g.hidden ?? false} onCheckedChange={(val) => toggleHidden(g.id, val)} />
+                    </td>
                   )}
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <Switch checked={g.hidden ?? false} onCheckedChange={(val) => toggleHidden(g.id, val)} />
-                </td>
-                <td className="px-4 py-3 text-center">
-                  <Input
-                    type="number"
-                    value={g.display_order ?? 0}
-                    onChange={(e) => updateOrder(g.id, Number(e.target.value))}
-                    className="w-16 mx-auto text-center"
-                  />
-                </td>
-                <td className="px-4 py-3 text-right space-x-2">
-                  <button onClick={() => { setEditing(g); setModalOpen(true); }} className="text-accent hover:underline text-sm">Edit</button>
-                  <button onClick={() => setDeleteId(g.id)} className="text-destructive hover:underline text-sm">Delete</button>
-                </td>
-              </tr>
-            ))}
+                  {canToggleHidden("community_gardens") && (
+                    <td className="px-4 py-3 text-center">
+                      <Input
+                        type="number"
+                        value={g.display_order ?? 0}
+                        onChange={(e) => updateOrder(g.id, Number(e.target.value))}
+                        className="w-16 mx-auto text-center"
+                      />
+                    </td>
+                  )}
+                  <td className="px-4 py-3 text-right space-x-2">
+                    {canEdit && (
+                      <button onClick={() => { setEditing(g); setModalOpen(true); }} className="text-accent hover:underline text-sm">Edit</button>
+                    )}
+                    {canDeleteInSection("community_gardens") && (
+                      <button onClick={() => setDeleteId(g.id)} className="text-destructive hover:underline text-sm">Delete</button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
             {filtered.length === 0 && (
               <tr><td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">No gardens in this region.</td></tr>
             )}
@@ -151,7 +158,8 @@ const AdminCommunityGardensPage = () => {
         <GardenFormModal
           garden={editing}
           onClose={() => { setModalOpen(false); setEditing(null); }}
-          onSaved={onSaved}
+          onSaved={() => { setModalOpen(false); setEditing(null); fetchGardens(); }}
+          createdBy={userId}
         />
       )}
 

@@ -6,17 +6,36 @@ import type { Session } from "@supabase/supabase-js";
 
 const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
+  const [hasRole, setHasRole] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const checkAccess = async (session: Session | null) => {
+      if (!session?.user) {
+        setHasRole(false);
+        setLoading(false);
+        return;
+      }
+
+      // Check if user has any role in user_roles
+      const { data } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", session.user.id)
+        .single();
+
+      setHasRole(!!data);
+      setLoading(false);
+    };
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      setLoading(false);
+      checkAccess(session);
     });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      setLoading(false);
+      checkAccess(session);
     });
 
     return () => subscription.unsubscribe();
@@ -30,7 +49,7 @@ const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!session) {
+  if (!session || !hasRole) {
     return <Navigate to="/admin/login" replace />;
   }
 
