@@ -20,6 +20,7 @@ import GrantsPage from "./pages/GrantsPage";
 import PlotsPage from "./pages/PlotsPage";
 import GrowersNetworkPage from "./pages/GrowersNetworkPage";
 import CalendarPage from "./pages/CalendarPage";
+import EventDetailPage from "./pages/EventDetailPage";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -45,7 +46,7 @@ const App = () => (
             <Route path="/plots-and-land" element={<PlotsPage />} />
             <Route path="/growers-network" element={<GrowersNetworkPage />} />
             <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/events/:slug" element={<PlaceholderPage title="Event Detail" />} />
+            <Route path="/events/:slug" element={<EventDetailPage />} />
             <Route path="/locations/:slug" element={<PlaceholderPage title="Location Detail" />} />
             <Route path="*" element={<NotFound />} />
           </Route>
