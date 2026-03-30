@@ -1,45 +1,63 @@
-const FARMS = [
-  { name: "Undercliff Urban Farm", image: "https://bathareagrowers.org/wp-content/uploads/IMG_3659.jpeg", description: "Nat's organic market garden is nestled next to the canal in Bathwick where he grows a range of veg and fruit for local sale, with a kiosk next to the canal." },
-  { name: "Middle Ground Growers", image: "https://bathareagrowers.org/wp-content/uploads/IMG_3658.webp", description: "Within a 16 acre regenerative farm on the edge of Weston, these young farmers have established a 2 acre market garden with a veg box scheme, volunteering, traineeships and courses open to the public." },
-  { name: "Avonleigh Orchards", image: "https://bathareagrowers.org/wp-content/uploads/IMG_3664.jpeg", description: "Jonathan has stewarded this organic farm in Bradford On Avon for many years, nurturing other local growers, woofers, and local people. There is a large orchard, vineyard and market garden." },
-  { name: "The Community Farm", image: "https://bathareagrowers.org/wp-content/uploads/IMG_3688.jpeg", description: "A not-for-profit, organic farm overlooking Chew Valley Lake, selling nourishing food and delivering across the local area. Growing community as well as food, the farm hosts wellbeing events and volunteer sessions." },
-  { name: "Cam Valley Growers", image: "https://bathareagrowers.org/wp-content/uploads/IMG_3571-e1713214446692-1024x498.jpeg", description: "Listing coming soon." },
-  { name: "Abundance by Design", image: "https://bathareagrowers.org/wp-content/uploads/IMG_3568-1024x683.jpeg", description: "Listing coming soon." },
-];
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-const FarmsPage = () => (
-  <main>
-    <section
-      className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3632-e1715201712644.jpeg')" }}
-    >
-      <div className="absolute inset-0 bg-black/45" />
-      <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
-        Farms and Market Gardens
-      </h1>
-    </section>
+type Farm = Tables<"farms">;
 
-    <section className="w-full bg-background py-[60px] px-4">
-      <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground">
-        Meet our network of market gardeners growing organic food for sale. You can volunteer on many of these farms, learning from experienced professional growers and helping their businesses to thrive.
-      </p>
-    </section>
+const FarmsPage = () => {
+  const [items, setItems] = useState<Farm[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    <section className="w-full bg-white py-20 px-4">
-      <div className="mx-auto max-w-[1100px] grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {FARMS.map((f) => (
-          <div key={f.name} className="flex flex-col">
-            <div className="aspect-[4/3] overflow-hidden rounded-t-md">
-              <img src={f.image} alt={f.name} className="h-full w-full object-cover" loading="lazy" />
-            </div>
-            <h3 className="mt-4 text-[22px] font-bold text-foreground">{f.name}</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-foreground">{f.description}</p>
-            <a href="#" className="mt-3 text-[15px] font-semibold text-accent hover:underline">More details..</a>
+  useEffect(() => {
+    supabase.from("farms").select("*").eq("hidden", false).order("display_order").then(({ data }) => {
+      setItems(data ?? []); setLoading(false);
+    });
+  }, []);
+
+  return (
+    <main>
+      <section
+        className="relative flex h-[60vh] w-full items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('https://bathareagrowers.org/wp-content/uploads/IMG_3632-e1715201712644.jpeg')" }}
+      >
+        <div className="absolute inset-0 bg-black/45" />
+        <h1 className="relative z-10 text-center text-[40px] font-bold text-foreground-alt px-4 md:text-[48px]">
+          Farms and Market Gardens
+        </h1>
+      </section>
+
+      <section className="w-full bg-background py-[60px] px-4">
+        <p className="mx-auto max-w-[800px] text-center text-[20px] leading-relaxed text-foreground">
+          Meet our network of market gardeners growing organic food for sale. You can volunteer on many of these farms, learning from experienced professional growers and helping their businesses to thrive.
+        </p>
+      </section>
+
+      <section className="w-full bg-white py-20 px-4">
+        {loading ? (
+          <div className="flex justify-center py-12"><div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" /></div>
+        ) : items.length === 0 ? (
+          <p className="text-center text-muted-foreground py-12">No farms available.</p>
+        ) : (
+          <div className="mx-auto max-w-[1100px] grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((f) => (
+              <div key={f.id} className="flex flex-col">
+                <div className="aspect-[4/3] overflow-hidden rounded-t-md">
+                  {f.image_url ? (
+                    <img src={f.image_url} alt={f.name} className="h-full w-full object-cover" loading="lazy" />
+                  ) : (
+                    <div className="h-full w-full bg-background flex items-center justify-center text-foreground/40 text-sm">No image</div>
+                  )}
+                </div>
+                <h3 className="mt-4 text-[22px] font-bold text-foreground">{f.name}</h3>
+                {f.description && <p className="mt-2 text-[15px] leading-relaxed text-foreground">{f.description}</p>}
+                {f.volunteering_link && <a href={f.volunteering_link} target="_blank" rel="noreferrer" className="mt-3 text-[15px] font-semibold text-accent hover:underline">More details..</a>}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </section>
-  </main>
-);
+        )}
+      </section>
+    </main>
+  );
+};
 
 export default FarmsPage;
