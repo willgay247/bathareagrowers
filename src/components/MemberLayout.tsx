@@ -25,31 +25,35 @@ const MemberLayout = () => {
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
       <Navbar />
-      <nav className="border-b border-border bg-background">
-        <div className="mx-auto flex max-w-container items-center gap-1 px-4 py-3 overflow-x-auto">
-          {subnavItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                `whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-accent text-foreground-alt"
-                    : "text-foreground hover:bg-muted"
-                }`
-              }
+      <nav className="border-b border-border bg-background" aria-label="Member dashboard">
+        <div className="relative mx-auto max-w-container px-4">
+          <div className="flex items-center gap-1 py-3 overflow-x-auto scrollbar-thin">
+            {subnavItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent ${
+                    isActive
+                      ? "bg-accent text-foreground-alt"
+                      : "text-foreground hover:bg-muted"
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="ml-auto whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-accent"
             >
-              {item.label}
-            </NavLink>
-          ))}
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="ml-auto whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
-          >
-            Sign out
-          </button>
+              Sign out
+            </button>
+          </div>
+          {/* Subtle right-edge fade hints scrollability on narrow screens */}
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-background to-transparent md:hidden" aria-hidden="true" />
         </div>
       </nav>
       <main className="mx-auto max-w-container px-4 py-8 min-h-[60vh]">

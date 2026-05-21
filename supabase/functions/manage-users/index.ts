@@ -160,6 +160,7 @@ Deno.serve(async (req) => {
 
     return json({ error: "Not found" }, 404);
   } catch (err) {
-    return json({ error: (err as Error).message }, 500);
+    console.error("manage-users error:", err);
+    return json({ error: "Request failed" }, 500);
   }
 });

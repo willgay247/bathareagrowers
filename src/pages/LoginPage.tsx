@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
@@ -11,6 +11,23 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [forgotMode, setForgotMode] = useState(false);
   const [resetSent, setResetSent] = useState(false);
+
+  // If already signed in, send the user to the right destination
+  useEffect(() => {
+    let cancelled = false;
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (cancelled || !data.session?.user) return;
+      const { data: roleRow } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", data.session.user.id)
+        .single();
+      if (cancelled) return;
+      const role = roleRow?.role;
+      navigate(role === "admin" || role === "super_admin" ? "/admin" : "/dashboard", { replace: true });
+    });
+    return () => { cancelled = true; };
+  }, [navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +93,7 @@ const LoginPage = () => {
         {resetSent ? (
           <div className="mt-8 text-center">
             <p className="text-sm text-foreground">
-              If an account exists for <strong>{email}</strong>, you'll receive a password reset email shortly.
+              If an account exists for <strong>{email}</strong>, you'll receive a password reset email shortly. If you don't see it after a few minutes, check that you typed your email correctly.
             </p>
             <button
               type="button"
@@ -88,23 +105,33 @@ const LoginPage = () => {
           </div>
         ) : (
           <>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="mt-8 w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-            {!forgotMode && (
+            <label htmlFor="login-email" className="mt-8 block">
+              <span className="sr-only">Email</span>
               <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                id="login-email"
+                type="email"
+                placeholder="Email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                className="mt-4 w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
               />
+            </label>
+            {!forgotMode && (
+              <label htmlFor="login-password" className="mt-4 block">
+                <span className="sr-only">Password</span>
+                <input
+                  id="login-password"
+                  type="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+              </label>
             )}
 
             <button

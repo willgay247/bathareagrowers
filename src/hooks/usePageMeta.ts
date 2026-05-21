@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
 
-export function usePageMeta(title: string, description: string) {
+interface PageMetaOptions {
+  image?: string;
+  url?: string;
+}
+
+export function usePageMeta(title: string, description: string, options: PageMetaOptions = {}) {
   useEffect(() => {
     document.title = title === 'Bath Area Growers' ? title : `${title} | Bath Area Growers`;
 
     const setMeta = (attr: string, key: string, content: string) => {
-      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement;
+      let el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
       if (!el) {
         el = document.createElement('meta');
         el.setAttribute(attr, key);
@@ -19,5 +24,13 @@ export function usePageMeta(title: string, description: string) {
     setMeta('property', 'og:description', description);
     setMeta('name', 'twitter:title', document.title);
     setMeta('name', 'twitter:description', description);
-  }, [title, description]);
+
+    if (options.image) {
+      setMeta('property', 'og:image', options.image);
+      setMeta('name', 'twitter:image', options.image);
+    }
+    if (options.url) {
+      setMeta('property', 'og:url', options.url);
+    }
+  }, [title, description, options.image, options.url]);
 }

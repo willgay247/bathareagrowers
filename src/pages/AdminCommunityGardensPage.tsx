@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -39,18 +40,30 @@ const AdminCommunityGardensPage = () => {
   const filtered = gardens.filter((g) => g.region === activeRegion);
 
   const toggleHidden = async (id: string, hidden: boolean) => {
-    await supabase.from("community_gardens").update({ hidden }).eq("id", id);
+    const { error } = await supabase.from("community_gardens").update({ hidden }).eq("id", id);
+    if (error) {
+      toast.error("Failed to update visibility");
+      return;
+    }
     setGardens((prev) => prev.map((g) => (g.id === id ? { ...g, hidden } : g)));
   };
 
   const updateOrder = async (id: string, order: number) => {
-    await supabase.from("community_gardens").update({ display_order: order }).eq("id", id);
+    const { error } = await supabase.from("community_gardens").update({ display_order: order }).eq("id", id);
+    if (error) {
+      toast.error("Failed to update order");
+      return;
+    }
     setGardens((prev) => prev.map((g) => (g.id === id ? { ...g, display_order: order } : g)));
   };
 
   const handleDelete = async () => {
     if (!deleteId) return;
-    await supabase.from("community_gardens").delete().eq("id", deleteId);
+    const { error } = await supabase.from("community_gardens").delete().eq("id", deleteId);
+    if (error) {
+      toast.error("Failed to delete garden");
+      return;
+    }
     setGardens((prev) => prev.filter((g) => g.id !== deleteId));
     setDeleteId(null);
   };

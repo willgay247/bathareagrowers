@@ -89,11 +89,12 @@ const SignupPage = () => {
           Once approved you can post your own events and manage your listing.
         </p>
 
-        <label className="mt-6 block">
+        <label htmlFor="signup-group-name" className="mt-6 block">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
             Group / organisation name
           </span>
           <input
+            id="signup-group-name"
             type="text"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
@@ -105,16 +106,17 @@ const SignupPage = () => {
           />
         </label>
 
-        <label className="mt-4 block">
+        <label htmlFor="signup-group-type" className="mt-4 block">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
             What kind of group?
           </span>
           <select
+            id="signup-group-type"
             value={groupType}
             onChange={(e) => setGroupType(e.target.value)}
             className="mt-1 w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
           >
-            <option value="">Not sure yet</option>
+            <option value="">Not sure yet (you can update this later)</option>
             {groupTypeOptions.map((o) => (
               <option key={o.value} value={o.value}>
                 {o.label}
@@ -123,11 +125,12 @@ const SignupPage = () => {
           </select>
         </label>
 
-        <label className="mt-4 block">
+        <label htmlFor="signup-bio" className="mt-4 block">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
             Tell us about your group <span className="text-muted-foreground font-normal normal-case">(optional)</span>
           </span>
           <textarea
+            id="signup-bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={3}
@@ -137,11 +140,12 @@ const SignupPage = () => {
           />
         </label>
 
-        <label className="mt-4 block">
+        <label htmlFor="signup-applicant-message" className="mt-4 block">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
             Why do you want an account? <span className="text-destructive">*</span>
           </span>
           <textarea
+            id="signup-applicant-message"
             value={applicantMessage}
             onChange={(e) => setApplicantMessage(e.target.value)}
             required
@@ -152,16 +156,18 @@ const SignupPage = () => {
             className="mt-1 w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-y"
           />
           <span className="mt-1 block text-xs text-muted-foreground">
-            This helps the admin decide whether to approve your account.
+            This helps the admin decide whether to approve your account. Approval usually takes 24–48 hours.
           </span>
         </label>
 
-        <label className="mt-4 block">
+        <label htmlFor="signup-email" className="mt-4 block">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
             Email
           </span>
           <input
+            id="signup-email"
             type="email"
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -169,12 +175,14 @@ const SignupPage = () => {
           />
         </label>
 
-        <label className="mt-4 block">
+        <label htmlFor="signup-password" className="mt-4 block">
           <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
             Password
           </span>
           <input
+            id="signup-password"
             type="password"
+            autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required

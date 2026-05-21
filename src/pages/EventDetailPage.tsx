@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { SEO } from "@/components/SEO";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Event = Tables<"events">;
@@ -26,7 +27,7 @@ const EventDetailPage = () => {
 
   if (loading) {
     return (
-      <main className="flex min-h-[60vh] items-center justify-center">
+      <main className="flex min-h-[60vh] items-center justify-center" role="status" aria-label="Loading event">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent" />
       </main>
     );
@@ -40,8 +41,16 @@ const EventDetailPage = () => {
     );
   }
 
+  const eventDescription = (event.description ?? "").slice(0, 160) || `Event by ${event.organiser ?? "Bath Area Growers"}`;
+
   return (
     <main>
+      <SEO
+        title={event.title}
+        description={eventDescription}
+        image={event.image_url ?? undefined}
+        url={`https://bathareagrowers.org/events/${event.slug}`}
+      />
       <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
           <h1 className="text-[28px] font-bold text-foreground-alt md:text-[48px]">{event.title}</h1>

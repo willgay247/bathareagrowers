@@ -168,6 +168,6 @@ Deno.serve(async (req) => {
     return json({ error: "Unknown kind" }, 400);
   } catch (err) {
     console.error("send-notification error:", err);
-    return json({ error: (err as Error).message }, 500);
+    return json({ error: "Failed to send notification" }, 500);
   }
 });

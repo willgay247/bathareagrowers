@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -33,13 +34,21 @@ const AdminEventsPage = () => {
   useEffect(() => { fetchEvents(); }, []);
 
   const toggleHidden = async (id: string, hidden: boolean) => {
-    await supabase.from("events").update({ hidden }).eq("id", id);
+    const { error } = await supabase.from("events").update({ hidden }).eq("id", id);
+    if (error) {
+      toast.error("Failed to update visibility");
+      return;
+    }
     setEvents((prev) => prev.map((e) => (e.id === id ? { ...e, hidden } : e)));
   };
 
   const handleDelete = async () => {
     if (!deleteId) return;
-    await supabase.from("events").delete().eq("id", deleteId);
+    const { error } = await supabase.from("events").delete().eq("id", deleteId);
+    if (error) {
+      toast.error("Failed to delete event");
+      return;
+    }
     setEvents((prev) => prev.filter((e) => e.id !== deleteId));
     setDeleteId(null);
   };
