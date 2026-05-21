@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Session } from "@supabase/supabase-js";
 
 type NavItem =
   | { label: string; path: string }
@@ -41,14 +43,47 @@ function isDropdown(item: NavItem): item is { label: string; children: { label: 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, newSession) => setSession(newSession)
+    );
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!session?.user) {
+      setIsAdmin(false);
+      return;
+    }
+    let cancelled = false;
+    supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", session.user.id)
+      .single()
+      .then(({ data }) => {
+        if (!cancelled) {
+          const r = data?.role;
+          setIsAdmin(r === "admin" || r === "super_admin");
+        }
+      });
+    return () => { cancelled = true; };
+  }, [session?.user?.id]);
+
+  const accountHref = !session ? "/login" : isAdmin ? "/admin" : "/dashboard";
+  const accountLabel = !session ? "Sign in" : isAdmin ? "Admin" : "Dashboard";
 
   const isChildActive = (children: { path: string }[]) =>
     children.some((c) => location.pathname === c.path);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background-alt backdrop-blur-[8px]">
-      <div className="mx-auto max-w-container px-4">
+      <div className="mx-auto max-w-container px-4 relative">
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center justify-center gap-x-6 py-2">
           {NAV_ITEMS.map((item) =>
@@ -89,6 +124,24 @@ const Navbar = () => {
             )
           )}
         </nav>
+
+        {/* Desktop auth links (absolute so center nav stays centered) */}
+        <div className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 items-center gap-3">
+          <Link
+            to={accountHref}
+            className="text-[14px] text-foreground no-underline transition-colors hover:text-accent"
+          >
+            {accountLabel}
+          </Link>
+          {!session && (
+            <Link
+              to="/signup"
+              className="rounded-md bg-accent px-3 py-1.5 text-[13px] font-semibold text-foreground-alt no-underline transition-opacity hover:opacity-90"
+            >
+              Sign up
+            </Link>
+          )}
+        </div>
 
         {/* Mobile hamburger */}
         <div className="flex md:hidden items-center justify-end py-2">
@@ -151,6 +204,24 @@ const Navbar = () => {
                 </Link>
               )
             )}
+            <div className="mt-2 border-t border-border pt-2 flex flex-col gap-1">
+              <Link
+                to={accountHref}
+                onClick={() => setMobileOpen(false)}
+                className="py-2 text-[15px] text-foreground no-underline hover:text-accent"
+              >
+                {accountLabel}
+              </Link>
+              {!session && (
+                <Link
+                  to="/signup"
+                  onClick={() => setMobileOpen(false)}
+                  className="py-2 text-[15px] text-foreground no-underline hover:text-accent"
+                >
+                  Sign up
+                </Link>
+              )}
+            </div>
           </div>
         </nav>
       )}

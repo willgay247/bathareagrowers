@@ -18,6 +18,7 @@ interface Props {
   onClose: () => void;
   onSaved: () => void;
   createdBy?: string | null;
+  defaultOrganiser?: string;
 }
 
 const slugify = (text: string) =>
@@ -26,7 +27,7 @@ const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-const EventFormModal = ({ event, onClose, onSaved, createdBy }: Props) => {
+const EventFormModal = ({ event, onClose, onSaved, createdBy, defaultOrganiser }: Props) => {
   const [title, setTitle] = useState(event?.title ?? "");
   const [slug, setSlug] = useState(event?.slug ?? "");
   const [dateDisplay, setDateDisplay] = useState(event?.date_display ?? "");
@@ -36,7 +37,7 @@ const EventFormModal = ({ event, onClose, onSaved, createdBy }: Props) => {
   const [timeDisplay, setTimeDisplay] = useState(event?.time_display ?? "");
   const [location, setLocation] = useState(event?.location ?? "");
   const [address, setAddress] = useState(event?.address ?? "");
-  const [organiser, setOrganiser] = useState(event?.organiser ?? "Bath Area Growers");
+  const [organiser, setOrganiser] = useState(event?.organiser ?? defaultOrganiser ?? "Bath Area Growers");
   const [tagsStr, setTagsStr] = useState((event?.tags ?? []).join(", "));
   const [description, setDescription] = useState(event?.description ?? "");
   const [bookingLink, setBookingLink] = useState(event?.booking_link ?? "");
@@ -92,7 +93,7 @@ const EventFormModal = ({ event, onClose, onSaved, createdBy }: Props) => {
       time_display: timeDisplay || null,
       location: location || null,
       address: address || null,
-      organiser: organiser || "Bath Area Growers",
+      organiser: organiser || defaultOrganiser || "Bath Area Growers",
       tags,
       image_url: imageUrl || null,
       description: description || null,
