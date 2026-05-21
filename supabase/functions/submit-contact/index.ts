@@ -105,6 +105,63 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Notify admin via Brevo (best-effort; don't fail the submission if email fails)
+    try {
+      const brevoKey = Deno.env.get("BREVO_API_KEY");
+      const adminEmail = Deno.env.get("ADMIN_NOTIFY_EMAIL");
+      const fromEmail = Deno.env.get("NOTIFY_FROM_EMAIL") ?? "info@bathareagrowers.org";
+      const fromName = Deno.env.get("NOTIFY_FROM_NAME") ?? "Bath Area Growers";
+      const siteUrl = Deno.env.get("PUBLIC_SITE_URL") ?? "https://bathareagrowers.org";
+
+      if (brevoKey && adminEmail) {
+        const escape = (s: string) =>
+          s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+        const subjectLine = subject ? `Contact form: ${subject}` : `New contact form submission from ${name}`;
+        const html = `
+          <h2>New contact form submission</h2>
+          <table style="border-collapse:collapse;font-family:sans-serif;font-size:14px">
+            <tr><td style="padding:6px 12px;font-weight:bold">From</td><td style="padding:6px 12px">${escape(name)}</td></tr>
+            <tr><td style="padding:6px 12px;font-weight:bold">Email</td><td style="padding:6px 12px"><a href="mailto:${escape(email)}">${escape(email)}</a></td></tr>
+            ${subject ? `<tr><td style="padding:6px 12px;font-weight:bold">Subject</td><td style="padding:6px 12px">${escape(subject)}</td></tr>` : ""}
+            ${message ? `<tr><td style="padding:6px 12px;font-weight:bold;vertical-align:top">Message</td><td style="padding:6px 12px">${escape(message).replace(/\n/g, "<br>")}</td></tr>` : ""}
+          </table>
+          <p style="margin-top:24px">
+            <a href="${siteUrl}/admin/contacts" style="background:#702757;color:white;padding:10px 18px;text-decoration:none;border-radius:6px">View in admin</a>
+          </p>
+        `;
+        const text = [
+          "New contact form submission",
+          "",
+          `From: ${name}`,
+          `Email: ${email}`,
+          subject ? `Subject: ${subject}` : "",
+          message ? `Message: ${message}` : "",
+          "",
+          `View in admin: ${siteUrl}/admin/contacts`,
+        ].filter(Boolean).join("\n");
+
+        await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
+          headers: {
+            "accept": "application/json",
+            "api-key": brevoKey,
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            sender: { name: fromName, email: fromEmail },
+            to: [{ email: adminEmail }],
+            replyTo: { email, name },
+            subject: subjectLine,
+            htmlContent: html,
+            textContent: text,
+          }),
+        });
+      }
+    } catch (notifyErr) {
+      console.error("Contact-form admin notification failed:", notifyErr);
+    }
+
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
