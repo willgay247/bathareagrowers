@@ -13,8 +13,7 @@ const jsonLd = {
   "@type": ["LocalBusiness", "NGO"],
   "name": "Bath Area Growers",
   "description": "A network of community growing projects across Bath and surrounding area",
-  "url": "https://bathareagrowers.lovable.app",
-  "sameAs": ["https://bathareagrowers.org"],
+  "url": "https://bathareagrowers.org",
   "areaServed": { "@type": "City", "name": "Bath, Somerset, UK" },
   "address": { "@type": "PostalAddress", "addressLocality": "Bath", "addressRegion": "Somerset", "addressCountry": "GB" },
 };

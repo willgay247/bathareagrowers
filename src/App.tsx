@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -52,11 +51,8 @@ const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
 const AdminContactsPage = lazy(() => import("./pages/AdminContactsPage"));
 const AdminSettingsPage = lazy(() => import("./pages/AdminSettingsPage"));
 
-const queryClient = new QueryClient();
-
 const App = () => (
     <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -132,7 +128,6 @@ const App = () => (
           </Suspense>
         </BrowserRouter>
       </TooltipProvider>
-    </QueryClientProvider>
     </HelmetProvider>
 );
 

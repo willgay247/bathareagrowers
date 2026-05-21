@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /dashboard/
 
-Sitemap: https://bathareagrowers.lovable.app/sitemap.xml
+Sitemap: https://bathareagrowers.org/sitemap.xml
