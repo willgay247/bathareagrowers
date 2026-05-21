@@ -99,8 +99,8 @@ const AdminContactsPage = () => {
   }
 
   return (
-    <div style={{ fontFamily: "'Readex Pro', sans-serif" }}>
-      <h1 className="text-[32px] font-bold mb-6" style={{ color: "#1E1E1E" }}>
+    <div>
+      <h1 className="text-[32px] font-bold mb-6 text-foreground">
         Contact Submissions
       </h1>
 

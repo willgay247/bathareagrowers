@@ -20,7 +20,7 @@ const AdminEventsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
-  const { canAddInSection, canEditRecord, canDeleteInSection, canToggleHidden, userId, isAdminOrAbove } = useCurrentUserRole();
+  const { canAddInSection, canEditRecord, canDeleteInSection, canToggleHidden, userId } = useCurrentUserRole();
 
   const fetchEvents = async () => {
     const { data } = await supabase
@@ -64,14 +64,14 @@ const AdminEventsPage = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-[32px] font-bold" style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}>
+        <h1 className="text-[32px] font-bold text-foreground">
           Events
         </h1>
         {canAddInSection("events") && (
           <Button
             onClick={() => { setEditingEvent(null); setModalOpen(true); }}
             className="bg-accent text-white hover:bg-accent/90"
-            style={{ fontFamily: "'Readex Pro', sans-serif" }}
+           
           >
             + Add New Event
           </Button>
@@ -79,7 +79,7 @@ const AdminEventsPage = () => {
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border">
-        <table className="w-full text-sm" style={{ fontFamily: "'Readex Pro', sans-serif" }}>
+        <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="px-4 py-3 text-left font-semibold">Title</th>

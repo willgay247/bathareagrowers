@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
-import type { Tables } from "@/integrations/supabase/types";
+import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 type Garden = Tables<"community_gardens">;
+type GardenUpdate = TablesUpdate<"community_gardens">;
+type GardenInsert = TablesInsert<"community_gardens">;
 
 interface Props {
   garden: Garden | null;
@@ -53,7 +55,7 @@ const GardenFormModal = ({ garden, onClose, onSaved, createdBy }: Props) => {
     setSaving(true);
     setError("");
 
-    const payload: Record<string, any> = {
+    const payload: GardenUpdate & GardenInsert = {
       name,
       region,
       bio: bio || null,
@@ -70,7 +72,7 @@ const GardenFormModal = ({ garden, onClose, onSaved, createdBy }: Props) => {
       if (err) { setError(err.message); setSaving(false); return; }
     } else {
       if (createdBy) payload.created_by = createdBy;
-      const { error: err } = await supabase.from("community_gardens").insert(payload as any);
+      const { error: err } = await supabase.from("community_gardens").insert(payload);
       if (err) { setError(err.message); setSaving(false); return; }
     }
     setSaving(false);
@@ -79,8 +81,8 @@ const GardenFormModal = ({ garden, onClose, onSaved, createdBy }: Props) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4">
-      <div className="my-8 w-full max-w-xl rounded-xl bg-white p-8 shadow-xl" style={{ fontFamily: "'Readex Pro', sans-serif" }}>
-        <h2 className="text-2xl font-bold mb-6" style={{ color: "#1E1E1E" }}>
+      <div className="my-8 w-full max-w-xl rounded-xl bg-white p-8 shadow-xl">
+        <h2 className="text-2xl font-bold mb-6 text-foreground">
           {garden ? "Edit Garden" : "Add New Garden"}
         </h2>
 

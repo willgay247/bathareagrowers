@@ -9,9 +9,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import type { Tables } from "@/integrations/supabase/types";
+import type { Tables, TablesInsert, TablesUpdate } from "@/integrations/supabase/types";
 
 type Event = Tables<"events">;
+type EventUpdate = TablesUpdate<"events">;
+type EventInsert = TablesInsert<"events">;
 
 interface Props {
   event: Event | null;
@@ -85,7 +87,7 @@ const EventFormModal = ({ event, onClose, onSaved, createdBy, defaultOrganiser }
       .map((t) => t.trim())
       .filter(Boolean);
 
-    const payload: Record<string, any> = {
+    const payload: EventUpdate & EventInsert = {
       title,
       slug,
       date_display: dateDisplay || null,
@@ -111,9 +113,8 @@ const EventFormModal = ({ event, onClose, onSaved, createdBy, defaultOrganiser }
         return;
       }
     } else {
-      // Set created_by for new records
       if (createdBy) payload.created_by = createdBy;
-      const { error: err } = await supabase.from("events").insert(payload as any);
+      const { error: err } = await supabase.from("events").insert(payload);
       if (err) {
         setError(err.message);
         setSaving(false);
@@ -128,9 +129,9 @@ const EventFormModal = ({ event, onClose, onSaved, createdBy, defaultOrganiser }
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4">
       <div
         className="my-8 w-full max-w-2xl rounded-xl bg-white p-8 shadow-xl"
-        style={{ fontFamily: "'Readex Pro', sans-serif" }}
+       
       >
-        <h2 className="text-2xl font-bold mb-6" style={{ color: "#1E1E1E" }}>
+        <h2 className="text-2xl font-bold mb-6 text-foreground">
           {event ? "Edit Event" : "Add New Event"}
         </h2>
 

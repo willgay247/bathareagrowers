@@ -10,7 +10,32 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.4"
+    PostgrestVersion: "14.5"
+  }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
   }
   public: {
     Tables: {
@@ -239,6 +264,36 @@ export type Database = {
           image_url?: string | null
           name?: string
           volunteering_link?: string | null
+        }
+        Relationships: []
+      }
+      member_profiles: {
+        Row: {
+          applicant_message: string | null
+          bio: string | null
+          created_at: string
+          group_name: string
+          group_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          applicant_message?: string | null
+          bio?: string | null
+          created_at?: string
+          group_name: string
+          group_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          applicant_message?: string | null
+          bio?: string | null
+          created_at?: string
+          group_name?: string
+          group_type?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -577,6 +632,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       app_role: ["super_admin", "admin", "user"],

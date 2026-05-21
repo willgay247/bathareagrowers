@@ -79,14 +79,14 @@ const AdminCommunityGardensPage = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-[32px] font-bold" style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}>
+        <h1 className="text-[32px] font-bold text-foreground">
           Community Gardens
         </h1>
         {canAddInSection("community_gardens") && (
           <Button
             onClick={() => { setEditing(null); setModalOpen(true); }}
             className="bg-accent text-white hover:bg-accent/90"
-            style={{ fontFamily: "'Readex Pro', sans-serif" }}
+           
           >
             + Add New Garden
           </Button>
@@ -103,7 +103,7 @@ const AdminCommunityGardensPage = () => {
                 ? "border-accent text-accent"
                 : "border-transparent text-muted-foreground hover:text-foreground"
             }`}
-            style={{ fontFamily: "'Readex Pro', sans-serif" }}
+           
           >
             {REGION_LABELS[r]}
           </button>
@@ -111,7 +111,7 @@ const AdminCommunityGardensPage = () => {
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border">
-        <table className="w-full text-sm" style={{ fontFamily: "'Readex Pro', sans-serif" }}>
+        <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="px-4 py-3 text-left font-semibold">Name</th>

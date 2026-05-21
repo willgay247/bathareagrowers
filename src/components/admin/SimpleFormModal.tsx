@@ -96,8 +96,8 @@ const SimpleFormModal = ({ title, table, storagePath, imageField = "image_url", 
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4">
-      <div className="my-8 w-full max-w-xl rounded-xl bg-white p-8 shadow-xl" style={{ fontFamily: "'Readex Pro', sans-serif" }}>
-        <h2 className="text-2xl font-bold mb-6" style={{ color: "#1E1E1E" }}>
+      <div className="my-8 w-full max-w-xl rounded-xl bg-white p-8 shadow-xl">
+        <h2 className="text-2xl font-bold mb-6 text-foreground">
           {record ? `Edit ${title}` : `Add New ${title}`}
         </h2>
         <div className="space-y-4">

@@ -128,9 +128,9 @@ const AdminSettingsPage = () => {
   }
 
   return (
-    <div style={{ fontFamily: "'Readex Pro', sans-serif" }}>
+    <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-[32px] font-bold" style={{ color: "#1E1E1E" }}>
+        <h1 className="text-[32px] font-bold text-foreground">
           Settings — User Management
         </h1>
         <Button
@@ -144,7 +144,7 @@ const AdminSettingsPage = () => {
       {/* Add user form */}
       {showAddForm && (
         <div className="mb-8 rounded-lg border border-border bg-muted/30 p-6">
-          <h3 className="text-lg font-semibold mb-4" style={{ color: "#1E1E1E" }}>Create New Account</h3>
+          <h3 className="text-lg font-semibold mb-4 text-foreground">Create New Account</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <Label>Email *</Label>

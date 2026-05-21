@@ -84,8 +84,7 @@ const AdminDashboard = () => {
   return (
     <div>
       <h1
-        className="text-[32px] font-bold mb-8"
-        style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}
+        className="text-[32px] font-bold mb-8 text-foreground"
       >
         Dashboard
       </h1>
@@ -100,13 +99,13 @@ const AdminDashboard = () => {
           >
             <div
               className="text-5xl font-bold"
-              style={{ color: "#702757", fontFamily: "'Readex Pro', sans-serif" }}
+              style={{ color: "#702757" }}
             >
               {stat.count}
             </div>
             <div
               className="mt-2 text-sm"
-              style={{ color: "#666", fontFamily: "'Readex Pro', sans-serif" }}
+              style={{ color: "#666" }}
             >
               {stat.label}
             </div>
@@ -116,8 +115,7 @@ const AdminDashboard = () => {
 
       {/* Recent messages */}
       <h2
-        className="text-xl font-bold mb-4"
-        style={{ fontFamily: "'Readex Pro', sans-serif", color: "#1E1E1E" }}
+        className="text-xl font-bold mb-4 text-foreground"
       >
         Recent Contact Submissions
       </h2>
@@ -143,7 +141,7 @@ const AdminDashboard = () => {
               />
               <span
                 className="font-medium text-sm w-32 truncate"
-                style={{ fontFamily: "'Readex Pro', sans-serif" }}
+               
               >
                 {msg.name || "—"}
               </span>

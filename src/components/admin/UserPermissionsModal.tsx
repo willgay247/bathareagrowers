@@ -115,9 +115,9 @@ const UserPermissionsModal = ({ userId, userEmail, userRole, initialPermissions,
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4">
       <div
         className="my-8 w-full max-w-xl rounded-xl bg-white p-8 shadow-xl"
-        style={{ fontFamily: "'Readex Pro', sans-serif" }}
+       
       >
-        <h2 className="text-xl font-bold mb-1" style={{ color: "#1E1E1E" }}>
+        <h2 className="text-xl font-bold mb-1 text-foreground">
           Edit Permissions
         </h2>
         <p className="text-sm text-muted-foreground mb-4">{userEmail}</p>
