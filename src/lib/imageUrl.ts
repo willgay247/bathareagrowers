@@ -1,5 +1,5 @@
-const STORAGE_BASE = "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/object/public/cms-images/";
-const RENDER_BASE = "https://fgjdlgslkwfgfzidfpyz.supabase.co/storage/v1/render/image/public/cms-images/";
+const STORAGE_BASE = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/cms-images/`;
+const RENDER_BASE = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/render/image/public/cms-images/`;
 
 /**
  * Build a Supabase Storage image URL with optional on-the-fly transforms.

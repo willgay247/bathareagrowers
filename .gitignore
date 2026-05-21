@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Migration artifacts (kept locally, not pushed)
+MIGRATION-PLAN.md
+db-export/
+images-export/
+supabase/.temp/
