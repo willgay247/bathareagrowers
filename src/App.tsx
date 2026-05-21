@@ -28,8 +28,16 @@ const PlotsPage = lazy(() => import("./pages/PlotsPage"));
 const GrowersNetworkPage = lazy(() => import("./pages/GrowersNetworkPage"));
 const CalendarPage = lazy(() => import("./pages/CalendarPage"));
 const LocationDetailPage = lazy(() => import("./pages/LocationDetailPage"));
-const AdminLoginPage = lazy(() => import("./pages/AdminLoginPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const SignupPage = lazy(() => import("./pages/SignupPage"));
+const SignupConfirmPage = lazy(() => import("./pages/SignupConfirmPage"));
+const MemberAuthGuard = lazy(() => import("@/components/MemberAuthGuard"));
+const MemberLayout = lazy(() => import("./components/MemberLayout"));
+const MemberDashboard = lazy(() => import("./pages/MemberDashboard"));
+const MemberEventsPage = lazy(() => import("./pages/MemberEventsPage"));
+const MemberListingPage = lazy(() => import("./pages/MemberListingPage"));
+const MemberProfilePage = lazy(() => import("./pages/MemberProfilePage"));
 const AdminLayout = lazy(() => import("./components/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminEventsPage = lazy(() => import("./pages/AdminEventsPage"));
@@ -81,9 +89,24 @@ const App = () => (
               <Route path="/wildlife-gardening-old" element={<Navigate to="/wildlife-gardening" replace />} />
             </Route>
 
-            {/* Admin login (public, no Layout) */}
-            <Route path="/admin/login" element={<AdminLoginPage />} />
+            {/* Auth pages (public, no Layout) */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signup/confirm" element={<SignupConfirmPage />} />
+            <Route path="/admin/login" element={<Navigate to="/login" replace />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
+
+            {/* Member dashboard (guarded, any signed-in user) */}
+            <Route path="/dashboard" element={
+              <MemberAuthGuard>
+                <MemberLayout />
+              </MemberAuthGuard>
+            }>
+              <Route index element={<MemberDashboard />} />
+              <Route path="events" element={<MemberEventsPage />} />
+              <Route path="listing" element={<MemberListingPage />} />
+              <Route path="profile" element={<MemberProfilePage />} />
+            </Route>
 
             {/* Admin routes (guarded, with AdminLayout) */}
             <Route path="/admin" element={

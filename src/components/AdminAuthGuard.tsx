@@ -6,7 +6,7 @@ import type { Session } from "@supabase/supabase-js";
 
 const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
-  const [hasRole, setHasRole] = useState<boolean | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [authReady, setAuthReady] = useState(false);
 
   // Step 1: Restore session from storage first, then listen for changes
@@ -31,7 +31,7 @@ const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
     if (!authReady) return;
 
     if (!session?.user) {
-      setHasRole(false);
+      setIsAdmin(false);
       return;
     }
 
@@ -42,13 +42,15 @@ const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
       .eq("user_id", session.user.id)
       .single()
       .then(({ data }) => {
-        if (!cancelled) setHasRole(!!data);
+        if (cancelled) return;
+        const role = data?.role;
+        setIsAdmin(role === "admin" || role === "super_admin");
       });
 
     return () => { cancelled = true; };
   }, [authReady, session?.user?.id]);
 
-  const loading = !authReady || (session?.user && hasRole === null);
+  const loading = !authReady || (session?.user && isAdmin === null);
 
   if (loading) {
     return (
@@ -58,8 +60,12 @@ const AdminAuthGuard = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  if (!session || !hasRole) {
-    return <Navigate to="/admin/login" replace />;
+  if (!session) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (!isAdmin) {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;

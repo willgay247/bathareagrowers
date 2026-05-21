@@ -42,6 +42,9 @@ Deno.serve(async (req) => {
       // List all users that have roles
       const { data: roles } = await adminClient.from("user_roles").select("*");
       const { data: perms } = await adminClient.from("user_section_permissions").select("*");
+      const { data: profiles } = await adminClient
+        .from("member_profiles")
+        .select("user_id, group_name, group_type, bio");
 
       if (!roles) return json([]);
 
@@ -51,12 +54,16 @@ Deno.serve(async (req) => {
       for (const uid of userIds) {
         const { data: { user } } = await adminClient.auth.admin.getUserById(uid);
         if (!user) continue;
+        const profile = profiles?.find((p) => p.user_id === user.id);
         enriched.push({
           id: user.id,
           email: user.email,
           created_at: user.created_at,
           role: roles.find((r) => r.user_id === user.id)?.role || null,
           permissions: perms?.filter((p) => p.user_id === user.id) || [],
+          group_name: profile?.group_name ?? null,
+          group_type: profile?.group_type ?? null,
+          bio: profile?.bio ?? null,
         });
       }
 

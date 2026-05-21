@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 
-const AdminLoginPage = () => {
+const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,24 +16,48 @@ const AdminLoginPage = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-    if (authError) {
-      setError(authError.message);
+
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (authError || !authData.user) {
+      setError(authError?.message ?? "Sign in failed.");
       setLoading(false);
-    } else {
+      return;
+    }
+
+    const { data: roleRow } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", authData.user.id)
+      .single();
+
+    const role = roleRow?.role;
+    if (role === "admin" || role === "super_admin") {
       navigate("/admin");
+    } else {
+      navigate("/dashboard");
     }
   };
 
   const handleForgot = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!email.trim()) { setError("Please enter your email address."); return; }
+    if (!email.trim()) {
+      setError("Please enter your email address.");
+      return;
+    }
     setLoading(true);
     const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     });
-    if (err) { setError(err.message); setLoading(false); return; }
+    if (err) {
+      setError(err.message);
+      setLoading(false);
+      return;
+    }
     setResetSent(true);
     setLoading(false);
   };
@@ -44,11 +68,9 @@ const AdminLoginPage = () => {
         onSubmit={forgotMode ? handleForgot : handleSubmit}
         className="w-full max-w-[400px] rounded-lg bg-white p-10 shadow-lg"
       >
-        <h2 className="text-center text-2xl font-bold text-accent">
-          Bath Area Growers
-        </h2>
+        <h2 className="text-center text-2xl font-bold text-accent">Bath Area Growers</h2>
         <p className="mt-1 text-center text-sm text-muted-foreground">
-          {forgotMode ? "Reset Password" : "Admin Login"}
+          {forgotMode ? "Reset Password" : "Sign In"}
         </p>
 
         {resetSent ? (
@@ -61,7 +83,7 @@ const AdminLoginPage = () => {
               onClick={() => { setForgotMode(false); setResetSent(false); }}
               className="mt-4 text-sm font-semibold text-accent hover:underline"
             >
-              Back to login
+              Back to sign in
             </button>
           </div>
         ) : (
@@ -97,14 +119,22 @@ const AdminLoginPage = () => {
               <p className="mt-4 text-center text-sm text-destructive">{error}</p>
             )}
 
-            <div className="mt-4 text-center">
+            <div className="mt-4 flex flex-col items-center gap-3">
               <button
                 type="button"
                 onClick={() => { setForgotMode(!forgotMode); setError(""); }}
                 className="text-sm text-accent hover:underline"
               >
-                {forgotMode ? "Back to login" : "Forgot password?"}
+                {forgotMode ? "Back to sign in" : "Forgot password?"}
               </button>
+              {!forgotMode && (
+                <p className="text-sm text-muted-foreground">
+                  Don't have an account?{" "}
+                  <Link to="/signup" className="font-semibold text-accent hover:underline">
+                    Sign up
+                  </Link>
+                </p>
+              )}
             </div>
           </>
         )}
@@ -113,4 +143,4 @@ const AdminLoginPage = () => {
   );
 };
 
-export default AdminLoginPage;
+export default LoginPage;

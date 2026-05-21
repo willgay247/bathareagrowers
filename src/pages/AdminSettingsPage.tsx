@@ -18,6 +18,9 @@ interface ManagedUser {
   created_at: string;
   role: string | null;
   permissions: { section: string; can_add: boolean; can_edit_own: boolean }[];
+  group_name?: string | null;
+  group_type?: string | null;
+  bio?: string | null;
 }
 
 const ROLE_BADGE: Record<string, { label: string; color: string; icon: typeof Shield }> = {
@@ -208,11 +211,20 @@ const AdminSettingsPage = () => {
               const canManage = !isSelf && (isSuperAdmin || (isAdmin && u.role === "user"));
               const canChangeRole = isSuperAdmin && !isSelf && u.role !== "super_admin";
 
+              const isPending = u.role === "user" && u.permissions.length === 0;
+
               return (
                 <tr key={u.id} className="border-b hover:bg-muted/30">
                   <td className="px-4 py-3 font-medium">
-                    {u.email}
-                    {isSelf && <span className="ml-2 text-xs text-muted-foreground">(you)</span>}
+                    <div>{u.email}{isSelf && <span className="ml-2 text-xs text-muted-foreground">(you)</span>}</div>
+                    {u.group_name && (
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {u.group_name}
+                        {u.group_type && (
+                          <span className="text-muted-foreground/70"> · {u.group_type.replace(/_/g, " ")}</span>
+                        )}
+                      </div>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <span
@@ -222,6 +234,11 @@ const AdminSettingsPage = () => {
                       <BadgeIcon className="h-3 w-3" />
                       {badge.label}
                     </span>
+                    {isPending && (
+                      <span className="ml-2 inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-1 text-xs font-semibold text-yellow-800">
+                        Pending
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
                     {u.role === "user" ? (

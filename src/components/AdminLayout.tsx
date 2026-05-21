@@ -26,7 +26,7 @@ const AdminLayout = () => {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   const isActive = (path: string) =>
