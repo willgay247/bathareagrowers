@@ -14,6 +14,8 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [groupName, setGroupName] = useState("");
   const [groupType, setGroupType] = useState("");
+  const [bio, setBio] = useState("");
+  const [applicantMessage, setApplicantMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -26,6 +28,11 @@ const SignupPage = () => {
       setError("Group name must be 2 to 80 characters.");
       return;
     }
+    const trimmedMessage = applicantMessage.trim();
+    if (trimmedMessage.length < 10) {
+      setError("Please tell us a little about why you'd like an account (at least 10 characters).");
+      return;
+    }
     if (password.length < 8) {
       setError("Password must be at least 8 characters.");
       return;
@@ -33,7 +40,7 @@ const SignupPage = () => {
 
     setLoading(true);
 
-    const { error: signUpError } = await supabase.auth.signUp({
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -41,6 +48,8 @@ const SignupPage = () => {
         data: {
           group_name: trimmedGroupName,
           group_type: groupType || null,
+          bio: bio.trim() || null,
+          applicant_message: trimmedMessage,
         },
       },
     });
@@ -49,6 +58,17 @@ const SignupPage = () => {
       setError(signUpError.message);
       setLoading(false);
       return;
+    }
+
+    // Notify the site admin (best-effort; failure here shouldn't block signup)
+    if (signUpData.user?.id) {
+      try {
+        await supabase.functions.invoke("send-notification", {
+          body: { kind: "new_signup", user_id: signUpData.user.id },
+        });
+      } catch (notifyErr) {
+        console.warn("admin notification failed:", notifyErr);
+      }
     }
 
     navigate("/signup/confirm", { state: { email } });
@@ -101,6 +121,39 @@ const SignupPage = () => {
               </option>
             ))}
           </select>
+        </label>
+
+        <label className="mt-4 block">
+          <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+            Tell us about your group <span className="text-muted-foreground font-normal normal-case">(optional)</span>
+          </span>
+          <textarea
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            rows={3}
+            maxLength={500}
+            placeholder="A short description of what your group does"
+            className="mt-1 w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-y"
+          />
+        </label>
+
+        <label className="mt-4 block">
+          <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
+            Why do you want an account? <span className="text-destructive">*</span>
+          </span>
+          <textarea
+            value={applicantMessage}
+            onChange={(e) => setApplicantMessage(e.target.value)}
+            required
+            rows={3}
+            minLength={10}
+            maxLength={1000}
+            placeholder="E.g. We're a community garden in Larkhall and want to post our weekly open days."
+            className="mt-1 w-full rounded-md border border-border bg-white px-3 py-3 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-y"
+          />
+          <span className="mt-1 block text-xs text-muted-foreground">
+            This helps the admin decide whether to approve your account.
+          </span>
         </label>
 
         <label className="mt-4 block">

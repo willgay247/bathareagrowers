@@ -21,6 +21,7 @@ interface ManagedUser {
   group_name?: string | null;
   group_type?: string | null;
   bio?: string | null;
+  applicant_message?: string | null;
 }
 
 const ROLE_BADGE: Record<string, { label: string; color: string; icon: typeof Shield }> = {
@@ -307,6 +308,10 @@ const AdminSettingsPage = () => {
           userEmail={permUser.email}
           userRole={permUser.role ?? "user"}
           initialPermissions={permUser.permissions}
+          groupName={permUser.group_name}
+          groupType={permUser.group_type}
+          bio={permUser.bio}
+          applicantMessage={permUser.applicant_message}
           onClose={() => setPermUserId(null)}
           onSaved={() => { setPermUserId(null); fetchUsers(); }}
         />

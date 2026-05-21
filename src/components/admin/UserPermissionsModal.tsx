@@ -17,11 +17,15 @@ interface Props {
   userEmail: string;
   userRole: string;
   initialPermissions: Permission[];
+  groupName?: string | null;
+  groupType?: string | null;
+  bio?: string | null;
+  applicantMessage?: string | null;
   onClose: () => void;
   onSaved: () => void;
 }
 
-const UserPermissionsModal = ({ userId, userEmail, userRole, initialPermissions, onClose, onSaved }: Props) => {
+const UserPermissionsModal = ({ userId, userEmail, userRole, initialPermissions, groupName, groupType, bio, applicantMessage, onClose, onSaved }: Props) => {
   const [permissions, setPermissions] = useState<Record<string, { can_add: boolean; can_edit_own: boolean }>>(() => {
     const map: Record<string, { can_add: boolean; can_edit_own: boolean }> = {};
     SECTIONS.forEach((s) => {
@@ -83,6 +87,20 @@ const UserPermissionsModal = ({ userId, userEmail, userRole, initialPermissions,
         if (insertError) throw insertError;
       }
 
+      // If we just transitioned from pending (0 perms) to approved (>0 perms),
+      // notify the member. Best-effort; failure here shouldn't block the save.
+      const wasPending = initialPermissions.length === 0;
+      const isNowApproved = toInsert.length > 0;
+      if (wasPending && isNowApproved) {
+        try {
+          await supabase.functions.invoke("send-notification", {
+            body: { kind: "member_approved", user_id: userId },
+          });
+        } catch (notifyErr) {
+          console.warn("approval notification failed:", notifyErr);
+        }
+      }
+
       onSaved();
     } catch (err: any) {
       setError(err.message);
@@ -102,7 +120,32 @@ const UserPermissionsModal = ({ userId, userEmail, userRole, initialPermissions,
         <h2 className="text-xl font-bold mb-1" style={{ color: "#1E1E1E" }}>
           Edit Permissions
         </h2>
-        <p className="text-sm text-muted-foreground mb-6">{userEmail}</p>
+        <p className="text-sm text-muted-foreground mb-4">{userEmail}</p>
+
+        {!isAdminRole && (groupName || groupType || bio || applicantMessage) && (
+          <div className="mb-6 rounded-lg border border-border bg-muted/30 p-4 text-sm">
+            {groupName && (
+              <div className="mb-1">
+                <span className="font-semibold">Group:</span> {groupName}
+                {groupType && (
+                  <span className="text-muted-foreground"> · {groupType.replace(/_/g, " ")}</span>
+                )}
+              </div>
+            )}
+            {bio && (
+              <div className="mt-2">
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Bio</div>
+                <div className="whitespace-pre-wrap text-foreground">{bio}</div>
+              </div>
+            )}
+            {applicantMessage && (
+              <div className="mt-2">
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Reason for applying</div>
+                <div className="whitespace-pre-wrap text-foreground">{applicantMessage}</div>
+              </div>
+            )}
+          </div>
+        )}
 
         {isAdminRole ? (
           <div className="rounded-lg bg-muted/50 p-6 text-center">

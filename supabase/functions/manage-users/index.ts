@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
       const { data: perms } = await adminClient.from("user_section_permissions").select("*");
       const { data: profiles } = await adminClient
         .from("member_profiles")
-        .select("user_id, group_name, group_type, bio");
+        .select("user_id, group_name, group_type, bio, applicant_message");
 
       if (!roles) return json([]);
 
@@ -64,6 +64,7 @@ Deno.serve(async (req) => {
           group_name: profile?.group_name ?? null,
           group_type: profile?.group_type ?? null,
           bio: profile?.bio ?? null,
+          applicant_message: profile?.applicant_message ?? null,
         });
       }
 
