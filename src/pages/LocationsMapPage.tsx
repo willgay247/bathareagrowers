@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -53,6 +53,9 @@ const pinIcon = (categories: string[], active: string[]) => {
     iconSize: [26, 36],
     iconAnchor: [13, 36],
     popupAnchor: [0, -34],
+    // Without this a divIcon anchors its tooltip at the pin's tip, so a
+    // direction="top" tooltip still lands on top of the map below the pin.
+    tooltipAnchor: [0, -36],
   });
 };
 
@@ -179,6 +182,14 @@ const LocationsMapPage = () => {
                     position={[l.latitude!, l.longitude!]}
                     icon={pinIcon(l.categories, active)}
                   >
+                    {/*
+                      Hover shows the name; the popup below still carries the
+                      address and details on click. Both are needed - touch
+                      devices have no hover, so tapping has to stay the way in.
+                    */}
+                    <Tooltip direction="top" opacity={1}>
+                      {l.name}
+                    </Tooltip>
                     <Popup>
                       <strong className="text-[15px]">{l.name}</strong>
                       {l.area && <div className="text-[13px] opacity-70">{l.area}</div>}
