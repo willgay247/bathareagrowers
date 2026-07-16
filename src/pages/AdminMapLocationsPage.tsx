@@ -22,6 +22,10 @@ const CATEGORIES = [
   { key: "retail", label: "Retail" },
   { key: "distributor", label: "Distributor" },
   { key: "community", label: "Community resource" },
+  { key: "wildlife", label: "Wildlife" },
+  { key: "climate", label: "Climate" },
+  { key: "energy", label: "Energy" },
+  { key: "skills", label: "Skills & repair" },
 ];
 
 const REASONS = [

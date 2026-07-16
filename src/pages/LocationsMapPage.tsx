@@ -19,6 +19,10 @@ const CATEGORIES = [
   { key: "retail", label: "Retail", colour: "#b8562f" },
   { key: "distributor", label: "Distributors", colour: "#7a5ea8" },
   { key: "community", label: "Community", colour: "#2f6f8f" },
+  { key: "wildlife", label: "Wildlife", colour: "#c9962c" },
+  { key: "climate", label: "Climate", colour: "#b23b5e" },
+  { key: "energy", label: "Energy", colour: "#157f7f" },
+  { key: "skills", label: "Skills & repair", colour: "#5f6b7a" },
 ] as const;
 
 const COLOUR = Object.fromEntries(CATEGORIES.map((c) => [c.key, c.colour])) as Record<string, string>;
@@ -32,9 +36,14 @@ const UNMAPPED_HEADINGS: Record<string, string> = {
 
 const UNMAPPED_ORDER = ["district_wide", "no_single_site", "not_published", "privacy_hold"];
 
-/** A teardrop pin, coloured by the project's first category. */
-const pinIcon = (categories: string[]) => {
-  const colour = COLOUR[categories[0]] ?? "#3f7d3f";
+/**
+ * A teardrop pin, coloured by the project's first *currently shown* category —
+ * not simply its first, or a grower/community project would still draw green
+ * after the Growers filter was switched off, contradicting the legend.
+ */
+const pinIcon = (categories: string[], active: string[]) => {
+  const shown = categories.find((c) => active.includes(c)) ?? categories[0];
+  const colour = COLOUR[shown] ?? "#3f7d3f";
   return L.divIcon({
     className: "",
     html: `<svg width="26" height="36" viewBox="0 0 26 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -77,6 +86,10 @@ const LocationsMapPage = () => {
     [locations, active],
   );
 
+  // Part of each marker's key: Leaflet won't repaint an existing marker's icon
+  // when the filters change, so the markers have to remount to recolour.
+  const activeKey = active.join(",");
+
   const unmapped = useMemo(() => {
     const groups = new Map<string, MapLocation[]>();
     for (const l of locations) {
@@ -97,15 +110,16 @@ const LocationsMapPage = () => {
     <main>
       <SEO
         title="Map | Bath Area Growers"
-        description="A map of community gardens, farms, growers, food retailers and food projects across Bath and North East Somerset."
+        description="A map of community gardens, farms, growers, food retailers, wildlife, climate and energy projects across Bath and North East Somerset."
       />
 
       <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
           <h1 className="text-[28px] font-bold text-foreground-alt md:text-[48px]">Map</h1>
           <p className="mt-2 max-w-[640px] text-[18px] text-foreground-alt/60">
-            Growing, horticultural and food projects across Bath and North East Somerset — community
-            gardens, farms, growers, retailers and the projects that move surplus food around.
+            Growing, food and environmental projects across Bath and North East Somerset — community
+            gardens, farms, growers and retailers, the projects that move surplus food around, and
+            the groups working on wildlife, climate and energy.
           </p>
         </div>
       </section>
@@ -161,9 +175,9 @@ const LocationsMapPage = () => {
               <MarkerClusterGroup chunkedLoading maxClusterRadius={45}>
                 {visible.map((l) => (
                   <Marker
-                    key={l.id}
+                    key={`${l.id}-${activeKey}`}
                     position={[l.latitude!, l.longitude!]}
-                    icon={pinIcon(l.categories)}
+                    icon={pinIcon(l.categories, active)}
                   >
                     <Popup>
                       <strong className="text-[15px]">{l.name}</strong>
@@ -203,8 +217,9 @@ const LocationsMapPage = () => {
           <div className="mx-auto max-w-[1100px]">
             <h2 className="text-[24px] font-bold md:text-[32px]">Not on the map</h2>
             <p className="mt-2 max-w-[640px] text-[16px] text-foreground/70">
-              These projects are part of the picture but don’t have a single spot to pin — they work
-              across the district, have no growing site of their own, or run from a private address.
+              These groups are part of the picture but don’t have a single spot to pin — they work
+              across the district, campaign rather than run a site, or operate from a private
+              address. Many are networks whose whole point is that they’re everywhere.
             </p>
 
             <div className="mt-8 grid gap-8 md:grid-cols-2">
