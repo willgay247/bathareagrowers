@@ -14,6 +14,25 @@ type MapLocation = Tables<"map_locations">;
 const CENTRE: [number, number] = [51.36, -2.44];
 const ZOOM = 11;
 
+/**
+ * Leaflet's default popup width of 300 is nearly as wide as the whole map on a
+ * phone, so a popup anchored anywhere but dead centre gets clipped at the edge.
+ * Narrow enough on mobile to sit inside the map wherever its pin happens to be.
+ */
+const useIsNarrow = () => {
+  const query = "(max-width: 640px)";
+  const [narrow, setNarrow] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(query).matches,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const onChange = (e: MediaQueryListEvent) => setNarrow(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return narrow;
+};
+
 const CATEGORIES = [
   { key: "grower", label: "Growers", colour: "#3f7d3f" },
   { key: "retail", label: "Retail", colour: "#b8562f" },
@@ -84,13 +103,6 @@ const LocationDetail = ({ l }: { l: MapLocation }) => (
 );
 
 /**
- * Flies the map to the project picked from the list.
- *
- * A child of MapContainer using useMap(), rather than a ref on MapContainer —
- * the hook is react-leaflet's supported way to reach the map instance and,
- * unlike the ref, is guaranteed to be live by the time this renders.
- */
-/**
  * Re-measures the map whenever its container resizes.
  *
  * Leaflet caches the container's size on creation and only re-measures on
@@ -110,6 +122,13 @@ const KeepMapSized = () => {
   return null;
 };
 
+/**
+ * Flies the map to the project picked from the list.
+ *
+ * A child of MapContainer using useMap(), rather than a ref on MapContainer —
+ * the hook is react-leaflet's supported way to reach the map instance and,
+ * unlike the ref, is guaranteed to be live by the time this renders.
+ */
 const FlyToSelected = ({ target }: { target: MapLocation | null }) => {
   const map = useMap();
   useEffect(() => {
@@ -155,6 +174,7 @@ const LocationsMapPage = () => {
 
   const mapSectionRef = useRef<HTMLDivElement | null>(null);
   const [selected, setSelected] = useState<MapLocation | null>(null);
+  const popupMaxWidth = useIsNarrow() ? 190 : 280;
 
   /** Jump the map to a project picked from the list below it. */
   const focusOnMap = (l: MapLocation) => {
@@ -198,30 +218,38 @@ const LocationsMapPage = () => {
 
       <section className="w-full bg-background py-8 md:py-12 px-4">
         <div className="mx-auto max-w-[1100px]">
-          <div className="mb-5 flex flex-wrap items-center gap-2">
-            {CATEGORIES.map((c) => {
-              const on = active.includes(c.key);
-              return (
-                <button
-                  key={c.key}
-                  onClick={() => toggle(c.key)}
-                  aria-pressed={on}
-                  className={`flex items-center gap-2 rounded-full border px-4 py-2 text-[14px] font-semibold transition ${
-                    on
-                      ? "border-transparent text-white"
-                      : "border-foreground/20 bg-transparent text-foreground/50"
-                  }`}
-                  style={on ? { backgroundColor: c.colour } : undefined}
-                >
-                  <span
-                    className="inline-block h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: on ? "#fff" : c.colour }}
-                  />
-                  {c.label}
-                </button>
-              );
-            })}
-            <p className="ml-auto text-[14px] text-foreground/60">
+          <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+            {/*
+              Eight filters wrap to four rows on a phone and push the map off
+              screen, so on mobile they become one swipeable row instead. The
+              negative margin lets it bleed to the screen edge, which is the cue
+              that there's more to scroll to.
+            */}
+            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+              {CATEGORIES.map((c) => {
+                const on = active.includes(c.key);
+                return (
+                  <button
+                    key={c.key}
+                    onClick={() => toggle(c.key)}
+                    aria-pressed={on}
+                    className={`flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-[13px] font-semibold transition sm:px-4 sm:text-[14px] ${
+                      on
+                        ? "border-transparent text-white"
+                        : "border-foreground/20 bg-transparent text-foreground/50"
+                    }`}
+                    style={on ? { backgroundColor: c.colour } : undefined}
+                  >
+                    <span
+                      className="inline-block h-2.5 w-2.5 rounded-full"
+                      style={{ backgroundColor: on ? "#fff" : c.colour }}
+                    />
+                    {c.label}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-[14px] text-foreground/60 sm:ml-auto">
               {loading ? "Loading…" : `${visible.length} of ${mappedCount} shown`}
             </p>
           </div>
@@ -240,7 +268,9 @@ const LocationsMapPage = () => {
               center={CENTRE}
               zoom={ZOOM}
               scrollWheelZoom={false}
-              style={{ height: "clamp(420px, 65vh, 700px)", width: "100%" }}
+              // Shorter on a phone: a 65vh map swallows the screen, and because
+              // it swallows vertical drags too, it becomes hard to scroll past.
+              className="h-[400px] w-full sm:h-[clamp(420px,65vh,700px)]"
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -259,6 +289,12 @@ const LocationsMapPage = () => {
               {selected?.latitude != null && selected.longitude != null && (
                 <Popup
                   position={[selected.latitude, selected.longitude]}
+                  maxWidth={popupMaxWidth}
+                  // flyTo already centres the project, so Leaflet's own pan is
+                  // redundant — and it fires mid-flight, fighting the animation
+                  // and leaving the pin off-centre with the popup half over the
+                  // map's edge.
+                  autoPan={false}
                   eventHandlers={{ remove: () => setSelected(null) }}
                 >
                   <LocationDetail l={selected} />
@@ -280,7 +316,7 @@ const LocationsMapPage = () => {
                     <Tooltip direction="top" opacity={1}>
                       {l.name}
                     </Tooltip>
-                    <Popup>
+                    <Popup maxWidth={popupMaxWidth}>
                       <LocationDetail l={l} />
                     </Popup>
                   </Marker>
@@ -309,7 +345,7 @@ const LocationsMapPage = () => {
                   <li key={l.id}>
                     <button
                       onClick={() => focusOnMap(l)}
-                      className="group flex w-full items-baseline gap-2 rounded py-2 text-left hover:bg-foreground/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                      className="group flex w-full items-baseline gap-2 rounded py-2.5 text-left hover:bg-foreground/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
                     >
                       <span
                         aria-hidden="true"
