@@ -27,6 +27,7 @@ const PlotsPage = lazy(() => import("./pages/PlotsPage"));
 const GrowersNetworkPage = lazy(() => import("./pages/GrowersNetworkPage"));
 const CalendarPage = lazy(() => import("./pages/CalendarPage"));
 const LocationDetailPage = lazy(() => import("./pages/LocationDetailPage"));
+const LocationsMapPage = lazy(() => import("./pages/LocationsMapPage"));
 const ResetPasswordPage = lazy(() => import("./pages/ResetPasswordPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
@@ -44,6 +45,7 @@ const AdminCommunityGardensPage = lazy(() => import("./pages/AdminCommunityGarde
 const AdminSupportedGardeningPage = lazy(() => import("./pages/AdminSupportedGardeningPage"));
 const AdminWildlifeGardeningPage = lazy(() => import("./pages/AdminWildlifeGardeningPage"));
 const AdminFarmsPage = lazy(() => import("./pages/AdminFarmsPage"));
+const AdminMapLocationsPage = lazy(() => import("./pages/AdminMapLocationsPage"));
 const AdminSurplusProjectsPage = lazy(() => import("./pages/AdminSurplusProjectsPage"));
 const AdminCoursesPage = lazy(() => import("./pages/AdminCoursesPage"));
 const AdminResourcesPage = lazy(() => import("./pages/AdminResourcesPage"));
@@ -78,6 +80,8 @@ const App = () => (
               <Route path="/plots-and-land" element={<PlotsPage />} />
               <Route path="/growers-network" element={<GrowersNetworkPage />} />
               <Route path="/calendar" element={<CalendarPage />} />
+              {/* Must precede /locations/:slug, or "map" is read as a slug. */}
+              <Route path="/locations/map" element={<LocationsMapPage />} />
               <Route path="/locations/:slug" element={<LocationDetailPage />} />
               <Route path="/about/growers-network" element={<GrowersNetworkPage />} />
               <Route path="/about/growers-network-convention" element={<PlaceholderPage title="Growers Network Convention" subtitle="Bath Area Growers holds an annual convention bringing together all network members. Details of upcoming conventions will be posted here." />} />
@@ -116,6 +120,7 @@ const App = () => (
               <Route path="supported-gardening" element={<AdminSupportedGardeningPage />} />
               <Route path="wildlife-gardening" element={<AdminWildlifeGardeningPage />} />
               <Route path="farms" element={<AdminFarmsPage />} />
+              <Route path="map-locations" element={<AdminMapLocationsPage />} />
               <Route path="surplus-projects" element={<AdminSurplusProjectsPage />} />
               <Route path="courses" element={<AdminCoursesPage />} />
               <Route path="resources" element={<AdminResourcesPage />} />

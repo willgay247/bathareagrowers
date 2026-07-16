@@ -28,3 +28,6 @@ MIGRATION-PLAN.md
 db-export/
 images-export/
 supabase/.temp/
+
+# Local dev tooling
+.claude/

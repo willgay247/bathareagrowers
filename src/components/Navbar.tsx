@@ -13,6 +13,7 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: "Locations",
     children: [
+      { label: "Map", path: "/locations/map" },
       { label: "Community Gardens", path: "/community-gardens" },
       { label: "Farms", path: "/farms" },
     ],
