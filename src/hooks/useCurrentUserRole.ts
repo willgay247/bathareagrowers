@@ -11,6 +11,7 @@ export interface SectionPermission {
 
 export const SECTIONS = [
   { key: "events", label: "Events" },
+  { key: "map_locations", label: "Map Locations" },
   { key: "community_gardens", label: "Community Gardens" },
   { key: "supported_gardening", label: "Supported Gardening" },
   { key: "wildlife_gardening", label: "Wildlife Gardening" },
@@ -23,6 +24,7 @@ export const SECTIONS = [
 
 export const SECTION_NAV_MAP: Record<string, string> = {
   events: "/admin/events",
+  map_locations: "/admin/map-locations",
   community_gardens: "/admin/community-gardens",
   supported_gardening: "/admin/supported-gardening",
   wildlife_gardening: "/admin/wildlife-gardening",

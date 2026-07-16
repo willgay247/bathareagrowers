@@ -267,6 +267,90 @@ export type Database = {
         }
         Relationships: []
       }
+      map_locations: {
+        Row: {
+          address: string | null
+          area: string | null
+          categories: string[]
+          council_ref: number | null
+          created_at: string
+          display_order: number
+          external_link: string | null
+          hidden: boolean
+          id: string
+          image_url: string | null
+          latitude: number | null
+          location_note: string | null
+          longitude: number | null
+          name: string
+          org_type: string | null
+          pin_precision: string | null
+          postcode: string | null
+          slug: string
+          source_id: string | null
+          source_table: string | null
+          source_url: string | null
+          status: string
+          summary: string | null
+          unmapped_reason: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          area?: string | null
+          categories?: string[]
+          council_ref?: number | null
+          created_at?: string
+          display_order?: number
+          external_link?: string | null
+          hidden?: boolean
+          id?: string
+          image_url?: string | null
+          latitude?: number | null
+          location_note?: string | null
+          longitude?: number | null
+          name: string
+          org_type?: string | null
+          pin_precision?: string | null
+          postcode?: string | null
+          slug: string
+          source_id?: string | null
+          source_table?: string | null
+          source_url?: string | null
+          status?: string
+          summary?: string | null
+          unmapped_reason?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          area?: string | null
+          categories?: string[]
+          council_ref?: number | null
+          created_at?: string
+          display_order?: number
+          external_link?: string | null
+          hidden?: boolean
+          id?: string
+          image_url?: string | null
+          latitude?: number | null
+          location_note?: string | null
+          longitude?: number | null
+          name?: string
+          org_type?: string | null
+          pin_precision?: string | null
+          postcode?: string | null
+          slug?: string
+          source_id?: string | null
+          source_table?: string | null
+          source_url?: string | null
+          status?: string
+          summary?: string | null
+          unmapped_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       member_profiles: {
         Row: {
           applicant_message: string | null

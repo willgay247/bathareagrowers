@@ -6,6 +6,7 @@ import { useCurrentUserRole } from "@/hooks/useCurrentUserRole";
 const allNavItems = [
   { emoji: "🏠", label: "Dashboard", to: "/admin", section: null },
   { emoji: "📅", label: "Events", to: "/admin/events", section: "events" },
+  { emoji: "📍", label: "Map Locations", to: "/admin/map-locations", section: "map_locations" },
   { emoji: "🌿", label: "Community Gardens", to: "/admin/community-gardens", section: "community_gardens" },
   { emoji: "🌱", label: "Supported Gardening", to: "/admin/supported-gardening", section: "supported_gardening" },
   { emoji: "🦋", label: "Wildlife Gardening", to: "/admin/wildlife-gardening", section: "wildlife_gardening" },
