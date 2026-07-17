@@ -19,6 +19,7 @@ type Row = Tables<"map_locations">;
 
 const CATEGORIES = [
   { key: "grower", label: "Grower" },
+  { key: "allotment", label: "Allotment" },
   { key: "retail", label: "Retail" },
   { key: "distributor", label: "Distributor" },
   { key: "community", label: "Community resource" },

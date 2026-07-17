@@ -35,6 +35,7 @@ const useIsNarrow = () => {
 
 const CATEGORIES = [
   { key: "grower", label: "Growers", colour: "#3f7d3f" },
+  { key: "allotment", label: "Allotments", colour: "#78962e" },
   { key: "retail", label: "Retail", colour: "#b8562f" },
   { key: "distributor", label: "Distributors", colour: "#7a5ea8" },
   { key: "community", label: "Community", colour: "#2f6f8f" },
@@ -202,16 +203,17 @@ const LocationsMapPage = () => {
     <main>
       <SEO
         title="Map | Bath Area Growers"
-        description="A map of community gardens, farms, growers, food retailers, wildlife, climate and energy projects across Bath and North East Somerset."
+        description="A map of every allotment site in Bath, plus community gardens, farms, growers, food retailers and wildlife, climate and energy projects across Bath and North East Somerset."
       />
 
       <section className="w-full bg-background-inverse py-10 md:py-[60px] px-4">
         <div className="mx-auto max-w-[1100px]">
           <h1 className="text-[28px] font-bold text-foreground-alt md:text-[48px]">Map</h1>
           <p className="mt-2 max-w-[640px] text-[18px] text-foreground-alt/60">
-            Growing, food and environmental projects across Bath and North East Somerset — community
-            gardens, farms, growers and retailers, the projects that move surplus food around, and
-            the groups working on wildlife, climate and energy.
+            Growing, food and environmental projects across Bath and North East Somerset — every
+            allotment site in Bath, plus community gardens, farms, growers and retailers, the
+            projects that move surplus food around, and the groups working on wildlife, climate
+            and energy.
           </p>
         </div>
       </section>
