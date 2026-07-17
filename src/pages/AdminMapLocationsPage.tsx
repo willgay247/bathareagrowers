@@ -112,6 +112,11 @@ const AdminMapLocationsPage = () => {
     }
     if (r.unmapped_reason === "privacy_hold" && (r.address || r.postcode || r.latitude != null))
       return "A privacy hold must have no address, postcode or coordinates — that's the point of it";
+    // Mirrors map_locations_site_group_and_number_together.
+    if (!!r.site_group !== (r.site_number != null))
+      return "A multi-site organisation needs both a group key and a site number, or neither";
+    if (r.site_number != null && r.site_number < 1)
+      return "Site numbers start at 1";
     return null;
   };
 
@@ -357,6 +362,36 @@ const AdminMapLocationsPage = () => {
                     )}
                   </div>
                 )}
+              </div>
+
+              <div className="rounded-md border p-4">
+                <Label>Part of a multi-site organisation?</Label>
+                <p className="mb-3 mt-1 text-xs text-muted-foreground">
+                  Only for organisations that work more than one plot. Give every site the
+                  same group key and number them from 1 — the page works out the total and
+                  labels them “Site 1 of 2”. Leave both blank otherwise.
+                </p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <Label className="text-xs">Group key</Label>
+                    <Input
+                      value={editing.site_group ?? ""}
+                      placeholder="undercliff-urban-farm"
+                      onChange={(e) => set("site_group", e.target.value || null)}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">This is site number</Label>
+                    <Input
+                      type="number"
+                      min={1}
+                      value={editing.site_number ?? ""}
+                      onChange={(e) =>
+                        set("site_number", e.target.value === "" ? null : Number(e.target.value))
+                      }
+                    />
+                  </div>
+                </div>
               </div>
 
               <div>

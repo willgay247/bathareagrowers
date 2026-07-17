@@ -286,6 +286,8 @@ export type Database = {
           org_type: string | null
           pin_precision: string | null
           postcode: string | null
+          site_group: string | null
+          site_number: number | null
           slug: string
           source_id: string | null
           source_table: string | null
@@ -313,6 +315,8 @@ export type Database = {
           org_type?: string | null
           pin_precision?: string | null
           postcode?: string | null
+          site_group?: string | null
+          site_number?: number | null
           slug: string
           source_id?: string | null
           source_table?: string | null
@@ -340,6 +344,8 @@ export type Database = {
           org_type?: string | null
           pin_precision?: string | null
           postcode?: string | null
+          site_group?: string | null
+          site_number?: number | null
           slug?: string
           source_id?: string | null
           source_table?: string | null
