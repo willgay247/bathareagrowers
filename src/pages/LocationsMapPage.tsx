@@ -84,7 +84,14 @@ const LocationDetail = ({ l }: { l: MapLocation }) => (
   <>
     <strong className="text-[15px]">{l.name}</strong>
     {l.area && <div className="text-[13px] opacity-70">{l.area}</div>}
-    {l.address && <div className="mt-1 text-[13px]">{l.address}</div>}
+    {/*
+      Skip the address when it just repeats the area. For allotments the council
+      publishes only a street, so the two are the same string and it would print
+      twice.
+    */}
+    {l.address && l.address !== l.area && (
+      <div className="mt-1 text-[13px]">{l.address}</div>
+    )}
     {l.postcode && <div className="text-[13px]">{l.postcode}</div>}
     {l.location_note && <div className="mt-1 text-[13px] italic">{l.location_note}</div>}
     {l.pin_precision === "approx" && (
