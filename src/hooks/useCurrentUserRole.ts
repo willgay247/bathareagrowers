@@ -9,6 +9,13 @@ export interface SectionPermission {
   can_edit_own: boolean;
 }
 
+/**
+ * Admin sections. Adding a key here also offers it as a group type on the
+ * signup form — and handle_new_user_signup() rejects any group_type outside
+ * its own hardcoded allowlist, breaking signup with "Database error saving new
+ * user". So a new key must either be added to that trigger's list or excluded
+ * in SignupPage's ADMIN_ONLY_SECTIONS.
+ */
 export const SECTIONS = [
   { key: "events", label: "Events" },
   { key: "map_locations", label: "Map Locations" },

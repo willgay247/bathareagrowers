@@ -4,8 +4,22 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 import { SECTIONS } from "@/hooks/useCurrentUserRole";
 
+/**
+ * What a signing-up group can describe itself as.
+ *
+ * This list is NOT free to extend: handle_new_user_signup() re-validates
+ * group_type against its own hardcoded allowlist and raises 'invalid
+ * group_type' for anything else, which Supabase surfaces to the user as the
+ * unhelpful "Database error saving new user". Anything offered here must exist
+ * in that trigger's list too.
+ *
+ * Excluded: contacts and map_locations are admin-only sections, not kinds of
+ * group; events is an activity rather than a group type.
+ */
+const ADMIN_ONLY_SECTIONS = ["contacts", "map_locations"];
+
 const groupTypeOptions = SECTIONS
-  .filter((s) => s.key !== "contacts" && s.key !== "events")
+  .filter((s) => !ADMIN_ONLY_SECTIONS.includes(s.key) && s.key !== "events")
   .map((s) => ({ value: s.key, label: s.label }));
 
 const SignupPage = () => {
