@@ -79,29 +79,10 @@ const pinIcon = (categories: string[], active: string[]) => {
   });
 };
 
-/**
- * "Site 1 of 2" for organisations that work more than one plot.
- *
- * The total is counted from the rows rather than stored, so it can't fall out
- * of step when a site is added or closed. Returns null for the single-site
- * majority, and for a group that has only one row so far — "Site 1 of 1" is
- * just noise.
- */
-const siteLabel = (l: MapLocation, all: MapLocation[]): string | null => {
-  if (!l.site_group || !l.site_number) return null;
-  const total = all.filter((x) => x.site_group === l.site_group).length;
-  return total > 1 ? `Site ${l.site_number} of ${total}` : null;
-};
-
 /** What a pin says when you open it. Shared by the pin popup and the list. */
-const LocationDetail = ({ l, all }: { l: MapLocation; all: MapLocation[] }) => (
+const LocationDetail = ({ l }: { l: MapLocation }) => (
   <>
     <strong className="text-[15px]">{l.name}</strong>
-    {siteLabel(l, all) && (
-      <div className="text-[12px] font-semibold uppercase tracking-wide opacity-60">
-        {siteLabel(l, all)}
-      </div>
-    )}
     {l.area && <div className="text-[13px] opacity-70">{l.area}</div>}
     {/*
       Skip the address when it just repeats the area. For allotments the council
@@ -325,7 +306,7 @@ const LocationsMapPage = () => {
                   autoPan={false}
                   eventHandlers={{ remove: () => setSelected(null) }}
                 >
-                  <LocationDetail l={selected} all={locations} />
+                  <LocationDetail l={selected} />
                 </Popup>
               )}
 
@@ -343,12 +324,9 @@ const LocationsMapPage = () => {
                     */}
                     <Tooltip direction="top" opacity={1}>
                       {l.name}
-                      {siteLabel(l, locations) && (
-                        <span className="opacity-60"> · {siteLabel(l, locations)}</span>
-                      )}
                     </Tooltip>
                     <Popup maxWidth={popupMaxWidth}>
-                      <LocationDetail l={l} all={locations} />
+                      <LocationDetail l={l} />
                     </Popup>
                   </Marker>
                 ))}
@@ -391,12 +369,6 @@ const LocationsMapPage = () => {
                         <span className="text-[15px] font-semibold group-hover:underline">
                           {l.name}
                         </span>
-                        {/* Without this, an org's two sites are two identical-looking rows. */}
-                        {siteLabel(l, locations) && (
-                          <span className="text-[13px] text-foreground/40">
-                            {" "}({siteLabel(l, locations)?.toLowerCase()})
-                          </span>
-                        )}
                         {l.area && (
                           <span className="text-[14px] text-foreground/50"> — {l.area}</span>
                         )}
